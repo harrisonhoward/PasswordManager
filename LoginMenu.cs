@@ -11,6 +11,9 @@ using System.Windows.Forms;
 using PasswordEncryptor;
 
 namespace PasswordManager {
+    /// <summary>
+    /// Login Screen. Main Form
+    /// </summary>
     public partial class frmLogin : Form {
         #region Global Variables
 
@@ -25,7 +28,11 @@ namespace PasswordManager {
 
         #region Constructors
 
+        /// <summary>
+        /// Creates a new instance of frmLogin
+        /// </summary>
         public frmLogin() {
+            // Initializes the form components
             InitializeComponent();
         }
 
@@ -48,14 +55,15 @@ namespace PasswordManager {
                 return;
             }
 
-            // Assign user input to the global variables
+            // Assign the User Inputted Username and Password to the Global Variables
             _usersUsername = txtUsername.Text;
             _usersPassword = txtPassword.Text;
 
-            // Get the user from the inputted username
+            // Initialize the User DataTable
             InitializeUserTable();
 
-            // Checking if a user was found
+            // Check if the username exists
+            // Show a MessageBox
             if (_userTable.Rows.Count < 1) {
                 MessageBox.Show($"No user by the username '{_usersUsername}' (case sensitive) was found",
                     Properties.Settings.Default.ProjectName,
@@ -101,10 +109,17 @@ namespace PasswordManager {
 
         #region Helper Methods
 
+        /// <summary>
+        /// Runs a form
+        /// </summary>
         private void ThreadProcPasswordList() {
             Application.Run(new frmPasswordList(_userID));
         }
 
+        /// <summary>
+        /// Starts a new thread
+        /// </summary>
+        /// <param name="thread">The new thread</param>
         private void ThreadStart(System.Threading.Thread thread) {
             // Start the new thread
             // Close the current form
@@ -112,6 +127,9 @@ namespace PasswordManager {
             Close();
         }
 
+        /// <summary>
+        /// Initializes the User DataTable
+        /// </summary>
         private void InitializeUserTable() {
             // Create and assign a new SQL Query
             // Assign the User DataTable with the User Table

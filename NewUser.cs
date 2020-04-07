@@ -11,6 +11,9 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace PasswordManager {
+    /// <summary>
+    /// Allows the creation of a new user
+    /// </summary>
     public partial class frmNewUser : Form {
         #region Global Variables
 
@@ -28,7 +31,11 @@ namespace PasswordManager {
 
         #region Constructors
 
+        /// <summary>
+        /// Create a new instance of frmNewUser
+        /// </summary>
         public frmNewUser() {
+            // Initializes the form components
             InitializeComponent();
         }
 
@@ -51,14 +58,15 @@ namespace PasswordManager {
                 return;
             }
 
-            // Assign user input to the global variables
+            // Assign the User Inputted Username and Password to the Global Variables
             _usersUsername = txtUsername.Text;
             _usersPassword = txtPassword.Text;
 
-            // Get the user from the inputted username
+            // Initialize the User DataTable
             InitializeUserTable();
 
-            // Checking if a user was found
+            // Check if the username exists
+            // Show a MessageBox
             if (_tableContains) {
                 MessageBox.Show($"A user by the username '{_usersUsername}' already exists",
                     Properties.Settings.Default.ProjectName,
@@ -66,10 +74,11 @@ namespace PasswordManager {
                 return;
             }
 
-            // Converting the password to a hash
+            // Converting the inputted password to a Hash Salt
             _usersPassword = HashSalt.StringtoHashSalt(_usersPassword);
 
             // Adding a new row to User DataTable
+            // Inputted the new data for the row before adding it
             DataRow row = _userTable.NewRow();
             row["UserID"] = _userTable.Rows.Count + 1;
             row["Username"] = _usersUsername;
@@ -97,6 +106,9 @@ namespace PasswordManager {
 
         #region Helper Methods
 
+        /// <summary>
+        /// Initializes the User DataTable
+        /// </summary>
         private void InitializeUserTable() {
             // Create and assign a new SQL Query
             // Assign the User DataTable with the User Table

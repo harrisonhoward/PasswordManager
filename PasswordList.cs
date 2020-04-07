@@ -10,6 +10,9 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace PasswordManager {
+    /// <summary>
+    /// Allows the user to view all their passwords
+    /// </summary>
     public partial class frmPasswordList : Form {
         #region Global Variables
         
@@ -22,6 +25,10 @@ namespace PasswordManager {
 
         #region Constructors
 
+        /// <summary>
+        /// Creates a new instance of frmPasswordList
+        /// </summary>
+        /// <param name="userID">The user logging in</param>
         public frmPasswordList(long userID) {
             // Initialize the form components
             // Assign the User ID with the provided User ID
@@ -31,6 +38,9 @@ namespace PasswordManager {
             InitializeForm();
         }
 
+        /// <summary>
+        /// Initalizes the Form
+        /// </summary>
         public void InitializeForm() {
             // Populate the DataGridView
             PopulateGrid();
@@ -93,10 +103,17 @@ namespace PasswordManager {
 
         #region Helper Methods
 
+        /// <summary>
+        /// Run a form
+        /// </summary>
         private void ThreadProcLogin() {
             Application.Run(new frmLogin());
         }
 
+        /// <summary>
+        /// Start a new thread
+        /// </summary>
+        /// <param name="thread">The new thread</param>
         private void ThreadStart(System.Threading.Thread thread) {
             // Start the thread
             // Close the current form
@@ -104,11 +121,14 @@ namespace PasswordManager {
             this.Close();
         }
 
+        /// <summary>
+        /// Populates the DataGridView
+        /// </summary>
         private void PopulateGrid() {
             // Create and assign a new SQL Query
             string sqlQuery =
                 "SELECT PasswordID, PasswordTitle, PasswordEncrypted " +
-                "FROM Passwords " +
+                $"FROM Passwords WHERE UserID={_userID}" +
                 "ORDER BY PasswordTitle DESC";
 
             // Create and assign the DataTable with the Password DataTable

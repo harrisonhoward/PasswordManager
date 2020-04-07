@@ -11,9 +11,15 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace PasswordManager {
+    /// <summary>
+    /// Allows the user to add or save passwords
+    /// </summary>
     public partial class frmPasswordManager : Form {
         #region Global Variables
 
+        // Create a variable for the Password and User ID
+        // Create a variable for the Password DataTable
+        // Create a variable for checking for a new password
         long _passwordID = 0, _userID = 0;
         DataTable _passwordTable;
         bool _isNew = false;
@@ -22,24 +28,46 @@ namespace PasswordManager {
 
         #region Constructors
 
+        /// <summary>
+        /// Create a new instance of frmPasswordManager
+        /// </summary>
+        /// <param name="userID">The user logged in</param>
         public frmPasswordManager(long userID) {
+            // Initialize the form components
+            // Assign true to _isNew
+            // Assign the userID to the Global Variable
+            // Initialize the form
             InitializeComponent();
             _isNew = true;
             _userID = userID;
             InitializeForm();
 
+            // Set the button text to "Add"
             btnAdd.Text = "Add";
         }
 
+        /// <summary>
+        /// Create a new instance of frmPasswordManager
+        /// </summary>
+        /// <param name="passwordID">The password to edit</param>
+        /// <param name="userID">The user logged in</param>
         public frmPasswordManager(long passwordID, long userID) {
+            // Initialize the form components
+            // Assign the passwordID to the Global Variable
+            // Assign the userID to the Global Variable
+            // Initialize the form
             InitializeComponent();
             _passwordID = passwordID;
             _userID = userID;
             InitializeForm();
 
+            // Change the button text to "Save"
             btnAdd.Text = "Save";
         }
 
+        /// <summary>
+        /// Initializes the form
+        /// </summary>
         private void InitializeForm() {
             // Initialize the DataTable
             // Bind data to the form components
@@ -66,7 +94,9 @@ namespace PasswordManager {
                 return;
             }
 
-            // Get the users username and check if it could be found
+            // Create and assign the users username
+            // Check if the username exists
+            // Update the UserID in the Password DataTable
             string username = getUsername();
             if (string.IsNullOrEmpty(username)) {
                 MessageBox.Show("Couldn't find your username. Please login again.",
@@ -76,7 +106,9 @@ namespace PasswordManager {
             }
             _passwordTable.Rows[0]["UserID"] = _userID;
 
-            // Update the PasswordEncrypted with the encrypted password and checking if it encrypted correctly
+            // Create and assign the encrypted password
+            // Check if the password was encrypted properly
+            // Update the PasswordEncrypted in the Password DataTable
             string passwordEncrypted = Encryption.Encrypt(txtPassword.Text, username);
             if (string.IsNullOrEmpty(passwordEncrypted)) {
                 MessageBox.Show("Failed to encrypt. Try again later.",
@@ -98,6 +130,9 @@ namespace PasswordManager {
 
         #region Helper Methods
 
+        /// <summary>
+        /// Initializes the Password DataTable
+        /// </summary>
         private void InitializeDatatable() {
             // Create and assign a new SQL Query
             // Assign the Password DataTable with the Password Table
@@ -114,7 +149,9 @@ namespace PasswordManager {
                 DataRow row = _passwordTable.NewRow();
                 _passwordTable.Rows.Add(row);
             } else {
-                // Get the users username and check if it could be found
+                // Create and assign the users username
+                // Check if the username exists
+                // Update the UserID in the Password DataTable
                 string username = getUsername();
                 if (string.IsNullOrEmpty(username)) {
                     MessageBox.Show("Couldn't find your username. Please login again.",
@@ -123,7 +160,9 @@ namespace PasswordManager {
                     return;
                 }
 
-                // Update the PasswordEncrypted with the encrypted password and checking if it encrypted correctly
+                // Create and assign the decrypted password
+                // Check if the password was decrypted properly
+                // Update the PasswordEncrypted in the Password DataTable
                 string passwordDecrypted = Encryption.Decrypt(_passwordTable.Rows[0]["PasswordEncrypted"].ToString(), username);
                 if (string.IsNullOrEmpty(passwordDecrypted)) {
                     MessageBox.Show("Failed to decrypt. Try again later.",
@@ -135,6 +174,9 @@ namespace PasswordManager {
             }
         }
 
+        /// <summary>
+        /// Binds data to the text boxes
+        /// </summary>
         private void BindControls() {
             // Bind txtTitle with PasswordTitle
             // Bind txtPassword with PasswordEncrypted
@@ -142,6 +184,10 @@ namespace PasswordManager {
             txtPassword.DataBindings.Add("Text", _passwordTable, "PasswordEncrypted");
         }
 
+        /// <summary>
+        /// Get the users username
+        /// </summary>
+        /// <returns>String Username</returns>
         private string getUsername() {
             // Create and assign a new SQL Query
             string sqlQuery = 
