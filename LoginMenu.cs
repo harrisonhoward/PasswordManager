@@ -14,6 +14,9 @@ namespace PasswordManager {
     public partial class frmLogin : Form {
         #region Global Variables
 
+        // Create a variable for User DataTable
+        // Create variables for User Input for Username and Password
+        // Create a variable for the UserID
         DataTable _userTable;
         string _usersUsername = "", _usersPassword = "";
         long _userID = 0;
@@ -32,6 +35,7 @@ namespace PasswordManager {
 
         private void BtnLogin_Click(object sender, EventArgs e) {
             // Checking if the user has inputted values
+            // Showing MessageBox providing reason
             if (string.IsNullOrEmpty(txtUsername.Text)) {
                 MessageBox.Show("Please enter a username",
                     Properties.Settings.Default.ProjectName,
@@ -65,6 +69,9 @@ namespace PasswordManager {
             // Comparing the users input to the hash password
             bool isEquals = HashSalt.CompareInputtoPassword(_usersPassword, userPasswordHash);
 
+            // Checking if isEquals is true
+            // Assign userID and starting PasswordList (with UserID)
+            // Else Showing a MessageBox and resetting the variables
             if (isEquals) {
                 _userID = long.Parse(_userTable.Rows[0]["UserID"].ToString());
                 ThreadStart(new System.Threading.Thread(new System.Threading.ThreadStart(ThreadProcPasswordList)));

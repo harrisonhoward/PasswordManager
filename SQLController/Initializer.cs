@@ -45,7 +45,7 @@ namespace SQLController {
             string schema =
                 "UserID int IDENTITY(1,1) PRIMARY KEY, " +
                 "Username VARCHAR(60) NOT NULL, " +
-                "PasswordHash VARCHAR(60) NOT NULL";
+                "PasswordHash VARCHAR(1000) NOT NULL";
             // Create the Users Table with the Schema
             _sql.CreateDatabaseTable("Users", schema);
         }
@@ -58,7 +58,8 @@ namespace SQLController {
             string schema =
                 "PasswordID int IDENTITY(1,1) PRIMARY KEY, " +
                 "UserID int NOT NULL, " +
-                "PasswordEncrypted VARCHAR(60) NOT NULL";
+                "PasswordTitle VARCHAR(120), " +
+                "PasswordEncrypted VARCHAR(1000) NOT NULL";
             // Create the Passwords Table with the Schema
             _sql.CreateDatabaseTable("Passwords", schema);
         }

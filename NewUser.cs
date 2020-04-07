@@ -14,6 +14,12 @@ namespace PasswordManager {
     public partial class frmNewUser : Form {
         #region Global Variables
 
+        // Create a variable for the User DataTable
+        // Create variables for the User Input for Username and Password
+        /* 
+         * Create a variable for checking the User DataTable
+         * contains the User Input Username
+         */
         DataTable _userTable;
         string _usersUsername = "", _usersPassword = "";
         bool _tableContains = false;
@@ -32,6 +38,7 @@ namespace PasswordManager {
 
         private void BtnCreate_Click(object sender, EventArgs e) {
             // Checking if the user has inputted values
+            // Showing a MessageBox with the provided reason
             if (string.IsNullOrEmpty(txtUsername.Text)) {
                 MessageBox.Show("Please enter a username",
                     Properties.Settings.Default.ProjectName,
@@ -94,6 +101,10 @@ namespace PasswordManager {
             // Create and assign a new SQL Query
             // Assign the User DataTable with the User Table
             _userTable = Context.GetDataTable("Users");
+
+            // For each row in the User DataTable
+            // If the Username column in the row is equals to the User Input Username
+            // Set the tableContains global variable to true
             foreach (DataRow row in _userTable.Rows) {
                 if (row["Username"].Equals(_usersUsername)) {
                     _tableContains = true;
