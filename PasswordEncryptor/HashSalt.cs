@@ -12,8 +12,8 @@ namespace PasswordEncryptor {
         /// 
         /// Reference: https://stackoverflow.com/questions/4181198/how-to-hash-a-password/10402129#10402129
         /// </summary>
-        /// <param name="password"></param>
-        /// <returns></returns>
+        /// <param name="password">Provided password</param>
+        /// <returns>A string containing the hash salt</returns>
         public static string StringtoHashSalt(string password) {
             // Create a variable for the salt
             byte[] salt;
@@ -34,6 +34,12 @@ namespace PasswordEncryptor {
             return Convert.ToBase64String(hashBytes);
         }
 
+        /// <summary>
+        /// Comparing Input to Password
+        /// </summary>
+        /// <param name="userInput">User's Input</param>
+        /// <param name="password">Provided Password</param>
+        /// <returns>Bool for checking if input equals password</returns>
         public static bool CompareInputtoPassword(string userInput, string password) {
             // Create a variable for comparing
             bool isEqual = false;
