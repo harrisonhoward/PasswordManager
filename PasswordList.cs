@@ -129,7 +129,7 @@ namespace PasswordManager {
             string sqlQuery =
                 "SELECT PasswordID, PasswordTitle, PasswordEncrypted " +
                 $"FROM Passwords WHERE UserID={_userID}" +
-                "ORDER BY PasswordTitle DESC";
+                "ORDER BY PasswordID DESC";
 
             // Create and assign the DataTable with the Password DataTable
             // Assign the DataTable to the DataView
