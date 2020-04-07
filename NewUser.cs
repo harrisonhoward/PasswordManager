@@ -9,8 +9,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace PasswordManager {
-    public partial class frmPasswordList : Form {
-        public frmPasswordList(long userID) {
+    public partial class frmNewUser : Form {
+        public frmNewUser() {
             InitializeComponent();
         }
     }

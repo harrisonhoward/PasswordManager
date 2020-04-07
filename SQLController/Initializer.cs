@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using SQLConnection;
+﻿using SQLConnection;
 
 /// <summary>
 /// The SQL Controller
@@ -51,7 +46,7 @@ namespace SQLController {
                 "UserID int IDENTITY(1,1) PRIMARY KEY, " +
                 "Username VARCHAR(60) NOT NULL, " +
                 "PasswordHash VARCHAR(60) NOT NULL";
-            // Create the Movie Table with the Schema
+            // Create the Users Table with the Schema
             _sql.CreateDatabaseTable("Users", schema);
         }
 
@@ -64,7 +59,7 @@ namespace SQLController {
                 "PasswordID int IDENTITY(1,1) PRIMARY KEY, " +
                 "UserID int NOT NULL, " +
                 "PasswordEncrypted VARCHAR(60) NOT NULL";
-            // Create the Customer Table with the Schema
+            // Create the Passwords Table with the Schema
             _sql.CreateDatabaseTable("Passwords", schema);
         }
 

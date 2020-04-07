@@ -1,5 +1,5 @@
 ﻿namespace PasswordManager {
-    partial class frmPasswordList {
+    partial class frmNewUser {
         /// <summary>
         /// Required designer variable.
         /// </summary>
@@ -25,13 +25,13 @@
         private void InitializeComponent() {
             this.SuspendLayout();
             // 
-            // frmPasswordList
+            // frmNewUser
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Name = "frmPasswordList";
-            this.Text = "PasswordList";
+            this.Name = "frmNewUser";
+            this.Text = "NewUser";
             this.ResumeLayout(false);
 
         }
