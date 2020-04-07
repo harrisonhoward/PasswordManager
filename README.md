@@ -24,6 +24,8 @@ This project uses one of my other projects SQLConnection. Please make sure that 
 This project was solely created by Harrison Howard (Forbidden-Duck).
 This project can be used at will (following the MIT License).
 
+Projects SQLController and SQLConnection originated from VideoRentals Project. Refer that README.md for more information.
+
 A stable version of this project has been released. More features will be added in the coming days.
 
 Code has been appropriately commented. If any confusions comes from the code refer to "Support or Contact"
