@@ -31,6 +31,7 @@ namespace PasswordManager {
         #region Button Events
 
         private void BtnLogin_Click(object sender, EventArgs e) {
+            // Checking if the user has inputted values
             if (string.IsNullOrEmpty(txtUsername.Text)) {
                 MessageBox.Show("Please enter a username",
                     Properties.Settings.Default.ProjectName,

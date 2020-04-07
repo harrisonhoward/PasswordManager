@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SQLController;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -11,6 +12,9 @@ namespace PasswordManager {
         /// </summary>
         [STAThread]
         static void Main() {
+            // Initialize the Database
+            Initializer.InitalizeDatabase();
+
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new frmLogin());

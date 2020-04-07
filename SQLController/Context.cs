@@ -80,6 +80,10 @@ namespace SQLController {
             return _sql.InsertParentRecord(tableName, columnNames, columnValues);
         }
 
+        public static int InsertRecord(string tableName, string columnNames, string columnValues) {
+            return _sql.InsertRecord(tableName, columnNames, columnValues);
+        }
+
         /// <summary>
         /// Delete a record from a table
         /// </summary>
