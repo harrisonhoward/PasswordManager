@@ -14,6 +14,9 @@ On-going updates to the project will be happening. If you find bugs in the proje
 ### General use
 While the purpose of this is to allow management of large quantities of passwords with ease. It will not have super safe security and if you were to be a victim of a hack or malware that the malicious user may find it easy to get your passwords and decrypt them. This project is more just getting experience and having a portfolio. Once more features get added security may get better as well as releasing this application without having to modify the app.config to actually have the database working.
 
+### SQLConnection
+This project uses one of my other projects SQLConnection. Please make sure that you have that downloaded along side this otherwise the program will not work nor will Visual Studio like you very much.
+
 ## Project Notes & Contact Information
 
 ### Note
