@@ -62,7 +62,10 @@ Pressing enter will not Login or Add/Save a password at this time. This is a def
 **Exit button**
 We don't have an exit button on the login screen. While it's not needed to close the application and may be helpful.
 
-### Avaiable Features
+**Importing**
+I will do some research on Googles Saved Passwords and so on to see if it is possible to have passwords saved on other applications or webites to be exported and imported into this application.
+
+### Available Features
 **Account creation**
 Be able to create as many accounts you please
 
@@ -71,9 +74,6 @@ Be able to edit and create passwords
 
 **Password Security**
 We use Hash Salt for making passwords secure and Encryption and Decryption with a key. 
-
-**Importing**
-I will do some research on Googles Saved Passwords and so on to see if it is possible to have passwords saved on other applications or webites to be exported and imported into this application.
 
 ## Frequently asked questions
 ### How do I start the program?
