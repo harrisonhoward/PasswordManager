@@ -11,6 +11,8 @@ Project Initial Commit Date: 07/04/2020.
 This project was solely created by Harrison Howard (Forbidden-Duck).
 This project can be used at will (following the MIT License).
 
+Work in Progress, this project has not yet been completed.
+
 Code has been appropriately commented. If any confusions comes from the code refer to "Support or Contact"
 
 ### Support or Contact
