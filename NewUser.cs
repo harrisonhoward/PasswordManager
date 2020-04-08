@@ -58,6 +58,15 @@ namespace PasswordManager {
                 return;
             }
 
+            // Comparing the Password with Confirm Password
+            // If not show a MessageBox
+            if (!txtPassword.Equals(txtConfirm)) {
+                MessageBox.Show("Confirm Password does not match Password",
+                    Properties.Settings.Default.ProjectName,
+                    MessageBoxButtons.OK);
+                return;
+            }
+
             // Assign the User Inputted Username and Password to the Global Variables
             _usersUsername = txtUsername.Text;
             _usersPassword = txtPassword.Text;
