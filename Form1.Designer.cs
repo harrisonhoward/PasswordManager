@@ -31,6 +31,7 @@
             this.txtPassword = new System.Windows.Forms.TextBox();
             this.lnkNewUser = new System.Windows.Forms.LinkLabel();
             this.cbSignedIn = new System.Windows.Forms.CheckBox();
+            this.btnExit = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // lblTitle
@@ -116,11 +117,23 @@
             this.cbSignedIn.Text = "Stay Signed In";
             this.cbSignedIn.UseVisualStyleBackColor = true;
             // 
+            // btnExit
+            // 
+            this.btnExit.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnExit.Location = new System.Drawing.Point(276, 313);
+            this.btnExit.Name = "btnExit";
+            this.btnExit.Size = new System.Drawing.Size(66, 28);
+            this.btnExit.TabIndex = 8;
+            this.btnExit.Text = "Exit";
+            this.btnExit.UseVisualStyleBackColor = true;
+            this.btnExit.Click += new System.EventHandler(this.BtnExit_Click);
+            // 
             // frmLogin
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(344, 343);
+            this.Controls.Add(this.btnExit);
             this.Controls.Add(this.cbSignedIn);
             this.Controls.Add(this.lnkNewUser);
             this.Controls.Add(this.txtPassword);
@@ -151,6 +164,7 @@
         private System.Windows.Forms.TextBox txtPassword;
         private System.Windows.Forms.LinkLabel lnkNewUser;
         private System.Windows.Forms.CheckBox cbSignedIn;
+        private System.Windows.Forms.Button btnExit;
     }
 }
 

@@ -94,6 +94,11 @@ namespace PasswordManager {
             }
         }
 
+        private void BtnExit_Click(object sender, EventArgs e) {
+            // Closes the form
+            Close();
+        }
+
         #endregion
 
         #region Form Events
