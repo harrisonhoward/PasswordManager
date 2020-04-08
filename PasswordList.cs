@@ -15,7 +15,7 @@ namespace PasswordManager {
     /// </summary>
     public partial class frmPasswordList : Form {
         #region Global Variables
-        
+
         // Create a variable for the User ID
         // Create a variable for the Password DataView
         long _userID = 0;
@@ -51,24 +51,24 @@ namespace PasswordManager {
         #region Button Events
 
         private void BtnLogout_Click(object sender, EventArgs e) {
-            // If user states to not stay signed in, delete any login details
-            if (!Properties.Settings.Default.StaySignedIn) {
-                // Create and assign LoginDetails DataTable
-                DataTable loginTable = Context.GetDataTable("LoginDetails");
+            // Create and assign LoginDetails DataTable
+            DataTable loginTable = Context.GetDataTable("LoginDetails");
 
-                // Check if the DataTable contains rows
-                if (loginTable.Rows.Count > 0) {
-                    // For each row in the DataTable
-                    foreach (DataRow row in loginTable.Rows) {
-                        // Delete the row
-                        row.Delete();
-                        // End any more editing on that row
-                        row.EndEdit();
-                    }
-                    // Save the Table
-                    Context.SaveDataBaseTable(loginTable);
+            // Check if the DataTable contains rows
+            if (loginTable.Rows.Count > 0) {
+                // For each row in the DataTable
+                foreach (DataRow row in loginTable.Rows) {
+                    // Delete the row
+                    row.Delete();
+                    // End any more editing on that row
+                    row.EndEdit();
                 }
+                // Save the Table
+                Context.SaveDataBaseTable(loginTable);
             }
+            // Set stay signed in to false
+            Properties.Settings.Default.StaySignedIn = false;
+            Properties.Settings.Default.Save();
 
             // Create a new thread for frmMenu
             ThreadStart(new System.Threading.Thread(new System.Threading.ThreadStart(ThreadProcLogin)));
