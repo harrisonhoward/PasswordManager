@@ -69,12 +69,12 @@ I will do some research on Googles Saved Passwords and so on to see if it is pos
 Be able to create as many accounts you please. With added Confirm Password protection.
 
 **Create, Edit and Delete Passwords**\
-Be able to edit and create passwords
+Be able to create, edit and delete as many passwords as you please.
 
 **Password Security**\
 We use Hash Salt for making passwords secure and Encryption and Decryption with a key.
 
-**Stay signed in**
+**Stay signed in**\
 Have the ability to stay signed in
 
 ## Frequently asked questions
