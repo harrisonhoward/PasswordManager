@@ -1,7 +1,7 @@
 <https://forbidden-duck.github.io/PasswordManager/>
 # PasswordManager Project
 
-This project was a created on 07/04/2020 at 5:00pm AEST.
+This project was a created on 07/04/2020 at 5:00pm AEST.\
 Project Initial Commit Date: 07/04/2020.
 
 ## WARNINGS
@@ -21,7 +21,7 @@ This project uses one of my other projects SQLConnection. Please make sure that 
 
 ### Note
 
-This project was solely created by Harrison Howard (Forbidden-Duck).
+This project was solely created by Harrison Howard (Forbidden-Duck).\
 This project can be used at will (following the MIT License).
 
 Projects SQLController and SQLConnection originated from VideoRentals Project. Refer that README.md for more information.
@@ -40,38 +40,38 @@ If you need help understanding some code please contact me. Otherwise please hea
 ## Project Features
 
 ### Features in the works
-**Account Management**
+**Account Management**\
 Be able to manage your account. Such as deleting and changing your password. As well as more optional security like, request the password when editing or creating passwords.
 
-**Admin**
+**Admin**\
 The first account created will automatically be assigned as an Admin. Be able to manage all users (not passwords).
 
-**More control of the passwords**
+**More control of the passwords**\
 Be able to save your passwords in an CSV file (options to be encrypted or in plain text).
 
-**More options to be added to passwords**
+**More options to be added to passwords**\
 Such as, the date it was created and specific tags (Email, Discord).
 
-**Custom key**
+**Custom key**\
 Be able to assign a custom key to the encryption process. Please keep in mind that once activated you have to store the key elsewhere as the database will not store it as that would make the key useless as any person who gets access to the database will see the decryption key. Also note that the key would need to be entered every time.
 
-**Password used as key**
+**Password used as key**\
 There are 2 approaches to this. We get you to use the password for the user account, the downside is that we can not decrypt the password and you will need to enter it every time. The other approach is you give the password and that is stored again but encrypted with the key process. However, much planning would need to be invested for a clean version to be released.
 
-**Pressing enter**
+**Pressing enter**\
 Pressing enter will not Login or Add/Save a password at this time. This is a definite feature that will be added.
 
-**Importing**
+**Importing**\
 I will do some research on Googles Saved Passwords and so on to see if it is possible to have passwords saved on other applications or webites to be exported and imported into this application.
 
 ### Available Features
-**Account creation**
+**Account creation**\
 Be able to create as many accounts you please. With added Confirm Password protection.
 
-**Create, Edit and Delete Passwords**
+**Create, Edit and Delete Passwords**\
 Be able to edit and create passwords
 
-**Password Security**
+**Password Security**\
 We use Hash Salt for making passwords secure and Encryption and Decryption with a key.
 
 **Stay signed in**
@@ -79,10 +79,13 @@ Have the ability to stay signed in
 
 ## Frequently asked questions
 ### How do I start the program?
-You will have to go into the app.config (this will be located along side all the forms). You will need SQL Server downloaded and it is recommended to also have SQL Management Studio. In the app.config locate < connectionStrings > and modifed Data Source as the Server Name and Initial Catalog as the Database name. **Do not do this unless you know what you are doing, it is recommended you look at a guide that explains how to setup SQL Server in an app.config**
+You will have to go into the app.config (this will be located along side all the forms). You will need SQL Server downloaded and it is recommended to also have SQL Management Studio. In the app.config locate < connectionStrings > and modifed Data Source as the Server Name and Initial Catalog as the Database name.\
+**Do not do this unless you know what you are doing, it is recommended you look at a guide that explains how to setup SQL Server in an app.config**
 
 ### How do I create an account
-Start the program and on the login screen you will see a blue link like label sitting underneath Password. Click that and you will be greeted with the Account Creation form. Enter a username and password and enter that at the login screen once you have clicked Created. Please keep in mind no account management has been created and if you make a mistake you may have to delete all the users (you don't have to delete the passwords as they will connect up to the same ID as long as you create in the correct order) **again we don't recommend using this application if you are not familar with C# and using SQL. A version of this maybe created so it requires no programming skill**
+Start the program and on the login screen you will see a blue link like label sitting underneath Password. Click that and you will be greeted with the Account Creation form. Enter a username and password and enter that at the login screen once you have clicked Created. Please keep in mind no account management has been created and if you make a mistake you may have to delete all the users (you don't have to delete the passwords as they will connect up to the same ID as long as you create in the correct order)\
+**again we don't recommend using this application if you are not familar with C# and using SQL. A version of this maybe created so it requires no programming skill**
 
 ### How do I create a password
-Once you have successfully logged in you can click "New Password" in the bottom left and it will bring up a new form. You can enter a title for your password like "Google Account" "GMail Account" and so on and enter the password. **Note when editing or adding a new password the password will be visible as text. This is so you can actually edit or add a password with ease**
+Once you have successfully logged in you can click "New Password" in the bottom left and it will bring up a new form. You can enter a title for your password like "Google Account" "GMail Account" and so on and enter the password.\
+**Note when editing or adding a new password the password will be visible as text. This is so you can actually edit or add a password with ease**
