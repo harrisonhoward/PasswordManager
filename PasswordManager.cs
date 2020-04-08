@@ -63,6 +63,7 @@ namespace PasswordManager {
 
             // Change the button text to "Save"
             btnAdd.Text = "Save";
+            btnDelete.Visible = true;
         }
 
         /// <summary>
@@ -112,6 +113,18 @@ namespace PasswordManager {
                 return;
             }
             _passwordTable.Rows[0]["PasswordEncrypted"] = passwordEncrypted;
+
+            // Save the DataTable and Table
+            _passwordTable.Rows[0].EndEdit();
+            Context.SaveDataBaseTable(_passwordTable);
+
+            // Close form
+            Close();
+        }
+
+        private void BtnDelete_Click(object sender, EventArgs e) {
+           // Delete the row from the table
+            _passwordTable.Rows[0].Delete();
 
             // Save the DataTable and Table
             _passwordTable.Rows[0].EndEdit();
