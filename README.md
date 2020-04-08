@@ -30,9 +30,9 @@ A stable version of this project has been released. More features will be added 
 
 Code has been appropriately commented. If any confusions comes from the code refer to "Support or Contact"
 
-### Support or Contact
+### Contact
 
-If you find bugs or need help understanding some code please contact me.
+If you need help understanding some code please contact me. Otherwise please head ove rto "Issue" or "Pull Request"
 
 **Discord**: Duck#9999
 **Email**: harrison.howard00707@gmail.com
