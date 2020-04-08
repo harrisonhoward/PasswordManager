@@ -41,13 +41,13 @@ If you find bugs or need help understanding some code please contact me.
 
 ### Features in the works
 **Account Management**
-Be able to manage your account. Such as deleting, changing your password and staying signed in. As well as more optional security, as always request the password when editing or creating passwords.
+Be able to manage your account. Such as deleting and changing your password. As well as more optional security like, request the password when editing or creating passwords.
 
 **Admin**
 The first account created will automatically be assigned as an Admin. Be able to manage all users (not passwords).
 
 **More control of the passwords**
-Be able to save your passwords in an CSV file (options to be encrypted or in plain text) and delete passwords.
+Be able to save your passwords in an CSV file (options to be encrypted or in plain text).
 
 **More options to be added to passwords**
 Such as, the date it was created and specific tags (Email, Discord).
@@ -58,27 +58,24 @@ Be able to assign a custom key to the encryption process. Please keep in mind th
 **Password used as key**
 There are 2 approaches to this. We get you to use the password for the user account, the downside is that we can not decrypt the password and you will need to enter it every time. The other approach is you give the password and that is stored again but encrypted with the key process. However, much planning would need to be invested for a clean version to be released.
 
-**Confirm password**
-Adding confirm password when making an account. I've enter a password incorrectly so many times when testing this application. It will come.
-
 **Pressing enter**
 Pressing enter will not Login or Add/Save a password at this time. This is a definite feature that will be added.
-
-**Exit button**
-We don't have an exit button on the login screen. While it's not needed to close the application and may be helpful.
 
 **Importing**
 I will do some research on Googles Saved Passwords and so on to see if it is possible to have passwords saved on other applications or webites to be exported and imported into this application.
 
 ### Available Features
 **Account creation**
-Be able to create as many accounts you please
+Be able to create as many accounts you please. With added Confirm Password protection.
 
-**Create and Edit Passwords**
+**Create, Edit and Delete Passwords**
 Be able to edit and create passwords
 
 **Password Security**
-We use Hash Salt for making passwords secure and Encryption and Decryption with a key. 
+We use Hash Salt for making passwords secure and Encryption and Decryption with a key.
+
+**Stay signed in**
+Have the ability to stay signed in
 
 ## Frequently asked questions
 ### How do I start the program?
