@@ -96,6 +96,41 @@ namespace PasswordManager {
 
         #endregion
 
+        #region Form Events
+
+        private void FrmLogin_Load(object sender, EventArgs e) {
+            // Create and assign LoginDetails DataTable
+            DataTable loginTable = Context.GetDataTable("LoginDetails");
+
+            // If the DataTable contains rows
+            // Login using the UserID
+            if (loginTable.Rows.Count > 0) {
+                _userID = long.Parse(loginTable.Rows[0]["UserID"].ToString());
+                ThreadStart(new System.Threading.Thread(new System.Threading.ThreadStart(ThreadProcPasswordList)));
+            }
+        }
+
+        private void FrmLogin_FormClosing(object sender, FormClosingEventArgs e) {
+            if (cbSignedIn.Checked) {
+                // Create and assign LoginDetails DataTable
+                DataTable loginTable = Context.GetDataTable("LoginDetails");
+
+                // Create a new row in the DataTable
+                // Change the UserID to the saved UserID
+                // Save the row
+                // Add the row
+                DataRow row = loginTable.NewRow();
+                row["UserID"] = _userID;
+                row.EndEdit();
+                loginTable.Rows.Add(row);
+
+                // Save the table
+                Context.SaveDataBaseTable(loginTable);
+            }
+        }
+
+        #endregion
+
         #region LinkLabel Events
 
         private void LnkNewUser_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e) {

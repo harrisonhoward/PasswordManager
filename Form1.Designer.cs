@@ -30,6 +30,7 @@
             this.txtUsername = new System.Windows.Forms.TextBox();
             this.txtPassword = new System.Windows.Forms.TextBox();
             this.lnkNewUser = new System.Windows.Forms.LinkLabel();
+            this.cbSignedIn = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // lblTitle
@@ -103,11 +104,24 @@
             this.lnkNewUser.Text = "Create a new account";
             this.lnkNewUser.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.LnkNewUser_LinkClicked);
             // 
+            // cbSignedIn
+            // 
+            this.cbSignedIn.AutoSize = true;
+            this.cbSignedIn.Checked = global::PasswordManager.Properties.Settings.Default.StaySignedIn;
+            this.cbSignedIn.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::PasswordManager.Properties.Settings.Default, "StaySignedIn", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.cbSignedIn.Location = new System.Drawing.Point(183, 206);
+            this.cbSignedIn.Name = "cbSignedIn";
+            this.cbSignedIn.Size = new System.Drawing.Size(95, 17);
+            this.cbSignedIn.TabIndex = 7;
+            this.cbSignedIn.Text = "Stay Signed In";
+            this.cbSignedIn.UseVisualStyleBackColor = true;
+            // 
             // frmLogin
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(344, 343);
+            this.Controls.Add(this.cbSignedIn);
             this.Controls.Add(this.lnkNewUser);
             this.Controls.Add(this.txtPassword);
             this.Controls.Add(this.txtUsername);
@@ -120,6 +134,8 @@
             this.Name = "frmLogin";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Login Screen";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FrmLogin_FormClosing);
+            this.Load += new System.EventHandler(this.FrmLogin_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -134,6 +150,7 @@
         private System.Windows.Forms.TextBox txtUsername;
         private System.Windows.Forms.TextBox txtPassword;
         private System.Windows.Forms.LinkLabel lnkNewUser;
+        private System.Windows.Forms.CheckBox cbSignedIn;
     }
 }
 

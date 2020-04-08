@@ -35,6 +35,19 @@ namespace SQLController {
             // Create the Passwords Table
             CreateUsersTable();
             CreatePasswordsTable();
+            CreateLoginDetailsTable();
+        }
+
+        /// <summary>
+        /// Creates LoginDetails Table
+        /// </summary>
+        private static void CreateLoginDetailsTable() {
+            // Create and assign the Schema
+            string schema =
+                "LoginID int IDENTITY(1,1) PRIMARY KEY, " +
+                "UserID int NOT NULL, ";
+            // Create the Users Table with the Schema
+            _sql.CreateDatabaseTable("LoginDetails", schema);
         }
 
         /// <summary>

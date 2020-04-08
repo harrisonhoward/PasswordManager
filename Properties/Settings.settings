@@ -5,5 +5,8 @@
     <Setting Name="ProjectName" Type="System.String" Scope="Application">
       <Value Profile="(Default)">Password Manager</Value>
     </Setting>
+    <Setting Name="StaySignedIn" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

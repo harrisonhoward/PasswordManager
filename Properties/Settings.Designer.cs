@@ -31,5 +31,17 @@ namespace PasswordManager.Properties {
                 return ((string)(this["ProjectName"]));
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool StaySignedIn {
+            get {
+                return ((bool)(this["StaySignedIn"]));
+            }
+            set {
+                this["StaySignedIn"] = value;
+            }
+        }
     }
 }
