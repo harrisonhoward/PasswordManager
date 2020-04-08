@@ -55,9 +55,12 @@
             // 
             // dgvPasswords
             // 
+            this.dgvPasswords.AllowUserToAddRows = false;
+            this.dgvPasswords.AllowUserToDeleteRows = false;
             this.dgvPasswords.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvPasswords.Location = new System.Drawing.Point(16, 103);
             this.dgvPasswords.Name = "dgvPasswords";
+            this.dgvPasswords.ReadOnly = true;
             this.dgvPasswords.RowHeadersWidth = 60;
             this.dgvPasswords.Size = new System.Drawing.Size(376, 332);
             this.dgvPasswords.TabIndex = 3;

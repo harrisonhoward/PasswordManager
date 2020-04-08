@@ -82,12 +82,7 @@ namespace PasswordManager {
         private void BtnAdd_Click(object sender, EventArgs e) {
             // Checking if the user has inputted values
             // Showing MessageBox providing reason
-            if (string.IsNullOrEmpty(txtTitle.Text)) {
-                MessageBox.Show("Please enter a Password Title",
-                    Properties.Settings.Default.ProjectName,
-                    MessageBoxButtons.OK);
-                return;
-            } else if (string.IsNullOrEmpty(txtPassword.Text)) {
+            if (string.IsNullOrEmpty(txtPassword.Text)) {
                 MessageBox.Show("Please enter a Password",
                     Properties.Settings.Default.ProjectName,
                     MessageBoxButtons.OK);
