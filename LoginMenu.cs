@@ -116,7 +116,8 @@ namespace PasswordManager {
         }
 
         private void FrmLogin_FormClosing(object sender, FormClosingEventArgs e) {
-            if (cbSignedIn.Checked) {
+            // Check if Stay Signed In is check and a userID has been set
+            if (cbSignedIn.Checked && _userID != 0) {
                 // Create and assign LoginDetails DataTable
                 DataTable loginTable = Context.GetDataTable("LoginDetails");
 
