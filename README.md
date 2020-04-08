@@ -32,7 +32,7 @@ Code has been appropriately commented. If any confusions comes from the code ref
 
 ### Contact
 
-If you need help understanding some code please contact me. Otherwise please head ove rto "Issue" or "Pull Request"
+If you need help understanding some code please contact me. Otherwise please head over to "Issue" or "Pull Request"
 
 **Discord**: Duck#9999
 **Email**: harrison.howard00707@gmail.com
