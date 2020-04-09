@@ -12,6 +12,7 @@ namespace PasswordManager {
         /// </summary>
         [STAThread]
         static void Main() {
+            Console.WriteLine("yues");
             // Initialize the Database
             Initializer.InitalizeDatabase();
 

@@ -23,6 +23,7 @@ namespace PasswordManager {
         */
         DataTable _userTable;
         string _usersUsername = "", _usersPassword = "";
+        int _usersAdmin = 0;
         long _userID = 0;
         bool _tableContains = false;
 
@@ -166,6 +167,15 @@ namespace PasswordManager {
             // Initialize the User DataTable
             InitializeUserTable(true);
 
+            // Check if there are rows in the User Table
+            // Assign user as an Admin
+            if (_userTable.Rows.Count < 1) {
+                MessageBox.Show("You are the first user. You've been assigned as an Admin.",
+                    Properties.Settings.Default.ProjectName,
+                    MessageBoxButtons.OK);
+                _usersAdmin = 1;
+            }
+
             // Check if the username exists
             // Show a MessageBox
             if (_tableContains) {
@@ -180,29 +190,21 @@ namespace PasswordManager {
 
             // Adding a new row to User DataTable
             // Inputted the new data for the row before adding it
+            // Save the DataTable
             DataRow row = _userTable.NewRow();
             row["UserID"] = _userTable.Rows.Count + 1;
             row["Username"] = _usersUsername;
             row["PasswordHash"] = _usersPassword;
+            row["Admin"] = _usersAdmin;
+            row.EndEdit();
             _userTable.Rows.Add(row);
 
-
-            // Create and assign the column names
-            string columnNames = "UserID, Username, PasswordHash";
-
-            // Create and assign the column values
-            string columnValues =
-                $"{row["UserID"]}, " +
-                $"'{row["Username"]}', " +
-                $"'{row["PasswordHash"]}'";
-
-            // Insert the record
-            Context.InsertRecord("Users", columnNames, columnValues);
+            // Save the Table
+            Context.SaveDataBaseTable(_userTable);
 
             // Show the Login Panel
             panLogin.Show();
             Text = "Login";
-
 
             // Hide the Create Panel
             panCreate.Hide();
