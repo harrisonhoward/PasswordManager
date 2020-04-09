@@ -48,11 +48,8 @@ namespace PasswordManager {
 
             // Create the Account Combobox with Items
             // Set the SelectedIndex to 0
-            tscAccount.Items.AddRange(new object[] {
-                $"Account: {_userTable.Rows[0]["Username"]}",
-                "Logout"
-                });
-            tscAccount.SelectedIndex = 0;
+            tsdiAccount.Text = $"Account: {_userTable.Rows[0]["Username"]}";
+            tsdiAccount.Select();
 
             // Hide every panel
             panPasswordList.Hide();
@@ -93,9 +90,9 @@ namespace PasswordManager {
 
         #region ToolStripItem Events
 
-        private void TscAccount_SelectedIndexChanged(object sender, EventArgs e) {
-            // If they clicked the Logout Item
-            if (tscAccount.SelectedIndex == 1) {
+        private void TsdAccount_DropDownItemClicked(object sender, ToolStripItemClickedEventArgs e) {
+            // Checking if they clicked logout
+            if (e.ClickedItem.Equals(tsdiLogout)) {
                 // Create and assign LoginDetails DataTable
                 DataTable loginTable = Context.GetDataTable("LoginDetails");
 

@@ -27,7 +27,6 @@
             this.tsMain = new System.Windows.Forms.ToolStrip();
             this.tsbPasswordList = new System.Windows.Forms.ToolStripButton();
             this.lblDivider = new System.Windows.Forms.Label();
-            this.tscAccount = new System.Windows.Forms.ToolStripComboBox();
             this.lblDividier2 = new System.Windows.Forms.Label();
             this.btnExit = new System.Windows.Forms.Button();
             this.panPasswordList = new System.Windows.Forms.Panel();
@@ -38,6 +37,9 @@
             this.btnEditPassword = new System.Windows.Forms.Button();
             this.btnDeletePassword = new System.Windows.Forms.Button();
             this.lblPasswordWarning = new System.Windows.Forms.Label();
+            this.tsdAccount = new System.Windows.Forms.ToolStripDropDownButton();
+            this.tsdiAccount = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsdiLogout = new System.Windows.Forms.ToolStripMenuItem();
             this.tsMain.SuspendLayout();
             this.panPasswordList.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvPasswords)).BeginInit();
@@ -47,7 +49,7 @@
             // 
             this.tsMain.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tsbPasswordList,
-            this.tscAccount});
+            this.tsdAccount});
             this.tsMain.Location = new System.Drawing.Point(0, 0);
             this.tsMain.Name = "tsMain";
             this.tsMain.Size = new System.Drawing.Size(800, 25);
@@ -73,15 +75,6 @@
             this.lblDivider.Name = "lblDivider";
             this.lblDivider.Size = new System.Drawing.Size(820, 2);
             this.lblDivider.TabIndex = 1;
-            // 
-            // tscAccount
-            // 
-            this.tscAccount.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.tscAccount.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.tscAccount.MaxDropDownItems = 2;
-            this.tscAccount.Name = "tscAccount";
-            this.tscAccount.Size = new System.Drawing.Size(121, 25);
-            this.tscAccount.SelectedIndexChanged += new System.EventHandler(this.TscAccount_SelectedIndexChanged);
             // 
             // lblDividier2
             // 
@@ -192,6 +185,32 @@
             this.lblPasswordWarning.TabIndex = 13;
             this.lblPasswordWarning.Text = "Select a cell";
             // 
+            // tsdAccount
+            // 
+            this.tsdAccount.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.tsdAccount.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.tsdAccount.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsdiAccount,
+            this.tsdiLogout});
+            this.tsdAccount.Image = ((System.Drawing.Image)(resources.GetObject("tsdAccount.Image")));
+            this.tsdAccount.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsdAccount.Name = "tsdAccount";
+            this.tsdAccount.Size = new System.Drawing.Size(13, 22);
+            this.tsdAccount.TextImageRelation = System.Windows.Forms.TextImageRelation.TextAboveImage;
+            this.tsdAccount.ToolTipText = "Account Drop Down List";
+            this.tsdAccount.DropDownItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.TsdAccount_DropDownItemClicked);
+            // 
+            // tsdiAccount
+            // 
+            this.tsdiAccount.Name = "tsdiAccount";
+            this.tsdiAccount.Size = new System.Drawing.Size(180, 22);
+            // 
+            // tsdiLogout
+            // 
+            this.tsdiLogout.Name = "tsdiLogout";
+            this.tsdiLogout.Size = new System.Drawing.Size(180, 22);
+            this.tsdiLogout.Text = "Logout";
+            // 
             // frmPasswordMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -222,7 +241,6 @@
         private System.Windows.Forms.ToolStrip tsMain;
         private System.Windows.Forms.ToolStripButton tsbPasswordList;
         private System.Windows.Forms.Label lblDivider;
-        private System.Windows.Forms.ToolStripComboBox tscAccount;
         private System.Windows.Forms.Label lblDividier2;
         private System.Windows.Forms.Button btnExit;
         private System.Windows.Forms.Panel panPasswordList;
@@ -233,5 +251,8 @@
         private System.Windows.Forms.Button btnEditPassword;
         private System.Windows.Forms.Button btnNewPassword;
         private System.Windows.Forms.Label lblPasswordWarning;
+        private System.Windows.Forms.ToolStripDropDownButton tsdAccount;
+        private System.Windows.Forms.ToolStripMenuItem tsdiAccount;
+        private System.Windows.Forms.ToolStripMenuItem tsdiLogout;
     }
 }
