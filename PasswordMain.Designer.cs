@@ -50,12 +50,19 @@
             this.gbAccountDanger = new System.Windows.Forms.GroupBox();
             this.btnDeleteAccount = new System.Windows.Forms.Button();
             this.btnDeletePasswords = new System.Windows.Forms.Button();
+            this.txtUserSearch = new System.Windows.Forms.TextBox();
+            this.lblUserSearch = new System.Windows.Forms.Label();
+            this.dgvUsers = new System.Windows.Forms.DataGridView();
+            this.btnEditUser = new System.Windows.Forms.Button();
+            this.btnDeleteUser = new System.Windows.Forms.Button();
             this.tsMain.SuspendLayout();
             this.panPasswordList.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvPasswords)).BeginInit();
             this.panAccountSettings.SuspendLayout();
+            this.gbAdminSettings.SuspendLayout();
             this.gbUserSettings.SuspendLayout();
             this.gbAccountDanger.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvUsers)).BeginInit();
             this.SuspendLayout();
             // 
             // tsMain
@@ -81,6 +88,7 @@
             this.tsbAccount.Size = new System.Drawing.Size(101, 22);
             this.tsbAccount.Text = "Account Settings";
             this.tsbAccount.TextImageRelation = System.Windows.Forms.TextImageRelation.TextAboveImage;
+            this.tsbAccount.ToolTipText = "Change your account settings";
             // 
             // toolStripSeparator1
             // 
@@ -96,7 +104,7 @@
             this.tsbPasswordList.Size = new System.Drawing.Size(82, 22);
             this.tsbPasswordList.Text = "Password List";
             this.tsbPasswordList.TextImageRelation = System.Windows.Forms.TextImageRelation.TextAboveImage;
-            this.tsbPasswordList.ToolTipText = "Display the all your passwords";
+            this.tsbPasswordList.ToolTipText = "Display all your passwords";
             // 
             // tsdAccount
             // 
@@ -210,6 +218,7 @@
             this.txtPasswordSearch.Name = "txtPasswordSearch";
             this.txtPasswordSearch.Size = new System.Drawing.Size(543, 22);
             this.txtPasswordSearch.TabIndex = 9;
+            this.txtPasswordSearch.TextChanged += new System.EventHandler(this.TxtPasswordSearch_TextChanged);
             // 
             // lblPasswordSearch
             // 
@@ -246,6 +255,11 @@
             // 
             // gbAdminSettings
             // 
+            this.gbAdminSettings.Controls.Add(this.btnDeleteUser);
+            this.gbAdminSettings.Controls.Add(this.txtUserSearch);
+            this.gbAdminSettings.Controls.Add(this.lblUserSearch);
+            this.gbAdminSettings.Controls.Add(this.btnEditUser);
+            this.gbAdminSettings.Controls.Add(this.dgvUsers);
             this.gbAdminSettings.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.gbAdminSettings.Location = new System.Drawing.Point(400, 16);
             this.gbAdminSettings.Name = "gbAdminSettings";
@@ -335,6 +349,61 @@
             this.btnDeletePasswords.UseVisualStyleBackColor = true;
             this.btnDeletePasswords.Click += new System.EventHandler(this.BtnDeletePasswords_Click);
             // 
+            // txtUserSearch
+            // 
+            this.txtUserSearch.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtUserSearch.Location = new System.Drawing.Point(65, 34);
+            this.txtUserSearch.MaxLength = 60;
+            this.txtUserSearch.Name = "txtUserSearch";
+            this.txtUserSearch.Size = new System.Drawing.Size(222, 22);
+            this.txtUserSearch.TabIndex = 12;
+            this.txtUserSearch.TextChanged += new System.EventHandler(this.TxtUserSearch_TextChanged);
+            // 
+            // lblUserSearch
+            // 
+            this.lblUserSearch.AutoSize = true;
+            this.lblUserSearch.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblUserSearch.Location = new System.Drawing.Point(6, 37);
+            this.lblUserSearch.Name = "lblUserSearch";
+            this.lblUserSearch.Size = new System.Drawing.Size(53, 16);
+            this.lblUserSearch.TabIndex = 11;
+            this.lblUserSearch.Text = "Search:";
+            // 
+            // dgvUsers
+            // 
+            this.dgvUsers.AllowUserToAddRows = false;
+            this.dgvUsers.AllowUserToDeleteRows = false;
+            this.dgvUsers.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvUsers.Location = new System.Drawing.Point(6, 59);
+            this.dgvUsers.Name = "dgvUsers";
+            this.dgvUsers.ReadOnly = true;
+            this.dgvUsers.RowHeadersWidth = 60;
+            this.dgvUsers.Size = new System.Drawing.Size(370, 258);
+            this.dgvUsers.TabIndex = 10;
+            this.dgvUsers.DoubleClick += new System.EventHandler(this.DgvUsers_DoubleClick);
+            // 
+            // btnEditUser
+            // 
+            this.btnEditUser.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnEditUser.Location = new System.Drawing.Point(9, 323);
+            this.btnEditUser.Name = "btnEditUser";
+            this.btnEditUser.Size = new System.Drawing.Size(84, 28);
+            this.btnEditUser.TabIndex = 22;
+            this.btnEditUser.Text = "Edit User";
+            this.btnEditUser.UseVisualStyleBackColor = true;
+            this.btnEditUser.Click += new System.EventHandler(this.BtnEditUser_Click);
+            // 
+            // btnDeleteUser
+            // 
+            this.btnDeleteUser.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnDeleteUser.Location = new System.Drawing.Point(99, 323);
+            this.btnDeleteUser.Name = "btnDeleteUser";
+            this.btnDeleteUser.Size = new System.Drawing.Size(89, 28);
+            this.btnDeleteUser.TabIndex = 23;
+            this.btnDeleteUser.Text = "Delete User";
+            this.btnDeleteUser.UseVisualStyleBackColor = true;
+            this.btnDeleteUser.Click += new System.EventHandler(this.BtnDeleteUser_Click);
+            // 
             // frmPasswordMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -357,9 +426,12 @@
             this.panPasswordList.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvPasswords)).EndInit();
             this.panAccountSettings.ResumeLayout(false);
+            this.gbAdminSettings.ResumeLayout(false);
+            this.gbAdminSettings.PerformLayout();
             this.gbUserSettings.ResumeLayout(false);
             this.gbUserSettings.PerformLayout();
             this.gbAccountDanger.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvUsers)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -393,5 +465,10 @@
         private System.Windows.Forms.Button btnDeletePasswords;
         private System.Windows.Forms.Button btnDeleteAccount;
         private System.Windows.Forms.Button btnAccountSave;
+        private System.Windows.Forms.TextBox txtUserSearch;
+        private System.Windows.Forms.Label lblUserSearch;
+        private System.Windows.Forms.DataGridView dgvUsers;
+        private System.Windows.Forms.Button btnDeleteUser;
+        private System.Windows.Forms.Button btnEditUser;
     }
 }

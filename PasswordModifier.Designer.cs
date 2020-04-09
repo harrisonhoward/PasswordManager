@@ -80,9 +80,9 @@
             this.lblTitle.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTitle.Location = new System.Drawing.Point(14, 13);
             this.lblTitle.Name = "lblTitle";
-            this.lblTitle.Size = new System.Drawing.Size(213, 25);
+            this.lblTitle.Size = new System.Drawing.Size(207, 25);
             this.lblTitle.TabIndex = 12;
-            this.lblTitle.Text = "Password Manager";
+            this.lblTitle.Text = "Password Modifier";
             // 
             // btnCreate
             // 
@@ -139,6 +139,7 @@
             this.Controls.Add(this.lblPasswordTitle);
             this.Controls.Add(this.lblTitle);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
             this.Name = "frmPasswordModifier";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Password Modifier";

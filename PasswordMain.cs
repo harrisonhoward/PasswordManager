@@ -26,6 +26,7 @@ namespace PasswordManager {
 
         // Variables for Account Settings
         bool _userAdmin;
+        DataView _dvUsers;
         DataTable _passwordsTable;
 
         #endregion
@@ -265,7 +266,7 @@ namespace PasswordManager {
         /// <summary>
         /// Initiates the Edit Event
         /// </summary>
-        private void EditEvent() {
+        private void EditPasswordEvent() {
             // Create and assign the DataGridView Primary Key
             long passwordID = long.Parse(dgvPasswords[0, dgvPasswords.CurrentCell.RowIndex].Value.ToString());
 
@@ -284,6 +285,12 @@ namespace PasswordManager {
 
         #region PasswordList Events
 
+        // TextBox Events
+        private void TxtPasswordSearch_TextChanged(object sender, EventArgs e) {
+            // Assign the DataView RowFilter
+            _dvPassword.RowFilter = $"Title LIKE '%{txtPasswordSearch.Text}%'";
+        }
+
         // DataGridView Events
         private void DgvPasswords_DoubleClick(object sender, EventArgs e) {
             // Check if a cell has been selected in the DataGridView
@@ -292,7 +299,7 @@ namespace PasswordManager {
                 return;
             }
 
-            EditEvent();
+            EditPasswordEvent();
         }
         private void DgvPasswords_SelectionChanged(object sender, EventArgs e) {
             // Check if a cell has been selected
@@ -327,7 +334,7 @@ namespace PasswordManager {
                 return;
             }
 
-            EditEvent();
+            EditPasswordEvent();
         }
         private void BtnDeletePassword_Click(object sender, EventArgs e) {
             // Check if a cell has been selected in the DataGridView
@@ -363,18 +370,98 @@ namespace PasswordManager {
         private void isAdmin() {
             gbAdminSettings.Visible = bool.Parse(_userTable.Rows[0]["Admin"].ToString());
             _userAdmin = bool.Parse(_userTable.Rows[0]["Admin"].ToString());
+            PopulateAdminGrid();
         }
 
         /// <summary>
         /// Initialize the Password DataTable
         /// </summary>
-        private void InitializePasswordTable() {
+        private void InitializePasswordTable(long userID) {
             // Create and assign a new SQL Query
             // Assign the Password DataTable with the Password Table
             string sqlQuery =
                 "SELECT * FROM Passwords " +
-                $"WHERE UserID={_userID}";
+                $"WHERE UserID={userID}";
             _passwordsTable = Context.GetDataTable(sqlQuery, "Passwords");
+        }
+
+        /// <summary>
+        /// Gets all the Admins
+        /// </summary>
+        private int GetAllAdmins() {
+            // Create and assign a new SQL Query
+            // Create and assign the Admin DataTable
+            string sqlQuery =
+                "SELECT * FROM Users" +
+                $"WHERE UserID!={_userID} AND Admin=1";
+            DataTable adminTable = Context.GetDataTable(sqlQuery, "Users");
+
+            // Return the adminTable Row Count
+            return adminTable.Rows.Count;
+        }
+
+        /// <summary>
+        /// Deletes all the passwords
+        /// </summary>
+        private void DeletePasswords(long userID) {
+            // Initialize the Password DataTable
+            InitializePasswordTable(userID);
+            if (_passwordsTable.Rows.Count > 0) {
+                // for each row in the Password DataTable
+                foreach (DataRow row in _passwordsTable.Rows) {
+                    // Delete the row
+                    // Save the row
+                    row.Delete();
+                    row.EndEdit();
+                }
+
+                // Save Table
+                Context.SaveDataBaseTable(_passwordsTable);
+            }
+        }
+
+        /// <summary>
+        /// Populates the User DataGridView
+        /// </summary>
+        private void PopulateAdminGrid() {
+            // Create and assign a new SQL Query
+            string sqlQuery =
+                "SELECT UserID, Username, Admin " +
+                $"FROM Users WHERE UserID!={_userID} " +
+                "ORDER BY UserID DESC";
+
+            // Create and assign the DataTable with the Password DataTable
+            // Assign the DataTable to the DataView
+            // Assign the DataGridView with the DataView
+            DataTable userTable = Context.GetDataTable(sqlQuery, "Users");
+            // Setting the column names
+            userTable.Columns[1].ColumnName = "Username";
+            userTable.Columns[2].ColumnName = "Admin";
+
+            _dvUsers = new DataView(userTable);
+            dgvUsers.DataSource = _dvUsers;
+
+            // Setting column sizes
+            dgvUsers.Columns[1].Width = 150;
+            dgvUsers.Columns[2].Width = 55;
+        }
+
+        /// <summary>
+        /// Initiates the Edit Event
+        /// </summary>
+        private void EditUserEvent() {
+            // Create and assign the DataGridView Primary Key
+            long userID = long.Parse(dgvUsers[0, dgvUsers.CurrentCell.RowIndex].Value.ToString());
+
+            // Create a new instance of frmPasswordManager (with the Password and User ID)
+            // Set the forms parent to this form
+            frmUserModifier frm = new frmUserModifier(userID, Location);
+            // Show the form
+            // If the form returns DialogResult OK
+            // Populate the DataGridView
+            if (frm.ShowDialog() == DialogResult.OK) {
+                PopulateAdminGrid();
+            }
         }
 
         #endregion
@@ -383,12 +470,27 @@ namespace PasswordManager {
 
         // User Settings
         private void BtnDeleteAccount_Click(object sender, EventArgs e) {
+            // Check if the user is an admin
+            if (_userAdmin) {
+                // Check if they are the last admin
+                if (GetAllAdmins() < 1) {
+                    // Provide reason why
+                    MessageBox.Show("You are the last admin. Can not delete your account",
+                        Properties.Settings.Default.ProjectName,
+                        MessageBoxButtons.OK);
+                    return;
+                }
+            }
+
             // Ask the user if they are sure
             DialogResult box = MessageBox.Show("Are you sure you want to delete your account?",
                     Properties.Settings.Default.ProjectName,
                     MessageBoxButtons.YesNo);
             // If yes, continue on
             if (box == DialogResult.Yes) {
+                // Delete the passwords
+                DeletePasswords(_userID);
+
                 // Delete user
                 // Save DataTable
                 // Save Table
@@ -407,32 +509,21 @@ namespace PasswordManager {
                     MessageBoxButtons.YesNo);
             // If yes, continue on
             if (box == DialogResult.Yes) {
-                // Initialize the Password DataTable
-                InitializePasswordTable();
-                if (_passwordsTable.Rows.Count > 0) {
-                    // for each row in the Password DataTable
-                    foreach (DataRow row in _passwordsTable.Rows) {
-                        // Delete the row
-                        // Save the row
-                        row.Delete();
-                        row.EndEdit();
-                    }
+                // Delete the passwords
+                DeletePasswords(_userID);
 
-                    // Save Table
-                    Context.SaveDataBaseTable(_passwordsTable);
-
-                    // Let the user know it was completed
-                    MessageBox.Show("Passwords Deleted",
-                        Properties.Settings.Default.ProjectName,
-                        MessageBoxButtons.OK);
-                } else {
-                    // Provide reason why
-                    MessageBox.Show("No passwords to delete",
-                        Properties.Settings.Default.ProjectName,
-                        MessageBoxButtons.OK);
-                }
+                // Let the user know it was completed
+                MessageBox.Show("Passwords Deleted",
+                    Properties.Settings.Default.ProjectName,
+                    MessageBoxButtons.OK);
+            } else {
+                // Provide reason why
+                MessageBox.Show("No passwords to delete",
+                    Properties.Settings.Default.ProjectName,
+                    MessageBoxButtons.OK);
             }
         }
+
         private void BtnChangePassword_Click(object sender, EventArgs e) {
             // Check the user entered a new password
             if (!string.IsNullOrEmpty(txtChangePassword.Text)) {
@@ -476,6 +567,76 @@ namespace PasswordManager {
             MessageBox.Show("Account Saved",
                 Properties.Settings.Default.ProjectName,
                 MessageBoxButtons.OK);
+        }
+
+        // Admin Settings
+        private void DgvUsers_DoubleClick(object sender, EventArgs e) {
+            // Check if a cell has been selected in the DataGridView
+            // If not then stop the method
+            if (dgvUsers.CurrentCell == null) {
+                return;
+            }
+
+            EditUserEvent();
+        }
+
+        private void TxtUserSearch_TextChanged(object sender, EventArgs e) {
+            // Assign the DataView RowFilter
+            _dvUsers.RowFilter = $"Username LIKE '%{txtUserSearch.Text}%'";
+        }
+
+        private void BtnEditUser_Click(object sender, EventArgs e) {
+            // Check if a cell has been selected in the DataGridView
+            // If not then stop the method
+            if (dgvUsers.CurrentCell == null) {
+                MessageBox.Show("No cell has been selected",
+                    Properties.Settings.Default.ProjectName,
+                    MessageBoxButtons.OK);
+                return;
+            }
+
+            EditUserEvent();
+        }
+        private void BtnDeleteUser_Click(object sender, EventArgs e) {
+            // Check if a cell has been selected in the DataGridView
+            // If not then stop the method
+            if (dgvUsers.CurrentCell == null) {
+                MessageBox.Show("No cell has been selected",
+                    Properties.Settings.Default.ProjectName,
+                    MessageBoxButtons.OK);
+                return;
+            }
+
+            // Check if a cell has been selected in the DataGridView
+            // If not then stop the method
+            if (dgvUsers.CurrentCell == null) {
+                MessageBox.Show("No cell has been selected",
+                    Properties.Settings.Default.ProjectName,
+                    MessageBoxButtons.OK);
+                return;
+            }
+
+            // Create and assign the DataGridView Primary Key
+            // Create and assign a new SQL Query
+            // Create and assign a new User DataTable
+            long userID = long.Parse(dgvUsers[0, dgvUsers.CurrentCell.RowIndex].Value.ToString());
+            string sqlQuery =
+                "SELECT * FROM Users " +
+                $"WHERE UserID='{userID}'";
+            DataTable userTable = Context.GetDataTable(sqlQuery, "Users");
+
+            // Delete the users passwords
+            DeletePasswords(userID);
+
+            // Delete the row from the table
+            userTable.Rows[0].Delete();
+
+            // Save the DataTable and Table
+            userTable.Rows[0].EndEdit();
+            Context.SaveDataBaseTable(userTable);
+
+            // Re-populate the grid
+            PopulateAdminGrid();
         }
 
         #endregion
