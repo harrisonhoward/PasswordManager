@@ -11,10 +11,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace PasswordManager {
-    /// <summary>
-    /// Allows the user to add or save passwords
-    /// </summary>
-    public partial class frmPasswordManager : Form {
+    public partial class frmPasswordModifier : Form {
         #region Global Variables
 
         // Create a variable for the Password and User ID
@@ -32,7 +29,7 @@ namespace PasswordManager {
         /// Create a new instance of frmPasswordManager
         /// </summary>
         /// <param name="userID">The user logged in</param>
-        public frmPasswordManager(long userID) {
+        public frmPasswordModifier(long userID, Point location) {
             // Initialize the form components
             // Assign true to _isNew
             // Assign the userID to the Global Variable
@@ -43,7 +40,11 @@ namespace PasswordManager {
             InitializeForm();
 
             // Set the button text to "Add"
-            btnAdd.Text = "Add";
+            gbSave.Visible = false;
+            gbCreate.Visible = true;
+
+            // Set form location with the location values
+            Location = location;
         }
 
         /// <summary>
@@ -51,7 +52,7 @@ namespace PasswordManager {
         /// </summary>
         /// <param name="passwordID">The password to edit</param>
         /// <param name="userID">The user logged in</param>
-        public frmPasswordManager(long passwordID, long userID) {
+        public frmPasswordModifier(long passwordID, long userID, Point location) {
             // Initialize the form components
             // Assign the passwordID to the Global Variable
             // Assign the userID to the Global Variable
@@ -62,8 +63,11 @@ namespace PasswordManager {
             InitializeForm();
 
             // Change the button text to "Save"
-            btnAdd.Text = "Save";
-            btnDelete.Visible = true;
+            gbSave.Visible = true;
+            gbCreate.Visible = false;
+
+            // Set form location with the location values
+            Location = location;
         }
 
         /// <summary>
@@ -75,63 +79,16 @@ namespace PasswordManager {
             InitializeDatatable();
             BindControls();
         }
-
         #endregion
 
         #region Button Events
 
-        private void BtnAdd_Click(object sender, EventArgs e) {
-            // Checking if the user has inputted values
-            // Showing MessageBox providing reason
-            if (string.IsNullOrEmpty(txtPassword.Text)) {
-                MessageBox.Show("Please enter a Password",
-                    Properties.Settings.Default.ProjectName,
-                    MessageBoxButtons.OK);
-                return;
-            }
-
-            // Create and assign the users username
-            // Check if the username exists
-            // Update the UserID in the Password DataTable
-            string username = getUsername();
-            if (string.IsNullOrEmpty(username)) {
-                MessageBox.Show("Couldn't find your username. Please login again.",
-                    Properties.Settings.Default.ProjectName,
-                    MessageBoxButtons.OK);
-                return;
-            }
-            _passwordTable.Rows[0]["UserID"] = _userID;
-
-            // Create and assign the encrypted password
-            // Check if the password was encrypted properly
-            // Update the PasswordEncrypted in the Password DataTable
-            string passwordEncrypted = Encryption.Encrypt(txtPassword.Text, username);
-            if (string.IsNullOrEmpty(passwordEncrypted)) {
-                MessageBox.Show("Failed to encrypt. Try again later.",
-                    Properties.Settings.Default.ProjectName,
-                    MessageBoxButtons.OK);
-                return;
-            }
-            _passwordTable.Rows[0]["PasswordEncrypted"] = passwordEncrypted;
-
-            // Save the DataTable and Table
-            _passwordTable.Rows[0].EndEdit();
-            Context.SaveDataBaseTable(_passwordTable);
-
-            // Close form
-            Close();
+        private void BtnCreate_Click(object sender, EventArgs e) {
+            saveChanges();
         }
 
-        private void BtnDelete_Click(object sender, EventArgs e) {
-           // Delete the row from the table
-            _passwordTable.Rows[0].Delete();
-
-            // Save the DataTable and Table
-            _passwordTable.Rows[0].EndEdit();
-            Context.SaveDataBaseTable(_passwordTable);
-
-            // Close form
-            Close();
+        private void BtnSave_Click(object sender, EventArgs e) {
+            saveChanges();
         }
 
         #endregion
@@ -144,7 +101,7 @@ namespace PasswordManager {
         private void InitializeDatatable() {
             // Create and assign a new SQL Query
             // Assign the Password DataTable with the Password Table
-            string sqlQuery = 
+            string sqlQuery =
                 "SELECT * FROM Passwords " +
                 $"WHERE PasswordID={_passwordID}";
             _passwordTable = Context.GetDataTable(sqlQuery, "Passwords");
@@ -198,7 +155,7 @@ namespace PasswordManager {
         /// <returns>String Username</returns>
         private string getUsername() {
             // Create and assign a new SQL Query
-            string sqlQuery = 
+            string sqlQuery =
                 "SELECT Username FROM Users " +
                 $"WHERE UserID={_userID}";
             DataTable passwordTable = Context.GetDataTable(sqlQuery, "Users");
@@ -208,6 +165,48 @@ namespace PasswordManager {
             } else {
                 return passwordTable.Rows[0]["Username"].ToString();
             }
+        }
+
+        private void saveChanges() {
+            // Checking if the user has inputted values
+            // Showing MessageBox providing reason
+            if (string.IsNullOrEmpty(txtPassword.Text)) {
+                MessageBox.Show("Please enter a Password",
+                    Properties.Settings.Default.ProjectName,
+                    MessageBoxButtons.OK);
+                return;
+            }
+
+            // Create and assign the users username
+            // Check if the username exists
+            // Update the UserID in the Password DataTable
+            string username = getUsername();
+            if (string.IsNullOrEmpty(username)) {
+                MessageBox.Show("Couldn't find your username. Please login again.",
+                    Properties.Settings.Default.ProjectName,
+                    MessageBoxButtons.OK);
+                return;
+            }
+            _passwordTable.Rows[0]["UserID"] = _userID;
+
+            // Create and assign the encrypted password
+            // Check if the password was encrypted properly
+            // Update the PasswordEncrypted in the Password DataTable
+            string passwordEncrypted = Encryption.Encrypt(txtPassword.Text, username);
+            if (string.IsNullOrEmpty(passwordEncrypted)) {
+                MessageBox.Show("Failed to encrypt. Try again later.",
+                    Properties.Settings.Default.ProjectName,
+                    MessageBoxButtons.OK);
+                return;
+            }
+            _passwordTable.Rows[0]["PasswordEncrypted"] = passwordEncrypted;
+
+            // Save the DataTable and Table
+            _passwordTable.Rows[0].EndEdit();
+            Context.SaveDataBaseTable(_passwordTable);
+
+            // Close form
+            Close();
         }
 
         #endregion

@@ -53,7 +53,7 @@ namespace PasswordManager {
             // Login using the UserID
             if (loginTable.Rows.Count > 0) {
                 _userID = long.Parse(loginTable.Rows[0]["UserID"].ToString());
-                ThreadStart(new System.Threading.Thread(new System.Threading.ThreadStart(ThreadProcPasswordList)));
+                ThreadStart(new System.Threading.Thread(new System.Threading.ThreadStart(ThreadProcPasswordMain)));
             }
         }
 
@@ -123,7 +123,7 @@ namespace PasswordManager {
             // Else Showing a MessageBox and resetting the variables
             if (isEquals) {
                 _userID = long.Parse(_userTable.Rows[0]["UserID"].ToString());
-                ThreadStart(new System.Threading.Thread(new System.Threading.ThreadStart(ThreadProcPasswordList)));
+                ThreadStart(new System.Threading.Thread(new System.Threading.ThreadStart(ThreadProcPasswordMain)));
             } else {
                 MessageBox.Show("Password was incorrect",
                     Properties.Settings.Default.ProjectName,
@@ -243,8 +243,8 @@ namespace PasswordManager {
         /// <summary>
         /// Runs a form
         /// </summary>
-        private void ThreadProcPasswordList() {
-            Application.Run(new frmPasswordList(_userID));
+        private void ThreadProcPasswordMain() {
+            Application.Run(new frmPasswordMain(_userID));
         }
 
         /// <summary>
