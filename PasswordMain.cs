@@ -17,12 +17,16 @@ namespace PasswordManager {
         // Variables for Main Form
         long _userID = 0;
         DataTable _userTable;
-        Panel currentPanel = null;
-        ToolStripButton currentButton = null;
+        Panel _currentPanel = null;
+        ToolStripButton _currentButton = null;
 
         // Variables for Password List
         DataView _dvPassword;
         DataTable _passwordTable;
+
+        // Variables for Account Settings
+        bool _userAdmin;
+        DataTable _passwordsTable;
 
         #endregion
 
@@ -52,6 +56,7 @@ namespace PasswordManager {
 
             // Hide every panel
             panPasswordList.Hide();
+            panAccountSettings.Hide();
         }
 
         #endregion
@@ -63,27 +68,48 @@ namespace PasswordManager {
             if (e.ClickedItem.Equals(tsbPasswordList)) {
                 // Check if there is a current shown panel
                 // Hide the panel
-                if (currentPanel != null) {
-                    currentPanel.Hide();
+                if (_currentPanel != null) {
+                    _currentPanel.Hide();
                 }
                 // Check if there is a current active button
                 // Unactive the button
-                if (currentButton != null) {
-                    currentButton.Checked = false;
+                if (_currentButton != null) {
+                    _currentButton.Checked = false;
                 }
                 // Set the current panel
                 // Set the current button
-                currentPanel = panPasswordList;
-                currentButton = tsbPasswordList;
+                _currentPanel = panPasswordList;
+                _currentButton = tsbPasswordList;
 
                 // Populate the DataGrid on the Panel
                 PopulatePasswordGrid();
+            } else if (e.ClickedItem.Equals(tsbAccount)) {
+                // Check if there is a current shown panel
+                // Hide the panel
+                if (_currentPanel != null) {
+                    _currentPanel.Hide();
+                }
+                // Check if there is a current active button
+                // Unactive the button
+                if (_currentButton != null) {
+                    _currentButton.Checked = false;
+                }
+
+                // Set the current panel
+                // Set the current button
+                _currentPanel = panAccountSettings;
+                _currentButton = tsbAccount;
+
+                // Check if the user is an admin
+                // Disable save button
+                isAdmin();
+                btnAccountSave.Enabled = false;
             }
             // Set the current panel to show
             // Set the current button to active
             if (e.ClickedItem.GetType().Equals(typeof(ToolStripButton))) {
-                currentPanel.Show();
-                currentButton.Checked = true;
+                _currentPanel.Show();
+                _currentButton.Checked = true;
             }
         }
 
@@ -94,28 +120,8 @@ namespace PasswordManager {
         private void TsdAccount_DropDownItemClicked(object sender, ToolStripItemClickedEventArgs e) {
             // Checking if they clicked logout
             if (e.ClickedItem.Equals(tsdiLogout)) {
-                // Create and assign LoginDetails DataTable
-                DataTable loginTable = Context.GetDataTable("LoginDetails");
-
-                // Check if the DataTable contains rows
-                if (loginTable.Rows.Count > 0) {
-                    // For each row in the DataTable
-                    foreach (DataRow row in loginTable.Rows) {
-                        // Delete the row
-                        row.Delete();
-                        // End any more editing on that row
-                        row.EndEdit();
-                    }
-                    // Save the Table
-                    Context.SaveDataBaseTable(loginTable);
-                }
-                // Set stay signed in to false
-                Properties.Settings.Default.StaySignedIn = false;
-                Properties.Settings.Default.Save();
-
-                // Create a new thread for frmMenu
-                tsdAccount.Dispose();
-                ThreadStart(new System.Threading.Thread(new System.Threading.ThreadStart(ThreadProcLogin)));
+                // Logout
+                Logout();
             }
         }
 
@@ -161,6 +167,34 @@ namespace PasswordManager {
             _userTable = Context.GetDataTable(sqlQuery, "Users", true);
         }
 
+        /// <summary>
+        /// Logs out of the form
+        /// </summary>
+        private void Logout() {
+            // Create and assign LoginDetails DataTable
+            DataTable loginTable = Context.GetDataTable("LoginDetails");
+
+            // Check if the DataTable contains rows
+            if (loginTable.Rows.Count > 0) {
+                // For each row in the DataTable
+                foreach (DataRow row in loginTable.Rows) {
+                    // Delete the row
+                    row.Delete();
+                    // End any more editing on that row
+                    row.EndEdit();
+                }
+                // Save the Table
+                Context.SaveDataBaseTable(loginTable);
+            }
+            // Set stay signed in to false
+            Properties.Settings.Default.StaySignedIn = false;
+            Properties.Settings.Default.Save();
+
+            // Create a new thread for frmMenu
+            tsdAccount.Dispose();
+            ThreadStart(new System.Threading.Thread(new System.Threading.ThreadStart(ThreadProcLogin)));
+        }
+
         #endregion
 
         #region PasswordList Helper Methods
@@ -168,7 +202,7 @@ namespace PasswordManager {
         /// <summary>
         /// Initialize the Password DataTable
         /// </summary>
-        private void InitializePasswordTable() {
+        private void InitializePasswordInATable() {
             long passwordID = long.Parse(dgvPasswords[0, dgvPasswords.CurrentCell.RowIndex].Value.ToString());
             // Create and assign a new SQL Query
             // Assign the Password DataTable with the Password Table
@@ -306,7 +340,7 @@ namespace PasswordManager {
             }
 
             // Assign the Password DataTable with Password Table
-            InitializePasswordTable();
+            InitializePasswordInATable();
 
             // Delete the row from the table
             _passwordTable.Rows[0].Delete();
@@ -317,6 +351,131 @@ namespace PasswordManager {
 
             // Re-populate the grid
             PopulatePasswordGrid();
+        }
+
+        #endregion
+
+        #region AccountSettings Helper Methods
+
+        /// <summary>
+        /// Check if the user is an admin
+        /// </summary>
+        private void isAdmin() {
+            gbAdminSettings.Visible = bool.Parse(_userTable.Rows[0]["Admin"].ToString());
+            _userAdmin = bool.Parse(_userTable.Rows[0]["Admin"].ToString());
+        }
+
+        /// <summary>
+        /// Initialize the Password DataTable
+        /// </summary>
+        private void InitializePasswordTable() {
+            // Create and assign a new SQL Query
+            // Assign the Password DataTable with the Password Table
+            string sqlQuery =
+                "SELECT * FROM Passwords " +
+                $"WHERE UserID={_userID}";
+            _passwordsTable = Context.GetDataTable(sqlQuery, "Passwords");
+        }
+
+        #endregion
+
+        #region AccountSettings Events
+
+        // User Settings
+        private void BtnDeleteAccount_Click(object sender, EventArgs e) {
+            // Ask the user if they are sure
+            DialogResult box = MessageBox.Show("Are you sure you want to delete your account?",
+                    Properties.Settings.Default.ProjectName,
+                    MessageBoxButtons.YesNo);
+            // If yes, continue on
+            if (box == DialogResult.Yes) {
+                // Delete user
+                // Save DataTable
+                // Save Table
+                _userTable.Rows[0].Delete();
+                _userTable.Rows[0].EndEdit();
+                Context.SaveDataBaseTable(_userTable);
+
+                // Logout
+                Logout();
+            }
+        }
+        private void BtnDeletePasswords_Click(object sender, EventArgs e) {
+            // Ask the user if they are sure
+            DialogResult box = MessageBox.Show("Are you sure you want to delete your passwords?",
+                    Properties.Settings.Default.ProjectName,
+                    MessageBoxButtons.YesNo);
+            // If yes, continue on
+            if (box == DialogResult.Yes) {
+                // Initialize the Password DataTable
+                InitializePasswordTable();
+                if (_passwordsTable.Rows.Count > 0) {
+                    // for each row in the Password DataTable
+                    foreach (DataRow row in _passwordsTable.Rows) {
+                        // Delete the row
+                        // Save the row
+                        row.Delete();
+                        row.EndEdit();
+                    }
+
+                    // Save Table
+                    Context.SaveDataBaseTable(_passwordsTable);
+
+                    // Let the user know it was completed
+                    MessageBox.Show("Passwords Deleted",
+                        Properties.Settings.Default.ProjectName,
+                        MessageBoxButtons.OK);
+                } else {
+                    // Provide reason why
+                    MessageBox.Show("No passwords to delete",
+                        Properties.Settings.Default.ProjectName,
+                        MessageBoxButtons.OK);
+                }
+            }
+        }
+        private void BtnChangePassword_Click(object sender, EventArgs e) {
+            // Check the user entered a new password
+            if (!string.IsNullOrEmpty(txtChangePassword.Text)) {
+                // Compare the passwords
+                // If isEqual = true
+                bool isEqual = HashSalt.CompareInputtoPassword(txtChangePassword.Text, _userTable.Rows[0]["PasswordHash"].ToString());
+                if (isEqual) {
+                    // Provide reason why
+                    MessageBox.Show($"\"{txtChangePassword.Text}\" is already your password",
+                        Properties.Settings.Default.ProjectName,
+                        MessageBoxButtons.OK);
+                    // Reset the users input back to nothing
+                    txtChangePassword.Text = "";
+                    return;
+                }
+
+                // Converting the inputted password to a Hash Salt
+                // Reset the users input back to nothing
+                string usersPassword = HashSalt.StringtoHashSalt(txtChangePassword.Text);
+                txtChangePassword.Text = "";
+
+                // Adding the new password to the User DataTable
+                _userTable.Rows[0]["PasswordHash"] = usersPassword;
+
+                // Set the Save Buttno to enabled
+                btnAccountSave.Enabled = true;
+            } else {
+                // Provide reason why
+                MessageBox.Show("Please enter a password",
+                    Properties.Settings.Default.ProjectName,
+                    MessageBoxButtons.OK);
+            }
+        }
+        private void BtnAccountSave_Click(object sender, EventArgs e) {
+            // Saving User Table
+            // Setting the Button Save back to disabled
+            Context.SaveDataBaseTable(_userTable);
+            btnAccountSave.Enabled = false;
+
+            // Let the user know it was completed
+            MessageBox.Show("Account Saved",
+                Properties.Settings.Default.ProjectName,
+                MessageBoxButtons.OK);
         }
 
         #endregion
