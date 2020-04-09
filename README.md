@@ -41,10 +41,7 @@ If you need help understanding some code please contact me. Otherwise please hea
 
 ### Features in the works
 **Account Management**\
-Be able to manage your account. Such as deleting and changing your password. As well as more optional security like, request the password when editing or creating passwords.
-
-**Admin**\
-The first account created will automatically be assigned as an Admin. Be able to manage all users (not passwords).
+Request the password when editing or creating passwords.
 
 **More control of the passwords**\
 Be able to save your passwords in an CSV file (options to be encrypted or in plain text).
@@ -67,6 +64,12 @@ I will do some research on Googles Saved Passwords and so on to see if it is pos
 ### Available Features
 **Account creation**\
 Be able to create as many accounts you please. With added Confirm Password protection.
+
+**Account Management**
+Change your password, delete your account and delete all your passwords
+
+**Admin Access**
+First account created is automatically an admin. Be able to manage user accounts and edit user admin access
 
 **Create, Edit and Delete Passwords**\
 Be able to create, edit and delete as many passwords as you please.
