@@ -230,7 +230,7 @@ namespace PasswordManager {
         private void LnkNewUser_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e) {
             // Hide the Login Panel
             panLogin.Hide();
-            
+
             // Show the Create Panel
             panCreate.Show();
             Text = "Create an account";

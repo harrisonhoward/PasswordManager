@@ -38,7 +38,6 @@
             this.btnDeletePassword = new System.Windows.Forms.Button();
             this.lblPasswordWarning = new System.Windows.Forms.Label();
             this.tsdAccount = new System.Windows.Forms.ToolStripDropDownButton();
-            this.tsdiAccount = new System.Windows.Forms.ToolStripMenuItem();
             this.tsdiLogout = new System.Windows.Forms.ToolStripMenuItem();
             this.tsMain.SuspendLayout();
             this.panPasswordList.SuspendLayout();
@@ -190,7 +189,6 @@
             this.tsdAccount.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
             this.tsdAccount.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.tsdAccount.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tsdiAccount,
             this.tsdiLogout});
             this.tsdAccount.Image = ((System.Drawing.Image)(resources.GetObject("tsdAccount.Image")));
             this.tsdAccount.ImageTransparentColor = System.Drawing.Color.Magenta;
@@ -199,11 +197,6 @@
             this.tsdAccount.TextImageRelation = System.Windows.Forms.TextImageRelation.TextAboveImage;
             this.tsdAccount.ToolTipText = "Account Drop Down List";
             this.tsdAccount.DropDownItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.TsdAccount_DropDownItemClicked);
-            // 
-            // tsdiAccount
-            // 
-            this.tsdiAccount.Name = "tsdiAccount";
-            this.tsdiAccount.Size = new System.Drawing.Size(180, 22);
             // 
             // tsdiLogout
             // 
@@ -252,7 +245,6 @@
         private System.Windows.Forms.Button btnNewPassword;
         private System.Windows.Forms.Label lblPasswordWarning;
         private System.Windows.Forms.ToolStripDropDownButton tsdAccount;
-        private System.Windows.Forms.ToolStripMenuItem tsdiAccount;
         private System.Windows.Forms.ToolStripMenuItem tsdiLogout;
     }
 }

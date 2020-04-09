@@ -12,7 +12,6 @@ using System.Windows.Forms;
 
 namespace PasswordManager {
     public partial class frmPasswordMain : Form {
-        // Form Size = 816, 489
         #region Global Variables
 
         // Variables for Main Form
@@ -48,8 +47,8 @@ namespace PasswordManager {
 
             // Create the Account Combobox with Items
             // Set the SelectedIndex to 0
-            tsdiAccount.Text = $"Account: {_userTable.Rows[0]["Username"]}";
-            tsdiAccount.Select();
+            tsdAccount.Text = $"Account: {_userTable.Rows[0]["Username"]}";
+            tsdAccount.Select();
 
             // Hide every panel
             panPasswordList.Hide();
@@ -82,8 +81,10 @@ namespace PasswordManager {
             }
             // Set the current panel to show
             // Set the current button to active
-            currentPanel.Show();
-            currentButton.Checked = true;
+            if (e.ClickedItem.GetType().Equals(typeof(ToolStripButton))) {
+                currentPanel.Show();
+                currentButton.Checked = true;
+            }
         }
 
         #endregion
@@ -113,6 +114,7 @@ namespace PasswordManager {
                 Properties.Settings.Default.Save();
 
                 // Create a new thread for frmMenu
+                tsdAccount.Dispose();
                 ThreadStart(new System.Threading.Thread(new System.Threading.ThreadStart(ThreadProcLogin)));
             }
         }
