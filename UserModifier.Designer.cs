@@ -49,7 +49,7 @@
             this.btnSave.Location = new System.Drawing.Point(-1, 0);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(100, 40);
-            this.btnSave.TabIndex = 17;
+            this.btnSave.TabIndex = 2;
             this.btnSave.Text = "Save";
             this.btnSave.UseVisualStyleBackColor = true;
             this.btnSave.Click += new System.EventHandler(this.BtnSave_Click);
@@ -62,7 +62,7 @@
             this.txtUsername.MaxLength = 60;
             this.txtUsername.Name = "txtUsername";
             this.txtUsername.Size = new System.Drawing.Size(245, 22);
-            this.txtUsername.TabIndex = 23;
+            this.txtUsername.TabIndex = 0;
             // 
             // lblAdmin
             // 
@@ -101,7 +101,7 @@
             this.cbAdmin.Location = new System.Drawing.Point(96, 129);
             this.cbAdmin.Name = "cbAdmin";
             this.cbAdmin.Size = new System.Drawing.Size(65, 20);
-            this.cbAdmin.TabIndex = 18;
+            this.cbAdmin.TabIndex = 0;
             this.cbAdmin.Text = "Admin";
             this.cbAdmin.UseVisualStyleBackColor = true;
             // 

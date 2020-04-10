@@ -185,7 +185,7 @@
             this.btnDeletePassword.Location = new System.Drawing.Point(620, 109);
             this.btnDeletePassword.Name = "btnDeletePassword";
             this.btnDeletePassword.Size = new System.Drawing.Size(120, 28);
-            this.btnDeletePassword.TabIndex = 12;
+            this.btnDeletePassword.TabIndex = 3;
             this.btnDeletePassword.Text = "Delete Password";
             this.btnDeletePassword.UseVisualStyleBackColor = true;
             this.btnDeletePassword.Click += new System.EventHandler(this.BtnDeletePassword_Click);
@@ -196,7 +196,7 @@
             this.btnEditPassword.Location = new System.Drawing.Point(620, 75);
             this.btnEditPassword.Name = "btnEditPassword";
             this.btnEditPassword.Size = new System.Drawing.Size(120, 28);
-            this.btnEditPassword.TabIndex = 11;
+            this.btnEditPassword.TabIndex = 2;
             this.btnEditPassword.Text = "Edit Password";
             this.btnEditPassword.UseVisualStyleBackColor = true;
             this.btnEditPassword.Click += new System.EventHandler(this.BtnEditPassword_Click);
@@ -207,7 +207,7 @@
             this.btnNewPassword.Location = new System.Drawing.Point(620, 41);
             this.btnNewPassword.Name = "btnNewPassword";
             this.btnNewPassword.Size = new System.Drawing.Size(120, 28);
-            this.btnNewPassword.TabIndex = 10;
+            this.btnNewPassword.TabIndex = 1;
             this.btnNewPassword.Text = "New Password";
             this.btnNewPassword.UseVisualStyleBackColor = true;
             this.btnNewPassword.Click += new System.EventHandler(this.BtnNewPassword_Click);
@@ -219,7 +219,7 @@
             this.txtPasswordSearch.MaxLength = 60;
             this.txtPasswordSearch.Name = "txtPasswordSearch";
             this.txtPasswordSearch.Size = new System.Drawing.Size(543, 22);
-            this.txtPasswordSearch.TabIndex = 9;
+            this.txtPasswordSearch.TabIndex = 0;
             this.txtPasswordSearch.TextChanged += new System.EventHandler(this.TxtPasswordSearch_TextChanged);
             // 
             // lblPasswordSearch
@@ -276,7 +276,7 @@
             this.btnDeleteUser.Location = new System.Drawing.Point(99, 323);
             this.btnDeleteUser.Name = "btnDeleteUser";
             this.btnDeleteUser.Size = new System.Drawing.Size(89, 28);
-            this.btnDeleteUser.TabIndex = 23;
+            this.btnDeleteUser.TabIndex = 6;
             this.btnDeleteUser.Text = "Delete User";
             this.btnDeleteUser.UseVisualStyleBackColor = true;
             this.btnDeleteUser.Click += new System.EventHandler(this.BtnDeleteUser_Click);
@@ -288,7 +288,7 @@
             this.txtUserSearch.MaxLength = 60;
             this.txtUserSearch.Name = "txtUserSearch";
             this.txtUserSearch.Size = new System.Drawing.Size(222, 22);
-            this.txtUserSearch.TabIndex = 12;
+            this.txtUserSearch.TabIndex = 5;
             this.txtUserSearch.TextChanged += new System.EventHandler(this.TxtUserSearch_TextChanged);
             // 
             // lblUserSearch
@@ -307,7 +307,7 @@
             this.btnEditUser.Location = new System.Drawing.Point(9, 323);
             this.btnEditUser.Name = "btnEditUser";
             this.btnEditUser.Size = new System.Drawing.Size(84, 28);
-            this.btnEditUser.TabIndex = 22;
+            this.btnEditUser.TabIndex = 5;
             this.btnEditUser.Text = "Edit User";
             this.btnEditUser.UseVisualStyleBackColor = true;
             this.btnEditUser.Click += new System.EventHandler(this.BtnEditUser_Click);
@@ -358,7 +358,7 @@
             this.btnDeletePasswords.Location = new System.Drawing.Point(33, 57);
             this.btnDeletePasswords.Name = "btnDeletePasswords";
             this.btnDeletePasswords.Size = new System.Drawing.Size(132, 29);
-            this.btnDeletePasswords.TabIndex = 23;
+            this.btnDeletePasswords.TabIndex = 3;
             this.btnDeletePasswords.Text = "Delete Passwords";
             this.btnDeletePasswords.UseVisualStyleBackColor = true;
             this.btnDeletePasswords.Click += new System.EventHandler(this.BtnDeletePasswords_Click);
@@ -370,7 +370,7 @@
             this.btnDeleteAccount.Location = new System.Drawing.Point(33, 22);
             this.btnDeleteAccount.Name = "btnDeleteAccount";
             this.btnDeleteAccount.Size = new System.Drawing.Size(132, 29);
-            this.btnDeleteAccount.TabIndex = 22;
+            this.btnDeleteAccount.TabIndex = 2;
             this.btnDeleteAccount.Text = "Delete Account";
             this.btnDeleteAccount.UseVisualStyleBackColor = true;
             this.btnDeleteAccount.Click += new System.EventHandler(this.BtnDeleteAccount_Click);
@@ -381,7 +381,7 @@
             this.btnAccountSave.Location = new System.Drawing.Point(292, 323);
             this.btnAccountSave.Name = "btnAccountSave";
             this.btnAccountSave.Size = new System.Drawing.Size(84, 28);
-            this.btnAccountSave.TabIndex = 15;
+            this.btnAccountSave.TabIndex = 4;
             this.btnAccountSave.Text = "Save";
             this.btnAccountSave.UseVisualStyleBackColor = true;
             this.btnAccountSave.Click += new System.EventHandler(this.BtnAccountSave_Click);
@@ -392,7 +392,7 @@
             this.btnChangePassword.Location = new System.Drawing.Point(167, 27);
             this.btnChangePassword.Name = "btnChangePassword";
             this.btnChangePassword.Size = new System.Drawing.Size(132, 29);
-            this.btnChangePassword.TabIndex = 21;
+            this.btnChangePassword.TabIndex = 1;
             this.btnChangePassword.Text = "Change Password";
             this.btnChangePassword.UseVisualStyleBackColor = true;
             this.btnChangePassword.Click += new System.EventHandler(this.BtnChangePassword_Click);
@@ -404,7 +404,7 @@
             this.txtChangePassword.MaxLength = 60;
             this.txtChangePassword.Name = "txtChangePassword";
             this.txtChangePassword.Size = new System.Drawing.Size(155, 22);
-            this.txtChangePassword.TabIndex = 20;
+            this.txtChangePassword.TabIndex = 0;
             // 
             // btnPasswordExport
             // 
@@ -412,7 +412,7 @@
             this.btnPasswordExport.Location = new System.Drawing.Point(698, 345);
             this.btnPasswordExport.Name = "btnPasswordExport";
             this.btnPasswordExport.Size = new System.Drawing.Size(78, 28);
-            this.btnPasswordExport.TabIndex = 14;
+            this.btnPasswordExport.TabIndex = 4;
             this.btnPasswordExport.Text = "Export";
             this.btnPasswordExport.UseVisualStyleBackColor = true;
             this.btnPasswordExport.Click += new System.EventHandler(this.BtnPasswordExport_Click);

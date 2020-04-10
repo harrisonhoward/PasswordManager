@@ -69,7 +69,7 @@
             this.btnExit.Location = new System.Drawing.Point(275, 311);
             this.btnExit.Name = "btnExit";
             this.btnExit.Size = new System.Drawing.Size(66, 28);
-            this.btnExit.TabIndex = 17;
+            this.btnExit.TabIndex = 6;
             this.btnExit.Text = "Exit";
             this.btnExit.UseVisualStyleBackColor = true;
             this.btnExit.Click += new System.EventHandler(this.BtnExit_Click);
@@ -82,7 +82,7 @@
             this.cbSignedIn.Location = new System.Drawing.Point(182, 204);
             this.cbSignedIn.Name = "cbSignedIn";
             this.cbSignedIn.Size = new System.Drawing.Size(95, 17);
-            this.cbSignedIn.TabIndex = 16;
+            this.cbSignedIn.TabIndex = 4;
             this.cbSignedIn.Text = "Stay Signed In";
             this.cbSignedIn.UseVisualStyleBackColor = true;
             // 
@@ -92,7 +92,7 @@
             this.lnkNewUser.Location = new System.Drawing.Point(41, 205);
             this.lnkNewUser.Name = "lnkNewUser";
             this.lnkNewUser.Size = new System.Drawing.Size(112, 13);
-            this.lnkNewUser.TabIndex = 15;
+            this.lnkNewUser.TabIndex = 3;
             this.lnkNewUser.TabStop = true;
             this.lnkNewUser.Text = "Create a new account";
             this.lnkNewUser.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.LnkNewUser_LinkClicked);
@@ -104,7 +104,7 @@
             this.txtMainPassword.MaxLength = 60;
             this.txtMainPassword.Name = "txtMainPassword";
             this.txtMainPassword.Size = new System.Drawing.Size(155, 22);
-            this.txtMainPassword.TabIndex = 14;
+            this.txtMainPassword.TabIndex = 1;
             this.txtMainPassword.UseSystemPasswordChar = true;
             this.txtMainPassword.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TxtMainPassword_KeyDown);
             this.txtMainPassword.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TxtMainPassword_KeyPress);
@@ -116,7 +116,7 @@
             this.txtMainUsername.MaxLength = 60;
             this.txtMainUsername.Name = "txtMainUsername";
             this.txtMainUsername.Size = new System.Drawing.Size(155, 22);
-            this.txtMainUsername.TabIndex = 13;
+            this.txtMainUsername.TabIndex = 0;
             // 
             // lblMainPassword
             // 
@@ -144,7 +144,7 @@
             this.btnLogin.Location = new System.Drawing.Point(119, 288);
             this.btnLogin.Name = "btnLogin";
             this.btnLogin.Size = new System.Drawing.Size(100, 40);
-            this.btnLogin.TabIndex = 10;
+            this.btnLogin.TabIndex = 5;
             this.btnLogin.Text = "Login";
             this.btnLogin.UseVisualStyleBackColor = true;
             this.btnLogin.Click += new System.EventHandler(this.BtnLogin_Click);
@@ -181,7 +181,7 @@
             this.btnClose.Location = new System.Drawing.Point(275, 311);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(66, 28);
-            this.btnClose.TabIndex = 23;
+            this.btnClose.TabIndex = 11;
             this.btnClose.Text = "Close";
             this.btnClose.UseVisualStyleBackColor = true;
             this.btnClose.Click += new System.EventHandler(this.BtnClose_Click);
@@ -193,7 +193,7 @@
             this.txtConfirm.MaxLength = 60;
             this.txtConfirm.Name = "txtConfirm";
             this.txtConfirm.Size = new System.Drawing.Size(155, 22);
-            this.txtConfirm.TabIndex = 22;
+            this.txtConfirm.TabIndex = 9;
             this.txtConfirm.UseSystemPasswordChar = true;
             this.txtConfirm.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TxtConfirm_KeyDown);
             this.txtConfirm.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TxtConfirm_KeyPress);
@@ -215,7 +215,7 @@
             this.txtPassword.MaxLength = 60;
             this.txtPassword.Name = "txtPassword";
             this.txtPassword.Size = new System.Drawing.Size(155, 22);
-            this.txtPassword.TabIndex = 20;
+            this.txtPassword.TabIndex = 8;
             this.txtPassword.UseSystemPasswordChar = true;
             // 
             // txtUsername
@@ -225,7 +225,7 @@
             this.txtUsername.MaxLength = 60;
             this.txtUsername.Name = "txtUsername";
             this.txtUsername.Size = new System.Drawing.Size(155, 22);
-            this.txtUsername.TabIndex = 19;
+            this.txtUsername.TabIndex = 7;
             // 
             // lblPassword
             // 
@@ -253,7 +253,7 @@
             this.btnCreate.Location = new System.Drawing.Point(115, 288);
             this.btnCreate.Name = "btnCreate";
             this.btnCreate.Size = new System.Drawing.Size(123, 40);
-            this.btnCreate.TabIndex = 16;
+            this.btnCreate.TabIndex = 10;
             this.btnCreate.Text = "Create Account";
             this.btnCreate.UseVisualStyleBackColor = true;
             this.btnCreate.Click += new System.EventHandler(this.BtnCreate_Click);
@@ -273,8 +273,8 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(344, 343);
-            this.Controls.Add(this.panCreate);
             this.Controls.Add(this.panLogin);
+            this.Controls.Add(this.panCreate);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.Name = "frmLogin";
