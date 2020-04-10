@@ -5,7 +5,6 @@ using System.Data;
 using System.IO;
 using System.Text;
 using System.Windows.Forms;
-using Microsoft.VisualBasic;
 
 namespace PasswordManager {
     public partial class frmPasswordMain : Form {
@@ -416,18 +415,9 @@ namespace PasswordManager {
                 }
             }
 
-            // Ask the user if they want the passwords to be encrypted
-            string fileName = Interaction.InputBox("What do you want to call the file?",
-                Properties.Settings.Default.ProjectName,
-                "PasswordList");
-
-            if (fileName.Length < 1) {
-                fileName = "PasswordList";
-            }
-
             // Write the StringBuilder to the PasswordManager CSV
             // Show a MessageBox
-            File.WriteAllText(Application.StartupPath + $@"\{fileName}.csv", sbExport.ToString());
+            File.WriteAllText(Application.StartupPath + $@"\{getUsername(_userID)}Passwords.csv", sbExport.ToString());
             MessageBox.Show("Passwords exported to CSV", Properties.Settings.Default.ProjectName);
         }
 
