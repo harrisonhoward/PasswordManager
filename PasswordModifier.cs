@@ -178,14 +178,14 @@ namespace PasswordManager {
         private string getUsername() {
             // Create and assign a new SQL Query
             string sqlQuery =
-                "SELECT Username FROM Users " +
+                "SELECT UserID, Username FROM Users " +
                 $"WHERE UserID={_userID}";
-            DataTable passwordTable = Context.GetDataTable(sqlQuery, "Users");
+            DataTable userTable = Context.GetDataTable(sqlQuery, "Users");
 
-            if (passwordTable.Rows.Count < 1) {
+            if (userTable.Rows.Count < 1) {
                 return null;
             } else {
-                return passwordTable.Rows[0]["Username"].ToString();
+                return userTable.Rows[0]["Username"].ToString();
             }
         }
 
