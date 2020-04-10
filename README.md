@@ -11,12 +11,6 @@ When modifying the project, it is recommended you have experience in C# and in u
 ### Downloading Project
 On-going updates to the project will be happening. If you find bugs in the project please report them, refer to "Support or Contact". If you do find large bugs or constantly finding bugs or that you lost some data in the database you may have downloaded the project while I was pushing some new updates and you may have gotten a broken version. If so keep an eye on the commits and you may see a new one come through.
 
-### General use
-While the purpose of this is to allow management of large quantities of passwords with ease. It will not have super safe security and if you were to be a victim of a hack or malware that the malicious user may find it easy to get your passwords and decrypt them. This project is more just getting experience and having a portfolio. Once more features get added security may get better as well as releasing this application without having to modify the app.config to actually have the database working.
-
-### SQLConnection
-This project uses one of my other projects SQLConnection. Please make sure that you have that downloaded along side this otherwise the program will not work nor will Visual Studio like you very much.
-
 ## Project Notes & Contact Information
 
 ### Note
@@ -43,9 +37,6 @@ If you need help understanding some code please contact me. Otherwise please hea
 **Account Management**\
 Request the password when editing or creating passwords.
 
-**More control of the passwords**\
-Be able to save your passwords in an CSV file (options to be encrypted or in plain text).
-
 **More options to be added to passwords**\
 Such as, the date it was created and specific tags (Email, Discord).
 
@@ -55,11 +46,9 @@ Be able to assign a custom key to the encryption process. Please keep in mind th
 **Password used as key**\
 There are 2 approaches to this. We get you to use the password for the user account, the downside is that we can not decrypt the password and you will need to enter it every time. The other approach is you give the password and that is stored again but encrypted with the key process. However, much planning would need to be invested for a clean version to be released.
 
-**Pressing enter**\
-Pressing enter will not Login or Add/Save a password at this time. This is a definite feature that will be added.
-
 **Importing**\
-I will do some research on Googles Saved Passwords and so on to see if it is possible to have passwords saved on other applications or webites to be exported and imported into this application.
+Importing with Custom files (Import Builder which will allow the user to build the structure of the file)
+Importing with Google Passwords
 
 ### Available Features
 **Account creation**\
@@ -79,6 +68,9 @@ We use Hash Salt for making passwords secure and Encryption and Decryption with 
 
 **Stay signed in**\
 Have the ability to stay signed in
+
+**Importing** and **Exporting**
+Importing and Exporting features have been added. There are currently only 1 import feature and that is if you exported with Password Manager. More Imports will be added.
 
 ## Frequently asked questions
 ### How do I start the program?
