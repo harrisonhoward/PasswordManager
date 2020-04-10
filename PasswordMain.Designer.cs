@@ -43,26 +43,27 @@
             this.dgvPasswords = new System.Windows.Forms.DataGridView();
             this.panAccountSettings = new System.Windows.Forms.Panel();
             this.gbAdminSettings = new System.Windows.Forms.GroupBox();
-            this.gbUserSettings = new System.Windows.Forms.GroupBox();
-            this.txtChangePassword = new System.Windows.Forms.TextBox();
-            this.btnChangePassword = new System.Windows.Forms.Button();
-            this.btnAccountSave = new System.Windows.Forms.Button();
-            this.gbAccountDanger = new System.Windows.Forms.GroupBox();
-            this.btnDeleteAccount = new System.Windows.Forms.Button();
-            this.btnDeletePasswords = new System.Windows.Forms.Button();
+            this.btnDeleteUser = new System.Windows.Forms.Button();
             this.txtUserSearch = new System.Windows.Forms.TextBox();
             this.lblUserSearch = new System.Windows.Forms.Label();
-            this.dgvUsers = new System.Windows.Forms.DataGridView();
             this.btnEditUser = new System.Windows.Forms.Button();
-            this.btnDeleteUser = new System.Windows.Forms.Button();
+            this.dgvUsers = new System.Windows.Forms.DataGridView();
+            this.gbUserSettings = new System.Windows.Forms.GroupBox();
+            this.gbAccountDanger = new System.Windows.Forms.GroupBox();
+            this.btnDeletePasswords = new System.Windows.Forms.Button();
+            this.btnDeleteAccount = new System.Windows.Forms.Button();
+            this.btnAccountSave = new System.Windows.Forms.Button();
+            this.btnChangePassword = new System.Windows.Forms.Button();
+            this.txtChangePassword = new System.Windows.Forms.TextBox();
+            this.btnPasswordExport = new System.Windows.Forms.Button();
             this.tsMain.SuspendLayout();
             this.panPasswordList.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvPasswords)).BeginInit();
             this.panAccountSettings.SuspendLayout();
             this.gbAdminSettings.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvUsers)).BeginInit();
             this.gbUserSettings.SuspendLayout();
             this.gbAccountDanger.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvUsers)).BeginInit();
             this.SuspendLayout();
             // 
             // tsMain
@@ -155,6 +156,7 @@
             // 
             // panPasswordList
             // 
+            this.panPasswordList.Controls.Add(this.btnPasswordExport);
             this.panPasswordList.Controls.Add(this.lblPasswordWarning);
             this.panPasswordList.Controls.Add(this.btnDeletePassword);
             this.panPasswordList.Controls.Add(this.btnEditPassword);
@@ -268,86 +270,16 @@
             this.gbAdminSettings.TabStop = false;
             this.gbAdminSettings.Text = "Admin Settings";
             // 
-            // gbUserSettings
+            // btnDeleteUser
             // 
-            this.gbUserSettings.Controls.Add(this.gbAccountDanger);
-            this.gbUserSettings.Controls.Add(this.btnAccountSave);
-            this.gbUserSettings.Controls.Add(this.btnChangePassword);
-            this.gbUserSettings.Controls.Add(this.txtChangePassword);
-            this.gbUserSettings.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.gbUserSettings.Location = new System.Drawing.Point(12, 16);
-            this.gbUserSettings.Name = "gbUserSettings";
-            this.gbUserSettings.Size = new System.Drawing.Size(382, 357);
-            this.gbUserSettings.TabIndex = 0;
-            this.gbUserSettings.TabStop = false;
-            this.gbUserSettings.Text = "User Settings";
-            // 
-            // txtChangePassword
-            // 
-            this.txtChangePassword.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtChangePassword.Location = new System.Drawing.Point(6, 31);
-            this.txtChangePassword.MaxLength = 60;
-            this.txtChangePassword.Name = "txtChangePassword";
-            this.txtChangePassword.Size = new System.Drawing.Size(155, 22);
-            this.txtChangePassword.TabIndex = 20;
-            // 
-            // btnChangePassword
-            // 
-            this.btnChangePassword.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnChangePassword.Location = new System.Drawing.Point(167, 27);
-            this.btnChangePassword.Name = "btnChangePassword";
-            this.btnChangePassword.Size = new System.Drawing.Size(132, 29);
-            this.btnChangePassword.TabIndex = 21;
-            this.btnChangePassword.Text = "Change Password";
-            this.btnChangePassword.UseVisualStyleBackColor = true;
-            this.btnChangePassword.Click += new System.EventHandler(this.BtnChangePassword_Click);
-            // 
-            // btnAccountSave
-            // 
-            this.btnAccountSave.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAccountSave.Location = new System.Drawing.Point(292, 323);
-            this.btnAccountSave.Name = "btnAccountSave";
-            this.btnAccountSave.Size = new System.Drawing.Size(84, 28);
-            this.btnAccountSave.TabIndex = 15;
-            this.btnAccountSave.Text = "Save";
-            this.btnAccountSave.UseVisualStyleBackColor = true;
-            this.btnAccountSave.Click += new System.EventHandler(this.BtnAccountSave_Click);
-            // 
-            // gbAccountDanger
-            // 
-            this.gbAccountDanger.Controls.Add(this.btnDeletePasswords);
-            this.gbAccountDanger.Controls.Add(this.btnDeleteAccount);
-            this.gbAccountDanger.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
-            this.gbAccountDanger.Location = new System.Drawing.Point(6, 251);
-            this.gbAccountDanger.Name = "gbAccountDanger";
-            this.gbAccountDanger.Size = new System.Drawing.Size(200, 100);
-            this.gbAccountDanger.TabIndex = 15;
-            this.gbAccountDanger.TabStop = false;
-            this.gbAccountDanger.Text = "Danger Zone";
-            // 
-            // btnDeleteAccount
-            // 
-            this.btnDeleteAccount.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnDeleteAccount.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.btnDeleteAccount.Location = new System.Drawing.Point(33, 22);
-            this.btnDeleteAccount.Name = "btnDeleteAccount";
-            this.btnDeleteAccount.Size = new System.Drawing.Size(132, 29);
-            this.btnDeleteAccount.TabIndex = 22;
-            this.btnDeleteAccount.Text = "Delete Account";
-            this.btnDeleteAccount.UseVisualStyleBackColor = true;
-            this.btnDeleteAccount.Click += new System.EventHandler(this.BtnDeleteAccount_Click);
-            // 
-            // btnDeletePasswords
-            // 
-            this.btnDeletePasswords.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnDeletePasswords.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.btnDeletePasswords.Location = new System.Drawing.Point(33, 57);
-            this.btnDeletePasswords.Name = "btnDeletePasswords";
-            this.btnDeletePasswords.Size = new System.Drawing.Size(132, 29);
-            this.btnDeletePasswords.TabIndex = 23;
-            this.btnDeletePasswords.Text = "Delete Passwords";
-            this.btnDeletePasswords.UseVisualStyleBackColor = true;
-            this.btnDeletePasswords.Click += new System.EventHandler(this.BtnDeletePasswords_Click);
+            this.btnDeleteUser.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnDeleteUser.Location = new System.Drawing.Point(99, 323);
+            this.btnDeleteUser.Name = "btnDeleteUser";
+            this.btnDeleteUser.Size = new System.Drawing.Size(89, 28);
+            this.btnDeleteUser.TabIndex = 23;
+            this.btnDeleteUser.Text = "Delete User";
+            this.btnDeleteUser.UseVisualStyleBackColor = true;
+            this.btnDeleteUser.Click += new System.EventHandler(this.BtnDeleteUser_Click);
             // 
             // txtUserSearch
             // 
@@ -369,6 +301,17 @@
             this.lblUserSearch.TabIndex = 11;
             this.lblUserSearch.Text = "Search:";
             // 
+            // btnEditUser
+            // 
+            this.btnEditUser.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnEditUser.Location = new System.Drawing.Point(9, 323);
+            this.btnEditUser.Name = "btnEditUser";
+            this.btnEditUser.Size = new System.Drawing.Size(84, 28);
+            this.btnEditUser.TabIndex = 22;
+            this.btnEditUser.Text = "Edit User";
+            this.btnEditUser.UseVisualStyleBackColor = true;
+            this.btnEditUser.Click += new System.EventHandler(this.BtnEditUser_Click);
+            // 
             // dgvUsers
             // 
             this.dgvUsers.AllowUserToAddRows = false;
@@ -382,35 +325,105 @@
             this.dgvUsers.TabIndex = 10;
             this.dgvUsers.DoubleClick += new System.EventHandler(this.DgvUsers_DoubleClick);
             // 
-            // btnEditUser
+            // gbUserSettings
             // 
-            this.btnEditUser.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnEditUser.Location = new System.Drawing.Point(9, 323);
-            this.btnEditUser.Name = "btnEditUser";
-            this.btnEditUser.Size = new System.Drawing.Size(84, 28);
-            this.btnEditUser.TabIndex = 22;
-            this.btnEditUser.Text = "Edit User";
-            this.btnEditUser.UseVisualStyleBackColor = true;
-            this.btnEditUser.Click += new System.EventHandler(this.BtnEditUser_Click);
+            this.gbUserSettings.Controls.Add(this.gbAccountDanger);
+            this.gbUserSettings.Controls.Add(this.btnAccountSave);
+            this.gbUserSettings.Controls.Add(this.btnChangePassword);
+            this.gbUserSettings.Controls.Add(this.txtChangePassword);
+            this.gbUserSettings.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.gbUserSettings.Location = new System.Drawing.Point(12, 16);
+            this.gbUserSettings.Name = "gbUserSettings";
+            this.gbUserSettings.Size = new System.Drawing.Size(382, 357);
+            this.gbUserSettings.TabIndex = 0;
+            this.gbUserSettings.TabStop = false;
+            this.gbUserSettings.Text = "User Settings";
             // 
-            // btnDeleteUser
+            // gbAccountDanger
             // 
-            this.btnDeleteUser.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnDeleteUser.Location = new System.Drawing.Point(99, 323);
-            this.btnDeleteUser.Name = "btnDeleteUser";
-            this.btnDeleteUser.Size = new System.Drawing.Size(89, 28);
-            this.btnDeleteUser.TabIndex = 23;
-            this.btnDeleteUser.Text = "Delete User";
-            this.btnDeleteUser.UseVisualStyleBackColor = true;
-            this.btnDeleteUser.Click += new System.EventHandler(this.BtnDeleteUser_Click);
+            this.gbAccountDanger.Controls.Add(this.btnDeletePasswords);
+            this.gbAccountDanger.Controls.Add(this.btnDeleteAccount);
+            this.gbAccountDanger.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
+            this.gbAccountDanger.Location = new System.Drawing.Point(6, 251);
+            this.gbAccountDanger.Name = "gbAccountDanger";
+            this.gbAccountDanger.Size = new System.Drawing.Size(200, 100);
+            this.gbAccountDanger.TabIndex = 15;
+            this.gbAccountDanger.TabStop = false;
+            this.gbAccountDanger.Text = "Danger Zone";
+            // 
+            // btnDeletePasswords
+            // 
+            this.btnDeletePasswords.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnDeletePasswords.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.btnDeletePasswords.Location = new System.Drawing.Point(33, 57);
+            this.btnDeletePasswords.Name = "btnDeletePasswords";
+            this.btnDeletePasswords.Size = new System.Drawing.Size(132, 29);
+            this.btnDeletePasswords.TabIndex = 23;
+            this.btnDeletePasswords.Text = "Delete Passwords";
+            this.btnDeletePasswords.UseVisualStyleBackColor = true;
+            this.btnDeletePasswords.Click += new System.EventHandler(this.BtnDeletePasswords_Click);
+            // 
+            // btnDeleteAccount
+            // 
+            this.btnDeleteAccount.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnDeleteAccount.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.btnDeleteAccount.Location = new System.Drawing.Point(33, 22);
+            this.btnDeleteAccount.Name = "btnDeleteAccount";
+            this.btnDeleteAccount.Size = new System.Drawing.Size(132, 29);
+            this.btnDeleteAccount.TabIndex = 22;
+            this.btnDeleteAccount.Text = "Delete Account";
+            this.btnDeleteAccount.UseVisualStyleBackColor = true;
+            this.btnDeleteAccount.Click += new System.EventHandler(this.BtnDeleteAccount_Click);
+            // 
+            // btnAccountSave
+            // 
+            this.btnAccountSave.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAccountSave.Location = new System.Drawing.Point(292, 323);
+            this.btnAccountSave.Name = "btnAccountSave";
+            this.btnAccountSave.Size = new System.Drawing.Size(84, 28);
+            this.btnAccountSave.TabIndex = 15;
+            this.btnAccountSave.Text = "Save";
+            this.btnAccountSave.UseVisualStyleBackColor = true;
+            this.btnAccountSave.Click += new System.EventHandler(this.BtnAccountSave_Click);
+            // 
+            // btnChangePassword
+            // 
+            this.btnChangePassword.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnChangePassword.Location = new System.Drawing.Point(167, 27);
+            this.btnChangePassword.Name = "btnChangePassword";
+            this.btnChangePassword.Size = new System.Drawing.Size(132, 29);
+            this.btnChangePassword.TabIndex = 21;
+            this.btnChangePassword.Text = "Change Password";
+            this.btnChangePassword.UseVisualStyleBackColor = true;
+            this.btnChangePassword.Click += new System.EventHandler(this.BtnChangePassword_Click);
+            // 
+            // txtChangePassword
+            // 
+            this.txtChangePassword.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtChangePassword.Location = new System.Drawing.Point(6, 31);
+            this.txtChangePassword.MaxLength = 60;
+            this.txtChangePassword.Name = "txtChangePassword";
+            this.txtChangePassword.Size = new System.Drawing.Size(155, 22);
+            this.txtChangePassword.TabIndex = 20;
+            // 
+            // btnPasswordExport
+            // 
+            this.btnPasswordExport.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnPasswordExport.Location = new System.Drawing.Point(698, 345);
+            this.btnPasswordExport.Name = "btnPasswordExport";
+            this.btnPasswordExport.Size = new System.Drawing.Size(78, 28);
+            this.btnPasswordExport.TabIndex = 14;
+            this.btnPasswordExport.Text = "Export";
+            this.btnPasswordExport.UseVisualStyleBackColor = true;
+            this.btnPasswordExport.Click += new System.EventHandler(this.BtnPasswordExport_Click);
             // 
             // frmPasswordMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.panAccountSettings);
             this.Controls.Add(this.panPasswordList);
+            this.Controls.Add(this.panAccountSettings);
             this.Controls.Add(this.btnExit);
             this.Controls.Add(this.lblDividier2);
             this.Controls.Add(this.lblDivider);
@@ -428,10 +441,10 @@
             this.panAccountSettings.ResumeLayout(false);
             this.gbAdminSettings.ResumeLayout(false);
             this.gbAdminSettings.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvUsers)).EndInit();
             this.gbUserSettings.ResumeLayout(false);
             this.gbUserSettings.PerformLayout();
             this.gbAccountDanger.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dgvUsers)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -470,5 +483,6 @@
         private System.Windows.Forms.DataGridView dgvUsers;
         private System.Windows.Forms.Button btnDeleteUser;
         private System.Windows.Forms.Button btnEditUser;
+        private System.Windows.Forms.Button btnPasswordExport;
     }
 }

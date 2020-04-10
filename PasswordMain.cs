@@ -1,14 +1,11 @@
-﻿using PasswordEncryptor;
+﻿using Encryptor;
 using SQLController;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
+using System.IO;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using Microsoft.VisualBasic;
 
 namespace PasswordManager {
     public partial class frmPasswordMain : Form {
@@ -22,7 +19,7 @@ namespace PasswordManager {
 
         // Variables for Password List
         DataView _dvPassword;
-        DataTable _passwordTable;
+        DataTable _passwordTable, _allPasswordsTable;
 
         // Variables for Account Settings
         bool _userAdmin;
@@ -196,6 +193,25 @@ namespace PasswordManager {
             ThreadStart(new System.Threading.Thread(new System.Threading.ThreadStart(ThreadProcLogin)));
         }
 
+        /// <summary>
+        /// Get the user's username
+        /// </summary>
+        /// <param name="userID">The provided UserID</param>
+        /// <returns>Returns the username</returns>
+        private string getUsername(long userID) {
+            // Create and assign a new SQL Query
+            string sqlQuery =
+                "SELECT UserID, Username FROM Users " +
+                $"WHERE UserID={userID}";
+            DataTable userTable = Context.GetDataTable(sqlQuery, "Users");
+
+            if (userTable.Rows.Count < 1) {
+                return null;
+            } else {
+                return userTable.Rows[0]["Username"].ToString();
+            }
+        }
+
         #endregion
 
         #region PasswordList Helper Methods
@@ -243,7 +259,7 @@ namespace PasswordManager {
         private void PopulatePasswordGrid() {
             // Create and assign a new SQL Query
             string sqlQuery =
-                "SELECT PasswordID, PasswordTitle, PasswordEncrypted " +
+                "SELECT PasswordID, UserID, PasswordTitle, PasswordEncrypted " +
                 $"FROM Passwords WHERE UserID={_userID}" +
                 "ORDER BY PasswordID DESC";
 
@@ -252,11 +268,14 @@ namespace PasswordManager {
             // Assign the DataGridView with the DataView
             DataTable passwordTable = Context.GetDataTable(sqlQuery, "Passwords");
             // Setting the column names
-            passwordTable.Columns[1].ColumnName = "Title";
-            passwordTable.Columns[2].ColumnName = "Password";
+            passwordTable.Columns[2].ColumnName = "Title";
+            passwordTable.Columns[3].ColumnName = "Password";
 
             _dvPassword = new DataView(passwordTable);
-            dgvPasswords.DataSource = _dvPassword;
+            // Removing the UserID from the DataSource
+            dgvPasswords.DataSource = _dvPassword.ToTable(
+                "Selected", false,
+                "PasswordID", "Title", "Password");
 
             // Setting column sizes
             dgvPasswords.Columns[1].Width = 150;
@@ -358,6 +377,58 @@ namespace PasswordManager {
 
             // Re-populate the grid
             PopulatePasswordGrid();
+        }
+        private void BtnPasswordExport_Click(object sender, EventArgs e) {
+            if (_dvPassword.Table.Rows.Count < 1) {
+                MessageBox.Show("No passwords to export",
+                    Properties.Settings.Default.ProjectName,
+                    MessageBoxButtons.OK);
+                return;
+            }
+
+            // Ask the user if they want the passwords to be encrypted
+            DialogResult box = MessageBox.Show("Click Yes for the exported passwords to be encrypted?",
+                    Properties.Settings.Default.ProjectName,
+                    MessageBoxButtons.YesNo);
+            // Create and assign a new StringBuilder
+            StringBuilder sbExport = new StringBuilder();
+
+            // Check if user clicked Yes
+            if (box == DialogResult.Yes) {
+                // For each DataRowView in Password DataView
+                foreach (DataRowView row in _dvPassword) {
+                    string userName = getUsername(long.Parse(row["UserID"].ToString()));
+                    sbExport.AppendLine(
+                        $"{row["PasswordID"].ToString()};" +
+                        $"{userName};" +
+                        $"{row["Title"]};" +
+                        $"{row["Password"]}");
+                }
+            } else {
+                // For each DataRowView in Password DataView
+                foreach (DataRowView row in _dvPassword) {
+                    string userName = getUsername(long.Parse(row["UserID"].ToString()));
+                    sbExport.AppendLine(
+                        $"{row["PasswordID"].ToString()};" +
+                        $"{userName};" +
+                        $"{row["Title"]};" +
+                        $"{Encryption.Decrypt(row["Password"].ToString(), getUsername(long.Parse(row["UserID"].ToString())))}");
+                }
+            }
+
+            // Ask the user if they want the passwords to be encrypted
+            string fileName = Interaction.InputBox("What do you want to call the file?",
+                Properties.Settings.Default.ProjectName,
+                "PasswordList");
+
+            if (fileName.Length < 1) {
+                fileName = "PasswordList";
+            }
+
+            // Write the StringBuilder to the PasswordManager CSV
+            // Show a MessageBox
+            File.WriteAllText(Application.StartupPath + $@"\{fileName}.csv", sbExport.ToString());
+            MessageBox.Show("Passwords exported to CSV", Properties.Settings.Default.ProjectName);
         }
 
         #endregion
