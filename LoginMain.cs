@@ -83,57 +83,7 @@ namespace PasswordManager {
         #region Button Events
 
         private void BtnLogin_Click(object sender, EventArgs e) {
-            // Checking if the user has inputted values
-            // Showing MessageBox providing reason
-            if (string.IsNullOrEmpty(txtMainUsername.Text)) {
-                MessageBox.Show("Please enter a username",
-                    Properties.Settings.Default.ProjectName,
-                    MessageBoxButtons.OK);
-                return;
-            } else if (string.IsNullOrEmpty(txtMainPassword.Text)) {
-                MessageBox.Show("Please enter a password",
-                    Properties.Settings.Default.ProjectName,
-                    MessageBoxButtons.OK);
-                return;
-            }
-
-            // Assign the User Inputted Username and Password to the Global Variables
-            _usersUsername = txtMainUsername.Text;
-            _usersPassword = txtMainPassword.Text;
-
-            // Initialize the User DataTable
-            InitializeUserTable(false);
-
-            // Check if the username exists
-            // Show a MessageBox
-            if (_userTable.Rows.Count < 1) {
-                MessageBox.Show($"No user by the username '{_usersUsername}' (case sensitive) was found",
-                    Properties.Settings.Default.ProjectName,
-                    MessageBoxButtons.OK);
-                return;
-            }
-
-            // Creating a string for the password hash
-            string userPasswordHash = _userTable.Rows[0]["PasswordHash"].ToString();
-
-            // Comparing the users input to the hash password
-            bool isEquals = HashSalt.CompareInputtoPassword(_usersPassword, userPasswordHash);
-
-            // Checking if isEquals is true
-            // Assign userID and starting PasswordList (with UserID)
-            // Else Showing a MessageBox and resetting the variables
-            if (isEquals) {
-                _userID = long.Parse(_userTable.Rows[0]["UserID"].ToString());
-                ThreadStart(new System.Threading.Thread(new System.Threading.ThreadStart(ThreadProcPasswordMain)));
-            } else {
-                MessageBox.Show("Password was incorrect",
-                    Properties.Settings.Default.ProjectName,
-                    MessageBoxButtons.OK);
-                _usersUsername = "";
-                _usersPassword = "";
-                _userTable = null;
-                return;
-            }
+            LoginMethod();
         }
 
         private void BtnCreate_Click(object sender, EventArgs e) {
@@ -227,6 +177,16 @@ namespace PasswordManager {
 
         #endregion
 
+        #region TextBox Events
+
+        private void TxtMainPassword_KeyPress(object sender, KeyPressEventArgs e) {
+            if (e.KeyChar == (char)13) {
+                LoginMethod();
+            }
+        }
+
+        #endregion
+
         #region LinkLabel Events
 
         private void LnkNewUser_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e) {
@@ -287,6 +247,63 @@ namespace PasswordManager {
                     "SELECT * FROM Users " +
                     $"WHERE Username='{_usersUsername}'";
                 _userTable = Context.GetDataTable(sqlQuery, "Users", true);
+            }
+        }
+
+        /// <summary>
+        /// Runs the Login Code
+        /// </summary>
+        private void LoginMethod() {
+            // Checking if the user has inputted values
+            // Showing MessageBox providing reason
+            if (string.IsNullOrEmpty(txtMainUsername.Text)) {
+                MessageBox.Show("Please enter a username",
+                    Properties.Settings.Default.ProjectName,
+                    MessageBoxButtons.OK);
+                return;
+            } else if (string.IsNullOrEmpty(txtMainPassword.Text)) {
+                MessageBox.Show("Please enter a password",
+                    Properties.Settings.Default.ProjectName,
+                    MessageBoxButtons.OK);
+                return;
+            }
+
+            // Assign the User Inputted Username and Password to the Global Variables
+            _usersUsername = txtMainUsername.Text;
+            _usersPassword = txtMainPassword.Text;
+
+            // Initialize the User DataTable
+            InitializeUserTable(false);
+
+            // Check if the username exists
+            // Show a MessageBox
+            if (_userTable.Rows.Count < 1) {
+                MessageBox.Show($"No user by the username '{_usersUsername}' (case sensitive) was found",
+                    Properties.Settings.Default.ProjectName,
+                    MessageBoxButtons.OK);
+                return;
+            }
+
+            // Creating a string for the password hash
+            string userPasswordHash = _userTable.Rows[0]["PasswordHash"].ToString();
+
+            // Comparing the users input to the hash password
+            bool isEquals = HashSalt.CompareInputtoPassword(_usersPassword, userPasswordHash);
+
+            // Checking if isEquals is true
+            // Assign userID and starting PasswordList (with UserID)
+            // Else Showing a MessageBox and resetting the variables
+            if (isEquals) {
+                _userID = long.Parse(_userTable.Rows[0]["UserID"].ToString());
+                ThreadStart(new System.Threading.Thread(new System.Threading.ThreadStart(ThreadProcPasswordMain)));
+            } else {
+                MessageBox.Show("Password was incorrect",
+                    Properties.Settings.Default.ProjectName,
+                    MessageBoxButtons.OK);
+                _usersUsername = "";
+                _usersPassword = "";
+                _userTable = null;
+                return;
             }
         }
 

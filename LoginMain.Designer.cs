@@ -106,6 +106,7 @@
             this.txtMainPassword.Size = new System.Drawing.Size(155, 22);
             this.txtMainPassword.TabIndex = 14;
             this.txtMainPassword.UseSystemPasswordChar = true;
+            this.txtMainPassword.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TxtMainPassword_KeyPress);
             // 
             // txtMainUsername
             // 
