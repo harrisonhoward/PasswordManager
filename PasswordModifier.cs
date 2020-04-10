@@ -155,7 +155,7 @@ namespace PasswordManager {
                         return;
                     }
                     _passwordTable.Rows[0]["PasswordEncrypted"] = passwordDecrypted;
-                } catch (Exception err) {
+                } catch (Exception) {
                     DeletePasswords(_userID);
                     MessageBox.Show("Invalid Decryption Key Provided. Deleted All Passwords.");
                 }
@@ -167,8 +167,10 @@ namespace PasswordManager {
         /// </summary>
         private void BindControls() {
             // Bind txtTitle with PasswordTitle
+            // Bind txtUsername with PasswordUsername
             // Bind txtPassword with PasswordEncrypted
             txtTitle.DataBindings.Add("Text", _passwordTable, "PasswordTitle");
+            txtUsername.DataBindings.Add("Text", _passwordTable, "PasswordUsername");
             txtPassword.DataBindings.Add("Text", _passwordTable, "PasswordEncrypted");
         }
 

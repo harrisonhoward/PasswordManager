@@ -73,6 +73,7 @@ namespace SQLController {
                 "PasswordID int IDENTITY(1,1) PRIMARY KEY, " +
                 "UserID int NOT NULL, " +
                 "PasswordTitle VARCHAR(120), " +
+                "PasswordUsername VARCHAR(120), " +
                 "PasswordEncrypted VARCHAR(1000) NOT NULL";
             // Create the Passwords Table with the Schema
             _sql.CreateDatabaseTable("Passwords", schema);

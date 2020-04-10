@@ -32,6 +32,8 @@
             this.gbCreate = new System.Windows.Forms.GroupBox();
             this.gbSave = new System.Windows.Forms.GroupBox();
             this.btnSave = new System.Windows.Forms.Button();
+            this.txtUsername = new System.Windows.Forms.TextBox();
+            this.lblUsername = new System.Windows.Forms.Label();
             this.gbCreate.SuspendLayout();
             this.gbSave.SuspendLayout();
             this.SuspendLayout();
@@ -39,11 +41,11 @@
             // txtPassword
             // 
             this.txtPassword.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtPassword.Location = new System.Drawing.Point(97, 128);
+            this.txtPassword.Location = new System.Drawing.Point(97, 143);
             this.txtPassword.MaxLength = 60;
             this.txtPassword.Name = "txtPassword";
             this.txtPassword.Size = new System.Drawing.Size(245, 22);
-            this.txtPassword.TabIndex = 2;
+            this.txtPassword.TabIndex = 4;
             this.txtPassword.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TxtPassword_KeyDown);
             this.txtPassword.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TxtPassword_KeyPress);
             // 
@@ -60,7 +62,7 @@
             // 
             this.lblPassword.AutoSize = true;
             this.lblPassword.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblPassword.Location = new System.Drawing.Point(16, 129);
+            this.lblPassword.Location = new System.Drawing.Point(16, 144);
             this.lblPassword.Name = "lblPassword";
             this.lblPassword.Size = new System.Drawing.Size(75, 18);
             this.lblPassword.TabIndex = 14;
@@ -93,7 +95,7 @@
             this.btnCreate.Location = new System.Drawing.Point(-1, 0);
             this.btnCreate.Name = "btnCreate";
             this.btnCreate.Size = new System.Drawing.Size(100, 40);
-            this.btnCreate.TabIndex = 3;
+            this.btnCreate.TabIndex = 5;
             this.btnCreate.Text = "Create";
             this.btnCreate.UseVisualStyleBackColor = true;
             this.btnCreate.Click += new System.EventHandler(this.BtnCreate_Click);
@@ -101,7 +103,7 @@
             // gbCreate
             // 
             this.gbCreate.Controls.Add(this.btnCreate);
-            this.gbCreate.Location = new System.Drawing.Point(244, 174);
+            this.gbCreate.Location = new System.Drawing.Point(245, 180);
             this.gbCreate.Name = "gbCreate";
             this.gbCreate.Size = new System.Drawing.Size(98, 40);
             this.gbCreate.TabIndex = 18;
@@ -110,7 +112,7 @@
             // gbSave
             // 
             this.gbSave.Controls.Add(this.btnSave);
-            this.gbSave.Location = new System.Drawing.Point(244, 174);
+            this.gbSave.Location = new System.Drawing.Point(245, 180);
             this.gbSave.Name = "gbSave";
             this.gbSave.Size = new System.Drawing.Size(98, 40);
             this.gbSave.TabIndex = 19;
@@ -123,16 +125,37 @@
             this.btnSave.Location = new System.Drawing.Point(-1, 0);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(100, 40);
-            this.btnSave.TabIndex = 3;
+            this.btnSave.TabIndex = 5;
             this.btnSave.Text = "Save";
             this.btnSave.UseVisualStyleBackColor = true;
             this.btnSave.Click += new System.EventHandler(this.BtnSave_Click);
+            // 
+            // txtUsername
+            // 
+            this.txtUsername.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtUsername.Location = new System.Drawing.Point(97, 115);
+            this.txtUsername.MaxLength = 60;
+            this.txtUsername.Name = "txtUsername";
+            this.txtUsername.Size = new System.Drawing.Size(245, 22);
+            this.txtUsername.TabIndex = 3;
+            // 
+            // lblUsername
+            // 
+            this.lblUsername.AutoSize = true;
+            this.lblUsername.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblUsername.Location = new System.Drawing.Point(14, 116);
+            this.lblUsername.Name = "lblUsername";
+            this.lblUsername.Size = new System.Drawing.Size(77, 18);
+            this.lblUsername.TabIndex = 21;
+            this.lblUsername.Text = "Username";
             // 
             // frmPasswordModifier
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(354, 226);
+            this.ClientSize = new System.Drawing.Size(354, 231);
+            this.Controls.Add(this.txtUsername);
+            this.Controls.Add(this.lblUsername);
             this.Controls.Add(this.gbCreate);
             this.Controls.Add(this.gbSave);
             this.Controls.Add(this.txtPassword);
@@ -163,5 +186,7 @@
         private System.Windows.Forms.GroupBox gbCreate;
         private System.Windows.Forms.GroupBox gbSave;
         private System.Windows.Forms.Button btnSave;
+        private System.Windows.Forms.TextBox txtUsername;
+        private System.Windows.Forms.Label lblUsername;
     }
 }

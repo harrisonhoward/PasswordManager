@@ -85,12 +85,19 @@ namespace PasswordManager {
 
             // For each row in the File Passwords
             foreach (DataRow row in _importTable.Rows) {
+                // Setting the PasswordID
+                int passwordID = 0;
+                if (_allPasswordsTable.Rows.Count > 0) {
+                    passwordID = int.Parse(_allPasswordsTable.Rows[_allPasswordsTable.Rows.Count - 1]["PasswordID"].ToString());
+                }
+
                 // Create a new row
                 DataRow newRow = _allPasswordsTable.NewRow();
-                // Assign PasswordID, UserID and PasswordTitle
-                newRow["PasswordID"] = int.Parse(_allPasswordsTable.Rows[_allPasswordsTable.Rows.Count - 1]["PasswordID"].ToString()) + 1;
+                // Assign PasswordID, UserID, PasswordTitle and PasswordUsername
+                newRow["PasswordID"] = passwordID + 1;
                 newRow["UserID"] = _userID;
                 newRow["PasswordTitle"] = row["Title"];
+                newRow["PasswordUsername"] = row["Email"];
                 // Check if isEncrypted is false
                 if (!bool.Parse(row["isEncrypted"].ToString())) {
                     // Encrypt the password
@@ -122,6 +129,7 @@ namespace PasswordManager {
             // Add the necessary columns to the DataTable
             PasswordsList.Columns.Add("Username");
             PasswordsList.Columns.Add("Title");
+            PasswordsList.Columns.Add("Email");
             PasswordsList.Columns.Add("Password");
             PasswordsList.Columns.Add("isEncrypted");
 
@@ -143,12 +151,13 @@ namespace PasswordManager {
                             // Create variables for each entry
                             string Username = lineSplit[0];
                             string Title = lineSplit[1];
-                            string Password = lineSplit[2];
-                            string isEncrypted = lineSplit[3];
+                            string Email = lineSplit[2];
+                            string Password = lineSplit[3];
+                            string isEncrypted = lineSplit[4];
 
                             // Add the entries to the Passwords List
                             // Save row
-                            PasswordsList.Rows.Add(Username, Title, Password, isEncrypted);
+                            PasswordsList.Rows.Add(Username, Title, Email, Password, isEncrypted);
                         }
                     } catch (Exception err) {
                         // Check if there is rows
