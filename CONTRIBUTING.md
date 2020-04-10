@@ -27,10 +27,8 @@ Any issues, features or general fixes that you have done can be requested here.
 
 **Changing the Data Source**\
 Please make sure you have a working version of the program running.
-1. Download the SQLConnection repository and having it sitting next to or inside of PasswordManager
-2. Open Visual Studio and Right Click the Solution -> Add -> Existing Project -> SQLConnection
-3. Go to the PasswordManager Project -> app.config and add your Data Source in the connection string
-4. Run the program
+1. Go to the PasswordManager Project -> app.config and add your Data Source in the connection string
+2. Run the program
 
 **NLog Errors**\
 If you are getting errors with NLog please do the following
