@@ -95,9 +95,21 @@ namespace PasswordManager {
 
         #region TextBox Events
 
-        private void TxtPassword_KeyPress(object sender, KeyPressEventArgs e) {
-            if (e.KeyChar == (char) 13) {
+        private void TxtPassword_KeyDown(object sender, KeyEventArgs e) {
+            // Check if the user pressed Enter
+            if (e.KeyCode == Keys.Enter) {
+                // Save changes
+                // Set the DialogResult to OK
                 saveChanges();
+                DialogResult = DialogResult.OK;
+            }
+        }
+
+        private void TxtPassword_KeyPress(object sender, KeyPressEventArgs e) {
+            // Check if the user pressed Enter
+            if (e.KeyChar == (char) 13) {
+                // Set the key handled to true
+                e.Handled = true;
             }
         }
 
@@ -177,6 +189,9 @@ namespace PasswordManager {
             }
         }
 
+        /// <summary>
+        /// Saves any changes to the DataTable (including creation)
+        /// </summary>
         private void saveChanges() {
             // Checking if the user has inputted values
             // Showing MessageBox providing reason
