@@ -51,12 +51,28 @@ namespace PasswordManager {
         #region Button Events
 
         private void BtnSave_Click(object sender, EventArgs e) {
-            // Save the DataTable and Table
-            _userTable.Rows[0].EndEdit();
-            Context.SaveDataBaseTable(_userTable);
+            SaveChanges();
+        }
 
-            // Close the form
-            Close();
+        #endregion
+
+        #region CheckBox Events
+
+        private void CbAdmin_KeyDown(object sender, KeyEventArgs e) {
+            // Check if the user pressed Enter
+            if (e.KeyCode == Keys.Enter) {
+                // Save changes
+                // Set the DialogResult to OK
+                SaveChanges();
+                DialogResult = DialogResult.OK;
+            }
+        }
+        private void CbAdmin_KeyPress(object sender, KeyPressEventArgs e) {
+            // Check if the user pressed Enter
+            if (e.KeyChar == (char) 13) {
+                // Set the key handled to true
+                e.Handled = true;
+            }
         }
 
         #endregion
@@ -81,6 +97,18 @@ namespace PasswordManager {
         private void BindControls() {
             txtUsername.DataBindings.Add("Text", _userTable, "Username");
             cbAdmin.DataBindings.Add("Checked", _userTable, "Admin");
+        }
+
+        /// <summary>
+        /// Save the changes to the DataTable
+        /// </summary>
+        private void SaveChanges() {
+            // Save the DataTable and Table
+            _userTable.Rows[0].EndEdit();
+            Context.SaveDataBaseTable(_userTable);
+
+            // Close the form
+            Close();
         }
 
         #endregion

@@ -104,6 +104,8 @@
             this.cbAdmin.TabIndex = 18;
             this.cbAdmin.Text = "Admin";
             this.cbAdmin.UseVisualStyleBackColor = true;
+            this.cbAdmin.KeyDown += new System.Windows.Forms.KeyEventHandler(this.CbAdmin_KeyDown);
+            this.cbAdmin.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.CbAdmin_KeyPress);
             // 
             // frmUserModifier
             // 
