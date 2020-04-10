@@ -4,7 +4,6 @@ using System;
 using System.Data;
 using System.Drawing;
 using System.IO;
-using System.Threading;
 using System.Windows.Forms;
 
 namespace PasswordManager {
@@ -40,15 +39,19 @@ namespace PasswordManager {
         #region Button Events
 
         private void BtnImport_Click(object sender, EventArgs e) {
+            // Check if PasswordManager was selected
             if (cbType.SelectedIndex == 0) {
+                // Run PasswordManager Import Methods
                 PasswordManagerImport();
             } else {
+                // Otherwise, cancel
                 MessageBox.Show("Cancelled. No item selected.",
                     Properties.Settings.Default.ProjectName,
                     MessageBoxButtons.OK);
             }
-            // Create a new thread for frmPasswordMain
-            ThreadStart(new Thread(new ThreadStart(ThreadProcPasswordMain)));
+
+            // Close this thread
+            Close();
         }
 
         #endregion
@@ -56,21 +59,25 @@ namespace PasswordManager {
         #region Import Methods
 
         private void PasswordManagerImport() {
-            // Import the CSV File
+            // Import and read the CSV File
             PasswordManagerFileReader();
-            // Check if it worked
+            // Check if the import came back with rows
             if (_importTable.Rows.Count < 1) {
                 return;
             }
 
-            // Ask the user if they want to remove the previous passwords
-            DialogResult box = MessageBox.Show("Click Yes if you want the previous passwords deleted",
-                    Properties.Settings.Default.ProjectName,
-                    MessageBoxButtons.YesNo);
+            // If the user has passwords. Ask if they want to remove them
+            if (_passwordsTable.Rows.Count > 0) {
+                // Ask the user if they want to remove the previous passwords
+                DialogResult box = MessageBox.Show("Click Yes if you want the previous passwords deleted",
+                        Properties.Settings.Default.ProjectName,
+                        MessageBoxButtons.YesNo);
 
-            // Check if the user clicked yes
-            if (box == DialogResult.Yes) {
-                DeletePasswords();
+                // If the user clicked yes
+                // Delete their passwords
+                if (box == DialogResult.Yes) {
+                    DeletePasswords();
+                }
             }
 
             // Initialize the Passwords DataTable with the correct passwords
@@ -86,10 +93,10 @@ namespace PasswordManager {
                 newRow["PasswordTitle"] = row["Title"];
                 // Check if isEncrypted is false
                 if (!bool.Parse(row["isEncrypted"].ToString())) {
-                    // Update PasswordEncrypted
-                    newRow["PasswordEncrypted"] = Encryption.Decrypt(row["Password"].ToString(), row["Username"].ToString());
+                    // Encrypt the password
+                    newRow["PasswordEncrypted"] = Encryption.Encrypt(row["Password"].ToString(), row["Username"].ToString());
                 } else {
-                    // Update PasswordEncrypted
+                    // Leave the password as is
                     newRow["PasswordEncrypted"] = row["Password"];
                 }
                 // Save the row
@@ -110,57 +117,76 @@ namespace PasswordManager {
         /// Imports Passwords CSV File
         /// </summary>
         private void PasswordManagerFileReader() {
-            // Create a new instance of List String
+            // Create a new instance of DataTable
             DataTable PasswordsList = new DataTable();
-            // Add the columns
+            // Add the necessary columns to the DataTable
             PasswordsList.Columns.Add("Username");
             PasswordsList.Columns.Add("Title");
             PasswordsList.Columns.Add("Password");
             PasswordsList.Columns.Add("isEncrypted");
 
-            // Create a new String Array containing all the lines
-            string[] fileLines = File.ReadAllLines($"{getUsername()}Passwords.csv");
-
-            // Try to read the file
-            // Catch any errors
+            // Try to read the lines in the file
+            // Catch FileNotFound Exception
             try {
-                // For each line in the file lines
-                foreach (string line in fileLines) {
-                    // Create a new variable for containing all the entries on the lines
-                    string[] lineSplit = line.Split(new string[] { ";" }, StringSplitOptions.None);
-                    // Create variables for each entry
-                    string Username = lineSplit[0];
-                    string Title = lineSplit[1];
-                    string Password = lineSplit[2];
-                    string isEncrypted = lineSplit[3];
+                // Create a new String Array containing all the lines
+                string[] fileLines = File.ReadAllLines($"{getUsername()}Passwords.csv");
 
-                    // Add the entries to the Passwords List
-                    // Save row
-                    PasswordsList.Rows.Add(Username, Title, Password, isEncrypted);
-                }
-            } catch (Exception err) {
-                // Check if there is rows
-                if (PasswordsList.Rows.Count > 0) {
-                    // For each row delete and save
-                    // This is to stop the program
-                    foreach (DataRow row in PasswordsList.Rows) {
-                        row.Delete();
-                    }
-                }
-                // Let the user know the read file failed
-                MessageBox.Show("Error: Reading the CSV File. Message: " + err.Message);
-            } finally {
-                // Check if there is rows
-                if (PasswordsList.Rows.Count > 0) {
-                    // For each row end edit
-                    foreach (DataRow row in PasswordsList.Rows) {
-                        row.EndEdit();
+                // Check if there are any lines in the file
+                if (fileLines.Length > 0) {
+                    // Try to read the file
+                    // Catch any errors
+                    try {
+                        // For each line in the file lines
+                        foreach (string line in fileLines) {
+                            // Create a new variable for containing all the entries on the lines
+                            string[] lineSplit = line.Split(new string[] { ";" }, StringSplitOptions.None);
+                            // Create variables for each entry
+                            string Username = lineSplit[0];
+                            string Title = lineSplit[1];
+                            string Password = lineSplit[2];
+                            string isEncrypted = lineSplit[3];
+
+                            // Add the entries to the Passwords List
+                            // Save row
+                            PasswordsList.Rows.Add(Username, Title, Password, isEncrypted);
+                        }
+                    } catch (Exception err) {
+                        // Check if there is rows
+                        if (PasswordsList.Rows.Count > 0) {
+                            // For each row delete and save
+                            // This is to stop overwritting the Passwords Table
+                            foreach (DataRow row in PasswordsList.Rows) {
+                                row.Delete();
+                            }
+                        }
+                        // Let the user know the read file failed
+                        MessageBox.Show("Error: Reading the CSV File. Message: " + err.Message);
+                    } finally {
+                        // Check if there is rows
+                        if (PasswordsList.Rows.Count > 0) {
+                            // For each row in the PasswordsList
+                            // Save the row
+                            foreach (DataRow row in PasswordsList.Rows) {
+                                row.EndEdit();
+                            }
+                        } else {
+                            // Otherwise if no rows, tell user that it failed
+                            MessageBox.Show("Failed to import passwords",
+                                Properties.Settings.Default.ProjectName,
+                                MessageBoxButtons.OK);
+                        }
                     }
                 } else {
-                    MessageBox.Show("Failed to import passwords",
+                    // Otherwise, tell the user the CSV file is empty
+                    MessageBox.Show("CSV File is empty",
                         Properties.Settings.Default.ProjectName,
                         MessageBoxButtons.OK);
                 }
+            } catch (FileNotFoundException) {
+                // Tell the user the CSV File wasn't found
+                MessageBox.Show("No exported CSV File found",
+                        Properties.Settings.Default.ProjectName,
+                        MessageBoxButtons.OK);
             }
 
             // Assign Import DataTable as PasswordsList
@@ -172,23 +198,6 @@ namespace PasswordManager {
         #region Helper Methods
 
         /// <summary>
-        /// Run a form
-        /// </summary>
-        private void ThreadProcPasswordMain() {
-            Application.Run(new frmPasswordMain(_userID));
-        }
-        /// <summary>
-        /// Start a new thread
-        /// </summary>
-        /// <param name="thread">The new thread</param>
-        private void ThreadStart(Thread thread) {
-            // Start the thread
-            // Close the current form
-            thread.Start();
-            this.Close();
-        }
-
-        /// <summary>
         /// Initializes the User's Passwords DataTable
         /// </summary>
         private void InitializeUserPasswords() {
@@ -196,7 +205,7 @@ namespace PasswordManager {
             // Assign the Password DataTable with the Password Table
             string sqlQuery =
                 "SELECT * FROM Passwords " +
-                $"WHERE UserID={_userID}";
+                $"WHERE UserID={_userID} ";
             _passwordsTable = Context.GetDataTable(sqlQuery, "Passwords");
         }
 
@@ -212,6 +221,7 @@ namespace PasswordManager {
         /// Delete the User's Passwords
         /// </summary>
         private void DeletePasswords() {
+            // Check if the user has passwords
             if (_passwordsTable.Rows.Count > 0) {
                 // for each row in the Password DataTable
                 foreach (DataRow row in _passwordsTable.Rows) {
@@ -233,11 +243,15 @@ namespace PasswordManager {
         /// <returns>Returns the username</returns>
         private string getUsername() {
             // Create and assign a new SQL Query
+            // Assign a local User DataTable
             string sqlQuery =
                 "SELECT UserID, Username FROM Users " +
                 $"WHERE UserID={_userID}";
             DataTable userTable = Context.GetDataTable(sqlQuery, "Users");
 
+            // Check if a Username was found
+            // Return null
+            // Else return the Username
             if (userTable.Rows.Count < 1) {
                 return null;
             } else {

@@ -153,7 +153,7 @@ namespace PasswordManager {
             // Start the thread
             // Close the current form
             thread.Start();
-            this.Close();
+            Close();
         }
         /// <summary>
         /// Start a new thread with STA
@@ -165,7 +165,6 @@ namespace PasswordManager {
             // Start the thread
             // Close the current form
             thread.Start();
-            this.Close();
         }
 
         /// <summary>
