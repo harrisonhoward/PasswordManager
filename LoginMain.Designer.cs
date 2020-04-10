@@ -106,6 +106,7 @@
             this.txtMainPassword.Size = new System.Drawing.Size(155, 22);
             this.txtMainPassword.TabIndex = 14;
             this.txtMainPassword.UseSystemPasswordChar = true;
+            this.txtMainPassword.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TxtMainPassword_KeyDown);
             this.txtMainPassword.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TxtMainPassword_KeyPress);
             // 
             // txtMainUsername
@@ -194,6 +195,7 @@
             this.txtConfirm.Size = new System.Drawing.Size(155, 22);
             this.txtConfirm.TabIndex = 22;
             this.txtConfirm.UseSystemPasswordChar = true;
+            this.txtConfirm.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TxtConfirm_KeyDown);
             this.txtConfirm.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TxtConfirm_KeyPress);
             // 
             // lblConfirm
@@ -271,8 +273,8 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(344, 343);
-            this.Controls.Add(this.panLogin);
             this.Controls.Add(this.panCreate);
+            this.Controls.Add(this.panLogin);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.Name = "frmLogin";

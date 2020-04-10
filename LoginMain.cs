@@ -109,15 +109,26 @@ namespace PasswordManager {
 
         #region TextBox Events
 
-        private void TxtMainPassword_KeyPress(object sender, KeyPressEventArgs e) {
-            if (e.KeyChar == (char)13) {
+        private void TxtMainPassword_KeyDown(object sender, KeyEventArgs e) {
+            if (e.KeyCode == Keys.Enter) {
                 LoginMethod();
             }
         }
+        private void TxtMainPassword_KeyPress(object sender, KeyPressEventArgs e) {
+            if (e.KeyChar == (char)13) {
+                e.Handled = true;
+            }
+        }
 
+
+        private void TxtConfirm_KeyDown(object sender, KeyEventArgs e) {
+            if (e.KeyCode == Keys.Enter) {
+                CreateMethod();
+            }
+        }
         private void TxtConfirm_KeyPress(object sender, KeyPressEventArgs e) {
             if (e.KeyChar == (char)13) {
-                CreateMethod();
+                e.Handled = true;
             }
         }
 

@@ -93,6 +93,16 @@ namespace PasswordManager {
 
         #endregion
 
+        #region TextBox Events
+
+        private void TxtPassword_KeyPress(object sender, KeyPressEventArgs e) {
+            if (e.KeyChar == (char) 13) {
+                saveChanges();
+            }
+        }
+
+        #endregion
+
         #region Helper Methods
 
         /// <summary>
