@@ -68,11 +68,11 @@
             // 
             this.lblAdmin.AutoSize = true;
             this.lblAdmin.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblAdmin.Location = new System.Drawing.Point(15, 129);
+            this.lblAdmin.Location = new System.Drawing.Point(18, 128);
             this.lblAdmin.Name = "lblAdmin";
-            this.lblAdmin.Size = new System.Drawing.Size(75, 18);
+            this.lblAdmin.Size = new System.Drawing.Size(72, 18);
             this.lblAdmin.TabIndex = 22;
-            this.lblAdmin.Text = "Password";
+            this.lblAdmin.Text = "Is Admin?";
             // 
             // lblUsername
             // 
