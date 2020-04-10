@@ -87,77 +87,7 @@ namespace PasswordManager {
         }
 
         private void BtnCreate_Click(object sender, EventArgs e) {
-            // Checking if the user has inputted values
-            // Showing a MessageBox with the provided reason
-            if (string.IsNullOrEmpty(txtUsername.Text)) {
-                MessageBox.Show("Please enter a username",
-                    Properties.Settings.Default.ProjectName,
-                    MessageBoxButtons.OK);
-                return;
-            } else if (string.IsNullOrEmpty(txtPassword.Text)) {
-                MessageBox.Show("Please enter a password",
-                    Properties.Settings.Default.ProjectName,
-                    MessageBoxButtons.OK);
-                return;
-            }
-
-            // Comparing the Password with Confirm Password
-            // If not show a MessageBox
-            if (!txtPassword.Text.Equals(txtConfirm.Text)) {
-                MessageBox.Show("Confirm Password does not match Password",
-                    Properties.Settings.Default.ProjectName,
-                    MessageBoxButtons.OK);
-                return;
-            }
-
-            // Assign the User Inputted Username and Password to the Global Variables
-            _usersUsername = txtUsername.Text;
-            _usersPassword = txtPassword.Text;
-
-            // Initialize the User DataTable
-            InitializeUserTable(true);
-
-            // Check if there are rows in the User Table
-            // Assign user as an Admin
-            if (_userTable.Rows.Count < 1) {
-                MessageBox.Show("You are the first user. You've been assigned as an Admin.",
-                    Properties.Settings.Default.ProjectName,
-                    MessageBoxButtons.OK);
-                _usersAdmin = 1;
-            }
-
-            // Check if the username exists
-            // Show a MessageBox
-            if (_tableContains) {
-                MessageBox.Show($"A user by the username '{_usersUsername}' already exists",
-                    Properties.Settings.Default.ProjectName,
-                    MessageBoxButtons.OK);
-                return;
-            }
-
-            // Converting the inputted password to a Hash Salt
-            _usersPassword = HashSalt.StringtoHashSalt(_usersPassword);
-
-            // Adding a new row to User DataTable
-            // Inputted the new data for the row before adding it
-            // Save the DataTable
-            DataRow row = _userTable.NewRow();
-            row["UserID"] = _userTable.Rows.Count + 1;
-            row["Username"] = _usersUsername;
-            row["PasswordHash"] = _usersPassword;
-            row["Admin"] = _usersAdmin;
-            row.EndEdit();
-            _userTable.Rows.Add(row);
-
-            // Save the Table
-            Context.SaveDataBaseTable(_userTable);
-
-            // Show the Login Panel
-            panLogin.Show();
-            Text = "Login";
-
-            // Hide the Create Panel
-            panCreate.Hide();
+            CreateMethod();
         }
 
         private void BtnExit_Click(object sender, EventArgs e) {
@@ -182,6 +112,12 @@ namespace PasswordManager {
         private void TxtMainPassword_KeyPress(object sender, KeyPressEventArgs e) {
             if (e.KeyChar == (char)13) {
                 LoginMethod();
+            }
+        }
+
+        private void TxtConfirm_KeyPress(object sender, KeyPressEventArgs e) {
+            if (e.KeyChar == (char)13) {
+                CreateMethod();
             }
         }
 
@@ -305,6 +241,83 @@ namespace PasswordManager {
                 _userTable = null;
                 return;
             }
+        }
+
+        /// <summary>
+        /// Runs the Create Code
+        /// </summary>
+        private void CreateMethod() {
+            // Checking if the user has inputted values
+            // Showing a MessageBox with the provided reason
+            if (string.IsNullOrEmpty(txtUsername.Text)) {
+                MessageBox.Show("Please enter a username",
+                    Properties.Settings.Default.ProjectName,
+                    MessageBoxButtons.OK);
+                return;
+            } else if (string.IsNullOrEmpty(txtPassword.Text)) {
+                MessageBox.Show("Please enter a password",
+                    Properties.Settings.Default.ProjectName,
+                    MessageBoxButtons.OK);
+                return;
+            }
+
+            // Comparing the Password with Confirm Password
+            // If not show a MessageBox
+            if (!txtPassword.Text.Equals(txtConfirm.Text)) {
+                MessageBox.Show("Confirm Password does not match Password",
+                    Properties.Settings.Default.ProjectName,
+                    MessageBoxButtons.OK);
+                return;
+            }
+
+            // Assign the User Inputted Username and Password to the Global Variables
+            _usersUsername = txtUsername.Text;
+            _usersPassword = txtPassword.Text;
+
+            // Initialize the User DataTable
+            InitializeUserTable(true);
+
+            // Check if there are rows in the User Table
+            // Assign user as an Admin
+            if (_userTable.Rows.Count < 1) {
+                MessageBox.Show("You are the first user. You've been assigned as an Admin.",
+                    Properties.Settings.Default.ProjectName,
+                    MessageBoxButtons.OK);
+                _usersAdmin = 1;
+            }
+
+            // Check if the username exists
+            // Show a MessageBox
+            if (_tableContains) {
+                MessageBox.Show($"A user by the username '{_usersUsername}' already exists",
+                    Properties.Settings.Default.ProjectName,
+                    MessageBoxButtons.OK);
+                return;
+            }
+
+            // Converting the inputted password to a Hash Salt
+            _usersPassword = HashSalt.StringtoHashSalt(_usersPassword);
+
+            // Adding a new row to User DataTable
+            // Inputted the new data for the row before adding it
+            // Save the DataTable
+            DataRow row = _userTable.NewRow();
+            row["UserID"] = _userTable.Rows.Count + 1;
+            row["Username"] = _usersUsername;
+            row["PasswordHash"] = _usersPassword;
+            row["Admin"] = _usersAdmin;
+            row.EndEdit();
+            _userTable.Rows.Add(row);
+
+            // Save the Table
+            Context.SaveDataBaseTable(_userTable);
+
+            // Show the Login Panel
+            panLogin.Show();
+            Text = "Login";
+
+            // Hide the Create Panel
+            panCreate.Hide();
         }
 
         #endregion

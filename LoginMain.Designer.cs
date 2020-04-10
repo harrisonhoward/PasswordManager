@@ -194,6 +194,7 @@
             this.txtConfirm.Size = new System.Drawing.Size(155, 22);
             this.txtConfirm.TabIndex = 22;
             this.txtConfirm.UseSystemPasswordChar = true;
+            this.txtConfirm.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TxtConfirm_KeyPress);
             // 
             // lblConfirm
             // 
