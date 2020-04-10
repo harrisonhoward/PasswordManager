@@ -56,27 +56,6 @@ namespace PasswordManager {
 
         #endregion
 
-        #region CheckBox Events
-
-        private void CbAdmin_KeyDown(object sender, KeyEventArgs e) {
-            // Check if the user pressed Enter
-            if (e.KeyCode == Keys.Enter) {
-                // Save changes
-                // Set the DialogResult to OK
-                SaveChanges();
-                DialogResult = DialogResult.OK;
-            }
-        }
-        private void CbAdmin_KeyPress(object sender, KeyPressEventArgs e) {
-            // Check if the user pressed Enter
-            if (e.KeyChar == (char) 13) {
-                // Set the key handled to true
-                e.Handled = true;
-            }
-        }
-
-        #endregion
-
         #region Helper Methods
 
         /// <summary>
