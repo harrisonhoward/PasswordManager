@@ -34,6 +34,7 @@
             this.lblDividier2 = new System.Windows.Forms.Label();
             this.btnExit = new System.Windows.Forms.Button();
             this.panPasswordList = new System.Windows.Forms.Panel();
+            this.btnPasswordExport = new System.Windows.Forms.Button();
             this.lblPasswordWarning = new System.Windows.Forms.Label();
             this.btnDeletePassword = new System.Windows.Forms.Button();
             this.btnEditPassword = new System.Windows.Forms.Button();
@@ -55,7 +56,7 @@
             this.btnAccountSave = new System.Windows.Forms.Button();
             this.btnChangePassword = new System.Windows.Forms.Button();
             this.txtChangePassword = new System.Windows.Forms.TextBox();
-            this.btnPasswordExport = new System.Windows.Forms.Button();
+            this.btnPasswordImport = new System.Windows.Forms.Button();
             this.tsMain.SuspendLayout();
             this.panPasswordList.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvPasswords)).BeginInit();
@@ -156,6 +157,7 @@
             // 
             // panPasswordList
             // 
+            this.panPasswordList.Controls.Add(this.btnPasswordImport);
             this.panPasswordList.Controls.Add(this.btnPasswordExport);
             this.panPasswordList.Controls.Add(this.lblPasswordWarning);
             this.panPasswordList.Controls.Add(this.btnDeletePassword);
@@ -168,6 +170,17 @@
             this.panPasswordList.Name = "panPasswordList";
             this.panPasswordList.Size = new System.Drawing.Size(800, 390);
             this.panPasswordList.TabIndex = 6;
+            // 
+            // btnPasswordExport
+            // 
+            this.btnPasswordExport.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnPasswordExport.Location = new System.Drawing.Point(710, 345);
+            this.btnPasswordExport.Name = "btnPasswordExport";
+            this.btnPasswordExport.Size = new System.Drawing.Size(78, 28);
+            this.btnPasswordExport.TabIndex = 4;
+            this.btnPasswordExport.Text = "Export";
+            this.btnPasswordExport.UseVisualStyleBackColor = true;
+            this.btnPasswordExport.Click += new System.EventHandler(this.BtnPasswordExport_Click);
             // 
             // lblPasswordWarning
             // 
@@ -406,16 +419,16 @@
             this.txtChangePassword.Size = new System.Drawing.Size(155, 22);
             this.txtChangePassword.TabIndex = 0;
             // 
-            // btnPasswordExport
+            // btnPasswordImport
             // 
-            this.btnPasswordExport.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnPasswordExport.Location = new System.Drawing.Point(698, 345);
-            this.btnPasswordExport.Name = "btnPasswordExport";
-            this.btnPasswordExport.Size = new System.Drawing.Size(78, 28);
-            this.btnPasswordExport.TabIndex = 4;
-            this.btnPasswordExport.Text = "Export";
-            this.btnPasswordExport.UseVisualStyleBackColor = true;
-            this.btnPasswordExport.Click += new System.EventHandler(this.BtnPasswordExport_Click);
+            this.btnPasswordImport.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnPasswordImport.Location = new System.Drawing.Point(626, 345);
+            this.btnPasswordImport.Name = "btnPasswordImport";
+            this.btnPasswordImport.Size = new System.Drawing.Size(78, 28);
+            this.btnPasswordImport.TabIndex = 14;
+            this.btnPasswordImport.Text = "Import";
+            this.btnPasswordImport.UseVisualStyleBackColor = true;
+            this.btnPasswordImport.Click += new System.EventHandler(this.BtnPasswordImport_Click);
             // 
             // frmPasswordMain
             // 
@@ -484,5 +497,6 @@
         private System.Windows.Forms.Button btnDeleteUser;
         private System.Windows.Forms.Button btnEditUser;
         private System.Windows.Forms.Button btnPasswordExport;
+        private System.Windows.Forms.Button btnPasswordImport;
     }
 }

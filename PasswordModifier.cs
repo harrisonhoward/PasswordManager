@@ -102,7 +102,7 @@ namespace PasswordManager {
 
         private void TxtPassword_KeyPress(object sender, KeyPressEventArgs e) {
             // Check if the user pressed Enter
-            if (e.KeyChar == (char) 13) {
+            if (e.KeyChar == (char)13) {
                 // Set the key handled to true
                 e.Handled = true;
             }
@@ -142,17 +142,23 @@ namespace PasswordManager {
                     return;
                 }
 
-                // Create and assign the decrypted password
-                // Check if the password was decrypted properly
-                // Update the PasswordEncrypted in the Password DataTable
-                string passwordDecrypted = Encryption.Decrypt(_passwordTable.Rows[0]["PasswordEncrypted"].ToString(), username);
-                if (string.IsNullOrEmpty(passwordDecrypted)) {
-                    MessageBox.Show("Failed to decrypt. Try again later.",
-                        Properties.Settings.Default.ProjectName,
-                        MessageBoxButtons.OK);
-                    return;
+                try {
+                    // Create and assign the decrypted password
+                    // Check if the password was decrypted properly
+                    // Update the PasswordEncrypted in the Password DataTable
+                    string passwordDecrypted = Encryption.Decrypt(_passwordTable.Rows[0]["PasswordEncrypted"].ToString(), username);
+
+                    if (string.IsNullOrEmpty(passwordDecrypted)) {
+                        MessageBox.Show("Failed to decrypt. Try again later.",
+                            Properties.Settings.Default.ProjectName,
+                            MessageBoxButtons.OK);
+                        return;
+                    }
+                    _passwordTable.Rows[0]["PasswordEncrypted"] = passwordDecrypted;
+                } catch (Exception err) {
+                    DeletePasswords(_userID);
+                    MessageBox.Show("Invalid Decryption Key Provided. Deleted All Passwords.");
                 }
-                _passwordTable.Rows[0]["PasswordEncrypted"] = passwordDecrypted;
             }
         }
 
@@ -227,6 +233,30 @@ namespace PasswordManager {
 
             // Close form
             Close();
+        }
+
+        /// <summary>
+        /// Deletes all the passwords
+        /// </summary>
+        private void DeletePasswords(long userID) {
+            // Create and assign a new SQL Query
+            // Assign the Password DataTable with the Password Table
+            string sqlQuery =
+                "SELECT * FROM Passwords " +
+                $"WHERE UserID={userID}";
+            DataTable passwordTable = Context.GetDataTable(sqlQuery, "Passwords");
+            if (passwordTable.Rows.Count > 0) {
+                // for each row in the Password DataTable
+                foreach (DataRow row in passwordTable.Rows) {
+                    // Delete the row
+                    // Save the row
+                    row.Delete();
+                    row.EndEdit();
+                }
+
+                // Save Table
+                Context.SaveDataBaseTable(passwordTable);
+            }
         }
 
         #endregion

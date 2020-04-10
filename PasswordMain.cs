@@ -4,6 +4,7 @@ using System;
 using System.Data;
 using System.IO;
 using System.Text;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace PasswordManager {
@@ -140,12 +141,27 @@ namespace PasswordManager {
         private void ThreadProcLogin() {
             Application.Run(new frmLogin());
         }
+        private void ThreadProcPasswordImport() {
+            Application.Run(new frmPasswordImporter(_userID, Location));
+        }
 
         /// <summary>
         /// Start a new thread
         /// </summary>
         /// <param name="thread">The new thread</param>
-        private void ThreadStart(System.Threading.Thread thread) {
+        private void ThreadStart(Thread thread) {
+            // Start the thread
+            // Close the current form
+            thread.Start();
+            this.Close();
+        }
+        /// <summary>
+        /// Start a new thread with STA
+        /// </summary>
+        /// <param name="thread">The new thread</param>
+        private void ThreadStartSTA(Thread thread) {
+            // Settting the Thread to STA to allow the use of Import Event
+            thread.SetApartmentState(ApartmentState.STA);
             // Start the thread
             // Close the current form
             thread.Start();
@@ -189,7 +205,7 @@ namespace PasswordManager {
 
             // Create a new thread for frmMenu
             tsdAccount.Dispose();
-            ThreadStart(new System.Threading.Thread(new System.Threading.ThreadStart(ThreadProcLogin)));
+            ThreadStart(new Thread(new ThreadStart(ThreadProcLogin)));
         }
 
         /// <summary>
@@ -218,8 +234,7 @@ namespace PasswordManager {
         /// <summary>
         /// Initialize the Password DataTable
         /// </summary>
-        private void InitializePasswordInATable() {
-            long passwordID = long.Parse(dgvPasswords[0, dgvPasswords.CurrentCell.RowIndex].Value.ToString());
+        private void InitializePasswordInATable(long passwordID) {
             // Create and assign a new SQL Query
             // Assign the Password DataTable with the Password Table
             string sqlQuery =
@@ -250,6 +265,14 @@ namespace PasswordManager {
                 return;
             }
             _passwordTable.Rows[0]["PasswordEncrypted"] = passwordDecrypted;
+        }
+
+        /// <summary>
+        /// Initialize the All Passwords DataTable
+        /// </summary>
+        private void InitializeAllPasswords() {
+            // Assign the All Passwords DataTable
+            _allPasswordsTable = Context.GetDataTable("Passwords");
         }
 
         /// <summary>
@@ -297,6 +320,85 @@ namespace PasswordManager {
             if (frm.ShowDialog() == DialogResult.OK) {
                 PopulatePasswordGrid();
             }
+        }
+
+        /// <summary>
+        /// Imports Passwords CSV File
+        /// </summary>
+        private DataTable PasswordFileReader() {
+            // Instantiate a new OpenFileDialog
+            OpenFileDialog fileDialog = new OpenFileDialog();
+            // Set the Title of the dialog
+            // Set the Filter of the dialog
+            // Set the Initial Directory of the dialog
+            fileDialog.Title = "Open CSV File";
+            fileDialog.Filter = "CSV Files (*.csv)|*.csv";
+            fileDialog.InitialDirectory = @"\";
+
+            // Create a new instance of List String
+            DataTable PasswordsList = new DataTable();
+            // Show file dialog
+            DialogResult fileResult = fileDialog.ShowDialog();
+            // If file dialog returns OK
+            if (fileResult == DialogResult.OK) {
+                // Add the columns
+                PasswordsList.Columns.Add("Username");
+                PasswordsList.Columns.Add("Title");
+                PasswordsList.Columns.Add("Password");
+                PasswordsList.Columns.Add("isEncrypted");
+
+                // Create a new String Array containing all the lines
+                string[] fileLines = File.ReadAllLines(fileDialog.FileName);
+
+                // Try to read the file
+                // Catch any errors
+                try {
+                    // For each line in the file lines
+                    foreach (string line in fileLines) {
+                        // Create a new variable for containing all the entries on the lines
+                        string[] lineSplit = line.Split(new string[] { ";" }, StringSplitOptions.None);
+                        // Create variables for each entry
+                        string Username = lineSplit[0];
+                        string Title = lineSplit[1];
+                        string Password = lineSplit[2];
+                        string isEncrypted = lineSplit[3];
+
+                        // Add the entries to the Passwords List
+                        // Save row
+                        PasswordsList.Rows.Add(Username, Title, Password, isEncrypted);
+                    }
+                } catch (Exception err) {
+                    // Check if there is rows
+                    if (PasswordsList.Rows.Count > 0) {
+                        // For each row delete and save
+                        // This is to stop the program
+                        foreach (DataRow row in PasswordsList.Rows) {
+                            row.Delete();
+                        }
+                    }
+                    // Let the user know the read file failed
+                    MessageBox.Show("Error: Reading the CSV File. Message: " + err.Message);
+                } finally {
+                    // Check if there is rows
+                    if (PasswordsList.Rows.Count > 0) {
+                        // For each row end edit
+                        foreach (DataRow row in PasswordsList.Rows) {
+                            row.EndEdit();
+                        }
+                    } else {
+                        MessageBox.Show("Failed to import passwords",
+                            Properties.Settings.Default.ProjectName,
+                            MessageBoxButtons.OK);
+                    }
+                }
+            } else if (fileResult == DialogResult.Cancel) {
+                PasswordsList.Columns.Add("Cancelled");
+            } else {
+                PasswordsList.Columns.Add("Error");
+            }
+
+            // Return PasswordsList
+            return PasswordsList;
         }
 
         #endregion
@@ -364,8 +466,10 @@ namespace PasswordManager {
                 return;
             }
 
+            // Create and assign the password id
+            long passwordID = long.Parse(dgvPasswords[0, dgvPasswords.CurrentCell.RowIndex].Value.ToString());
             // Assign the Password DataTable with Password Table
-            InitializePasswordInATable();
+            InitializePasswordInATable(passwordID);
 
             // Delete the row from the table
             _passwordTable.Rows[0].Delete();
@@ -386,7 +490,7 @@ namespace PasswordManager {
             }
 
             // Ask the user if they want the passwords to be encrypted
-            DialogResult box = MessageBox.Show("Click Yes for the exported passwords to be encrypted?",
+            DialogResult box = MessageBox.Show("Click Yes for the exported passwords to be encrypted",
                     Properties.Settings.Default.ProjectName,
                     MessageBoxButtons.YesNo);
             // Create and assign a new StringBuilder
@@ -398,20 +502,20 @@ namespace PasswordManager {
                 foreach (DataRowView row in _dvPassword) {
                     string userName = getUsername(long.Parse(row["UserID"].ToString()));
                     sbExport.AppendLine(
-                        $"{row["PasswordID"].ToString()};" +
                         $"{userName};" +
                         $"{row["Title"]};" +
-                        $"{row["Password"]}");
+                        $"{row["Password"]};" +
+                        true);
                 }
             } else {
                 // For each DataRowView in Password DataView
                 foreach (DataRowView row in _dvPassword) {
                     string userName = getUsername(long.Parse(row["UserID"].ToString()));
                     sbExport.AppendLine(
-                        $"{row["PasswordID"].ToString()};" +
                         $"{userName};" +
                         $"{row["Title"]};" +
-                        $"{Encryption.Decrypt(row["Password"].ToString(), getUsername(long.Parse(row["UserID"].ToString())))}");
+                        $"{Encryption.Decrypt(row["Password"].ToString(), getUsername(long.Parse(row["UserID"].ToString())))};" +
+                        false);
                 }
             }
 
@@ -419,6 +523,11 @@ namespace PasswordManager {
             // Show a MessageBox
             File.WriteAllText(Application.StartupPath + $@"\{getUsername(_userID)}Passwords.csv", sbExport.ToString());
             MessageBox.Show("Passwords exported to CSV", Properties.Settings.Default.ProjectName);
+        }
+        private void BtnPasswordImport_Click(object sender, EventArgs e) {
+            // Create a new thread for frmPasswordImporter
+            tsdAccount.Dispose();
+            ThreadStartSTA(new Thread(new ThreadStart(ThreadProcPasswordImport)));
         }
 
         #endregion
@@ -658,6 +767,7 @@ namespace PasswordManager {
 
             EditUserEvent();
         }
+
         private void BtnDeleteUser_Click(object sender, EventArgs e) {
             // Check if a cell has been selected in the DataGridView
             // If not then stop the method
