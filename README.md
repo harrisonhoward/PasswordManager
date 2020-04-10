@@ -1,6 +1,5 @@
 <https://forbidden-duck.github.io/PasswordManager/>
 # PasswordManager Project
-[![GitHub Downloads](https://img.shields.io/github/downloads/Forbidden-Duck/PasswordManager/total)](https://github.com/Forbidden-Duck/PasswordManager/releases)
 
 This project was a created on 07/04/2020 at 5:00pm AEST.\
 Project Initial Commit Date: 07/04/2020.
