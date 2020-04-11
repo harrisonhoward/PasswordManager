@@ -34,6 +34,8 @@
             this.btnSave = new System.Windows.Forms.Button();
             this.txtUsername = new System.Windows.Forms.TextBox();
             this.lblUsername = new System.Windows.Forms.Label();
+            this.cboTags = new System.Windows.Forms.ComboBox();
+            this.lblTag = new System.Windows.Forms.Label();
             this.gbCreate.SuspendLayout();
             this.gbSave.SuspendLayout();
             this.SuspendLayout();
@@ -45,7 +47,7 @@
             this.txtPassword.MaxLength = 60;
             this.txtPassword.Name = "txtPassword";
             this.txtPassword.Size = new System.Drawing.Size(245, 22);
-            this.txtPassword.TabIndex = 4;
+            this.txtPassword.TabIndex = 3;
             this.txtPassword.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TxtPassword_KeyDown);
             this.txtPassword.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TxtPassword_KeyPress);
             // 
@@ -56,7 +58,7 @@
             this.txtTitle.MaxLength = 60;
             this.txtTitle.Name = "txtTitle";
             this.txtTitle.Size = new System.Drawing.Size(245, 22);
-            this.txtTitle.TabIndex = 0;
+            this.txtTitle.TabIndex = 1;
             // 
             // lblPassword
             // 
@@ -103,7 +105,7 @@
             // gbCreate
             // 
             this.gbCreate.Controls.Add(this.btnCreate);
-            this.gbCreate.Location = new System.Drawing.Point(245, 180);
+            this.gbCreate.Location = new System.Drawing.Point(244, 214);
             this.gbCreate.Name = "gbCreate";
             this.gbCreate.Size = new System.Drawing.Size(98, 40);
             this.gbCreate.TabIndex = 18;
@@ -112,7 +114,7 @@
             // gbSave
             // 
             this.gbSave.Controls.Add(this.btnSave);
-            this.gbSave.Location = new System.Drawing.Point(245, 180);
+            this.gbSave.Location = new System.Drawing.Point(244, 214);
             this.gbSave.Name = "gbSave";
             this.gbSave.Size = new System.Drawing.Size(98, 40);
             this.gbSave.TabIndex = 19;
@@ -137,7 +139,7 @@
             this.txtUsername.MaxLength = 60;
             this.txtUsername.Name = "txtUsername";
             this.txtUsername.Size = new System.Drawing.Size(245, 22);
-            this.txtUsername.TabIndex = 3;
+            this.txtUsername.TabIndex = 2;
             // 
             // lblUsername
             // 
@@ -149,11 +151,31 @@
             this.lblUsername.TabIndex = 21;
             this.lblUsername.Text = "Username";
             // 
+            // cboTags
+            // 
+            this.cboTags.FormattingEnabled = true;
+            this.cboTags.Location = new System.Drawing.Point(97, 180);
+            this.cboTags.Name = "cboTags";
+            this.cboTags.Size = new System.Drawing.Size(245, 21);
+            this.cboTags.TabIndex = 4;
+            // 
+            // lblTag
+            // 
+            this.lblTag.AutoSize = true;
+            this.lblTag.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTag.Location = new System.Drawing.Point(16, 183);
+            this.lblTag.Name = "lblTag";
+            this.lblTag.Size = new System.Drawing.Size(33, 18);
+            this.lblTag.TabIndex = 23;
+            this.lblTag.Text = "Tag";
+            // 
             // frmPasswordModifier
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(354, 231);
+            this.ClientSize = new System.Drawing.Size(354, 266);
+            this.Controls.Add(this.lblTag);
+            this.Controls.Add(this.cboTags);
             this.Controls.Add(this.txtUsername);
             this.Controls.Add(this.lblUsername);
             this.Controls.Add(this.gbCreate);
@@ -188,5 +210,7 @@
         private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.TextBox txtUsername;
         private System.Windows.Forms.Label lblUsername;
+        private System.Windows.Forms.ComboBox cboTags;
+        private System.Windows.Forms.Label lblTag;
     }
 }

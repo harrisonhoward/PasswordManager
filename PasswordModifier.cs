@@ -13,7 +13,7 @@ namespace PasswordManager {
         // Create a variable for the Password DataTable
         // Create a variable for checking for a new password
         long _passwordID = 0, _userID = 0;
-        DataTable _passwordTable;
+        DataTable _passwordTable, _tagTable;
         bool _isNew = false;
 
         #endregion
@@ -70,10 +70,13 @@ namespace PasswordManager {
         /// </summary>
         private void InitializeForm() {
             // Initialize the DataTable
+            // Initialize the Tag DataTable
             // Bind data to the form components
             InitializeDatatable();
+            InitializeTagTable();
             BindControls();
         }
+
         #endregion
 
         #region Button Events
@@ -163,6 +166,21 @@ namespace PasswordManager {
         }
 
         /// <summary>
+        /// Initializes the Tag DataTable
+        /// </summary>
+        private void InitializeTagTable() {
+            // Create and assign a new SQL Query
+            string sqlQuery = $"SELECT TagID, TagDisplay FROM Tags";
+
+            // Assign the Tag DataTable with the Tag DataTable
+            // Create a new column with the TagID and 
+            _tagTable = Context.GetDataTable(sqlQuery, "Tags");
+
+            // Adding new column for ComboBox
+            _tagTable.Columns.Add("Display", typeof(string), "TagID + ' - ' + TagDisplay");
+        }
+
+        /// <summary>
         /// Binds data to the text boxes
         /// </summary>
         private void BindControls() {
@@ -172,6 +190,24 @@ namespace PasswordManager {
             txtTitle.DataBindings.Add("Text", _passwordTable, "PasswordTitle");
             txtUsername.DataBindings.Add("Text", _passwordTable, "PasswordUsername");
             txtPassword.DataBindings.Add("Text", _passwordTable, "PasswordEncrypted");
+
+            // Bind the ValueMember with TagID
+            // Bind the DisplayMember with the column Display
+            // Bind the cboTags with the Tag DataTable
+            // Assign the BindingContext with the BindingContext
+            cboTags.ValueMember = "TagID";
+            cboTags.DisplayMember = "Display";
+            cboTags.DataSource = _tagTable;
+            cboTags.BindingContext = this.BindingContext;
+
+            // Check if _isNew is true
+            // Set the Tag SelectedIndex with -1
+            // Else set the Tag SelectedValue to TagID Row
+            if (_isNew || _passwordTable.Rows[0]["TagID"] is DBNull) {
+                cboTags.SelectedIndex = -1;
+            } else {
+                cboTags.SelectedValue = _passwordTable.Rows[0]["TagID"];
+            }
         }
 
         /// <summary>
@@ -216,6 +252,13 @@ namespace PasswordManager {
                 return;
             }
             _passwordTable.Rows[0]["UserID"] = _userID;
+
+            // Update the TagID in the Passwords DataTable
+            if (cboTags.SelectedIndex == -1) {
+                _passwordTable.Rows[0]["TagID"] = DBNull.Value;
+            } else {
+                _passwordTable.Rows[0]["TagID"] = cboTags.SelectedValue;
+            }
 
             // Create and assign the encrypted password
             // Check if the password was encrypted properly

@@ -58,6 +58,9 @@ namespace PasswordManager {
 
         #region Import Methods
 
+        /// <summary>
+        /// Import with PasswordManager CSV Export
+        /// </summary>
         private void PasswordManagerImport() {
             // Import and read the CSV File
             PasswordManagerFileReader();
@@ -106,6 +109,8 @@ namespace PasswordManager {
                     // Leave the password as is
                     newRow["PasswordEncrypted"] = row["Password"];
                 }
+                // Assign PasswordTag
+                newRow["TagID"] = row["Tag"];
                 // Save the row
                 newRow.EndEdit();
                 _allPasswordsTable.Rows.Add(newRow);
@@ -131,6 +136,7 @@ namespace PasswordManager {
             PasswordsList.Columns.Add("Title");
             PasswordsList.Columns.Add("Email");
             PasswordsList.Columns.Add("Password");
+            PasswordsList.Columns.Add("Tag");
             PasswordsList.Columns.Add("isEncrypted");
 
             // Try to read the lines in the file
@@ -153,11 +159,12 @@ namespace PasswordManager {
                             string Title = lineSplit[1];
                             string Email = lineSplit[2];
                             string Password = lineSplit[3];
-                            string isEncrypted = lineSplit[4];
+                            string Tag = lineSplit[4];
+                            string isEncrypted = lineSplit[5];
 
                             // Add the entries to the Passwords List
                             // Save row
-                            PasswordsList.Rows.Add(Username, Title, Email, Password, isEncrypted);
+                            PasswordsList.Rows.Add(Username, Title, Email, Password, Tag, isEncrypted);
                         }
                     } catch (Exception err) {
                         // Check if there is rows

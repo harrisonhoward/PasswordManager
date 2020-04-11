@@ -26,14 +26,17 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmPasswordMain));
             this.tsMain = new System.Windows.Forms.ToolStrip();
             this.tsbAccount = new System.Windows.Forms.ToolStripButton();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.tssAccPassListSep = new System.Windows.Forms.ToolStripSeparator();
             this.tsbPasswordList = new System.Windows.Forms.ToolStripButton();
+            this.tssPassListTagsList = new System.Windows.Forms.ToolStripSeparator();
+            this.tsbTagsList = new System.Windows.Forms.ToolStripButton();
             this.tsdAccount = new System.Windows.Forms.ToolStripDropDownButton();
             this.tsdiLogout = new System.Windows.Forms.ToolStripMenuItem();
             this.lblDivider = new System.Windows.Forms.Label();
             this.lblDividier2 = new System.Windows.Forms.Label();
             this.btnExit = new System.Windows.Forms.Button();
             this.panPasswordList = new System.Windows.Forms.Panel();
+            this.btnPasswordImport = new System.Windows.Forms.Button();
             this.btnPasswordExport = new System.Windows.Forms.Button();
             this.lblPasswordWarning = new System.Windows.Forms.Label();
             this.btnDeletePassword = new System.Windows.Forms.Button();
@@ -56,7 +59,15 @@
             this.btnAccountSave = new System.Windows.Forms.Button();
             this.btnChangePassword = new System.Windows.Forms.Button();
             this.txtChangePassword = new System.Windows.Forms.TextBox();
-            this.btnPasswordImport = new System.Windows.Forms.Button();
+            this.panTagsList = new System.Windows.Forms.Panel();
+            this.lblTagsWarning = new System.Windows.Forms.Label();
+            this.btnDeleteTag = new System.Windows.Forms.Button();
+            this.btnEditTag = new System.Windows.Forms.Button();
+            this.btnNewTag = new System.Windows.Forms.Button();
+            this.txtTagsSearch = new System.Windows.Forms.TextBox();
+            this.lblTagsSearch = new System.Windows.Forms.Label();
+            this.dgvTags = new System.Windows.Forms.DataGridView();
+            this.btnDeleteTags = new System.Windows.Forms.Button();
             this.tsMain.SuspendLayout();
             this.panPasswordList.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvPasswords)).BeginInit();
@@ -65,14 +76,18 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgvUsers)).BeginInit();
             this.gbUserSettings.SuspendLayout();
             this.gbAccountDanger.SuspendLayout();
+            this.panTagsList.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvTags)).BeginInit();
             this.SuspendLayout();
             // 
             // tsMain
             // 
             this.tsMain.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tsbAccount,
-            this.toolStripSeparator1,
+            this.tssAccPassListSep,
             this.tsbPasswordList,
+            this.tssPassListTagsList,
+            this.tsbTagsList,
             this.tsdAccount});
             this.tsMain.Location = new System.Drawing.Point(0, 0);
             this.tsMain.Name = "tsMain";
@@ -92,10 +107,10 @@
             this.tsbAccount.TextImageRelation = System.Windows.Forms.TextImageRelation.TextAboveImage;
             this.tsbAccount.ToolTipText = "Change your account settings";
             // 
-            // toolStripSeparator1
+            // tssAccPassListSep
             // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
+            this.tssAccPassListSep.Name = "tssAccPassListSep";
+            this.tssAccPassListSep.Size = new System.Drawing.Size(6, 25);
             // 
             // tsbPasswordList
             // 
@@ -107,6 +122,21 @@
             this.tsbPasswordList.Text = "Password List";
             this.tsbPasswordList.TextImageRelation = System.Windows.Forms.TextImageRelation.TextAboveImage;
             this.tsbPasswordList.ToolTipText = "Display all your passwords";
+            // 
+            // tssPassListTagsList
+            // 
+            this.tssPassListTagsList.Name = "tssPassListTagsList";
+            this.tssPassListTagsList.Size = new System.Drawing.Size(6, 25);
+            // 
+            // tsbTagsList
+            // 
+            this.tsbTagsList.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.tsbTagsList.Image = ((System.Drawing.Image)(resources.GetObject("tsbTagsList.Image")));
+            this.tsbTagsList.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsbTagsList.Name = "tsbTagsList";
+            this.tsbTagsList.Size = new System.Drawing.Size(55, 22);
+            this.tsbTagsList.Text = "Tags List";
+            this.tsbTagsList.TextImageRelation = System.Windows.Forms.TextImageRelation.TextAboveImage;
             // 
             // tsdAccount
             // 
@@ -170,6 +200,17 @@
             this.panPasswordList.Name = "panPasswordList";
             this.panPasswordList.Size = new System.Drawing.Size(800, 390);
             this.panPasswordList.TabIndex = 6;
+            // 
+            // btnPasswordImport
+            // 
+            this.btnPasswordImport.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnPasswordImport.Location = new System.Drawing.Point(626, 345);
+            this.btnPasswordImport.Name = "btnPasswordImport";
+            this.btnPasswordImport.Size = new System.Drawing.Size(78, 28);
+            this.btnPasswordImport.TabIndex = 14;
+            this.btnPasswordImport.Text = "Import";
+            this.btnPasswordImport.UseVisualStyleBackColor = true;
+            this.btnPasswordImport.Click += new System.EventHandler(this.BtnPasswordImport_Click);
             // 
             // btnPasswordExport
             // 
@@ -253,7 +294,7 @@
             this.dgvPasswords.Location = new System.Drawing.Point(14, 41);
             this.dgvPasswords.Name = "dgvPasswords";
             this.dgvPasswords.ReadOnly = true;
-            this.dgvPasswords.RowHeadersWidth = 60;
+            this.dgvPasswords.RowHeadersWidth = 20;
             this.dgvPasswords.Size = new System.Drawing.Size(600, 332);
             this.dgvPasswords.TabIndex = 7;
             this.dgvPasswords.SelectionChanged += new System.EventHandler(this.DgvPasswords_SelectionChanged);
@@ -354,12 +395,13 @@
             // 
             // gbAccountDanger
             // 
+            this.gbAccountDanger.Controls.Add(this.btnDeleteTags);
             this.gbAccountDanger.Controls.Add(this.btnDeletePasswords);
             this.gbAccountDanger.Controls.Add(this.btnDeleteAccount);
             this.gbAccountDanger.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
-            this.gbAccountDanger.Location = new System.Drawing.Point(6, 251);
+            this.gbAccountDanger.Location = new System.Drawing.Point(6, 219);
             this.gbAccountDanger.Name = "gbAccountDanger";
-            this.gbAccountDanger.Size = new System.Drawing.Size(200, 100);
+            this.gbAccountDanger.Size = new System.Drawing.Size(200, 132);
             this.gbAccountDanger.TabIndex = 15;
             this.gbAccountDanger.TabStop = false;
             this.gbAccountDanger.Text = "Danger Zone";
@@ -419,24 +461,117 @@
             this.txtChangePassword.Size = new System.Drawing.Size(155, 22);
             this.txtChangePassword.TabIndex = 0;
             // 
-            // btnPasswordImport
+            // panTagsList
             // 
-            this.btnPasswordImport.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnPasswordImport.Location = new System.Drawing.Point(626, 345);
-            this.btnPasswordImport.Name = "btnPasswordImport";
-            this.btnPasswordImport.Size = new System.Drawing.Size(78, 28);
-            this.btnPasswordImport.TabIndex = 14;
-            this.btnPasswordImport.Text = "Import";
-            this.btnPasswordImport.UseVisualStyleBackColor = true;
-            this.btnPasswordImport.Click += new System.EventHandler(this.BtnPasswordImport_Click);
+            this.panTagsList.Controls.Add(this.lblTagsWarning);
+            this.panTagsList.Controls.Add(this.btnDeleteTag);
+            this.panTagsList.Controls.Add(this.btnEditTag);
+            this.panTagsList.Controls.Add(this.btnNewTag);
+            this.panTagsList.Controls.Add(this.txtTagsSearch);
+            this.panTagsList.Controls.Add(this.lblTagsSearch);
+            this.panTagsList.Controls.Add(this.dgvTags);
+            this.panTagsList.Location = new System.Drawing.Point(0, 27);
+            this.panTagsList.Name = "panTagsList";
+            this.panTagsList.Size = new System.Drawing.Size(800, 390);
+            this.panTagsList.TabIndex = 15;
+            // 
+            // lblTagsWarning
+            // 
+            this.lblTagsWarning.AutoSize = true;
+            this.lblTagsWarning.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTagsWarning.Location = new System.Drawing.Point(642, 18);
+            this.lblTagsWarning.Name = "lblTagsWarning";
+            this.lblTagsWarning.Size = new System.Drawing.Size(85, 16);
+            this.lblTagsWarning.TabIndex = 20;
+            this.lblTagsWarning.Text = "Select a cell";
+            // 
+            // btnDeleteTag
+            // 
+            this.btnDeleteTag.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnDeleteTag.Location = new System.Drawing.Point(637, 106);
+            this.btnDeleteTag.Name = "btnDeleteTag";
+            this.btnDeleteTag.Size = new System.Drawing.Size(99, 28);
+            this.btnDeleteTag.TabIndex = 17;
+            this.btnDeleteTag.Text = "Delete Tag";
+            this.btnDeleteTag.UseVisualStyleBackColor = true;
+            this.btnDeleteTag.Click += new System.EventHandler(this.BtnDeleteTag_Click);
+            // 
+            // btnEditTag
+            // 
+            this.btnEditTag.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnEditTag.Location = new System.Drawing.Point(637, 72);
+            this.btnEditTag.Name = "btnEditTag";
+            this.btnEditTag.Size = new System.Drawing.Size(99, 28);
+            this.btnEditTag.TabIndex = 16;
+            this.btnEditTag.Text = "Edit Tag";
+            this.btnEditTag.UseVisualStyleBackColor = true;
+            this.btnEditTag.Click += new System.EventHandler(this.BtnEditTag_Click);
+            // 
+            // btnNewTag
+            // 
+            this.btnNewTag.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnNewTag.Location = new System.Drawing.Point(637, 38);
+            this.btnNewTag.Name = "btnNewTag";
+            this.btnNewTag.Size = new System.Drawing.Size(99, 28);
+            this.btnNewTag.TabIndex = 15;
+            this.btnNewTag.Text = "New Tag";
+            this.btnNewTag.UseVisualStyleBackColor = true;
+            this.btnNewTag.Click += new System.EventHandler(this.BtnNewTag_Click);
+            // 
+            // txtTagsSearch
+            // 
+            this.txtTagsSearch.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtTagsSearch.Location = new System.Drawing.Point(77, 14);
+            this.txtTagsSearch.MaxLength = 60;
+            this.txtTagsSearch.Name = "txtTagsSearch";
+            this.txtTagsSearch.Size = new System.Drawing.Size(543, 22);
+            this.txtTagsSearch.TabIndex = 14;
+            this.txtTagsSearch.TextChanged += new System.EventHandler(this.TxtTagsSearch_TextChanged);
+            // 
+            // lblTagsSearch
+            // 
+            this.lblTagsSearch.AutoSize = true;
+            this.lblTagsSearch.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTagsSearch.Location = new System.Drawing.Point(18, 16);
+            this.lblTagsSearch.Name = "lblTagsSearch";
+            this.lblTagsSearch.Size = new System.Drawing.Size(53, 16);
+            this.lblTagsSearch.TabIndex = 19;
+            this.lblTagsSearch.Text = "Search:";
+            // 
+            // dgvTags
+            // 
+            this.dgvTags.AllowUserToAddRows = false;
+            this.dgvTags.AllowUserToDeleteRows = false;
+            this.dgvTags.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvTags.Location = new System.Drawing.Point(20, 39);
+            this.dgvTags.Name = "dgvTags";
+            this.dgvTags.ReadOnly = true;
+            this.dgvTags.RowHeadersWidth = 60;
+            this.dgvTags.Size = new System.Drawing.Size(600, 332);
+            this.dgvTags.TabIndex = 18;
+            this.dgvTags.SelectionChanged += new System.EventHandler(this.DgvTags_SelectionChanged);
+            this.dgvTags.DoubleClick += new System.EventHandler(this.DgvTags_DoubleClick);
+            // 
+            // btnDeleteTags
+            // 
+            this.btnDeleteTags.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnDeleteTags.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.btnDeleteTags.Location = new System.Drawing.Point(33, 92);
+            this.btnDeleteTags.Name = "btnDeleteTags";
+            this.btnDeleteTags.Size = new System.Drawing.Size(132, 29);
+            this.btnDeleteTags.TabIndex = 4;
+            this.btnDeleteTags.Text = "Delete Tags";
+            this.btnDeleteTags.UseVisualStyleBackColor = true;
+            this.btnDeleteTags.Click += new System.EventHandler(this.BtnDeleteTags_Click);
             // 
             // frmPasswordMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.panPasswordList);
             this.Controls.Add(this.panAccountSettings);
+            this.Controls.Add(this.panPasswordList);
+            this.Controls.Add(this.panTagsList);
             this.Controls.Add(this.btnExit);
             this.Controls.Add(this.lblDividier2);
             this.Controls.Add(this.lblDivider);
@@ -458,6 +593,9 @@
             this.gbUserSettings.ResumeLayout(false);
             this.gbUserSettings.PerformLayout();
             this.gbAccountDanger.ResumeLayout(false);
+            this.panTagsList.ResumeLayout(false);
+            this.panTagsList.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvTags)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -481,7 +619,7 @@
         private System.Windows.Forms.ToolStripDropDownButton tsdAccount;
         private System.Windows.Forms.ToolStripMenuItem tsdiLogout;
         private System.Windows.Forms.ToolStripButton tsbAccount;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripSeparator tssAccPassListSep;
         private System.Windows.Forms.Panel panAccountSettings;
         private System.Windows.Forms.GroupBox gbUserSettings;
         private System.Windows.Forms.GroupBox gbAdminSettings;
@@ -498,5 +636,16 @@
         private System.Windows.Forms.Button btnEditUser;
         private System.Windows.Forms.Button btnPasswordExport;
         private System.Windows.Forms.Button btnPasswordImport;
+        private System.Windows.Forms.ToolStripSeparator tssPassListTagsList;
+        private System.Windows.Forms.ToolStripButton tsbTagsList;
+        private System.Windows.Forms.Panel panTagsList;
+        private System.Windows.Forms.Label lblTagsWarning;
+        private System.Windows.Forms.Button btnDeleteTag;
+        private System.Windows.Forms.Button btnEditTag;
+        private System.Windows.Forms.Button btnNewTag;
+        private System.Windows.Forms.TextBox txtTagsSearch;
+        private System.Windows.Forms.Label lblTagsSearch;
+        private System.Windows.Forms.DataGridView dgvTags;
+        private System.Windows.Forms.Button btnDeleteTags;
     }
 }

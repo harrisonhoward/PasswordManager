@@ -19,12 +19,16 @@ namespace PasswordManager {
 
         // Variables for Password List
         DataView _dvPassword;
-        DataTable _passwordTable, _allPasswordsTable;
+        DataTable _passwordTable;
 
         // Variables for Account Settings
         bool _userAdmin;
         DataView _dvUsers;
-        DataTable _passwordsTable;
+        DataTable _passwordsTable, _tagsTable;
+
+        // Variables for the Tags List
+        DataView _dvTag;
+        DataTable _tagTable;
 
         #endregion
 
@@ -55,6 +59,7 @@ namespace PasswordManager {
             // Hide every panel
             panPasswordList.Hide();
             panAccountSettings.Hide();
+            panTagsList.Hide();
         }
 
         #endregion
@@ -62,8 +67,9 @@ namespace PasswordManager {
         #region ToolStrip Events
 
         private void TsMain_ItemClicked(object sender, ToolStripItemClickedEventArgs e) {
-            // TOOLSTRIP BUTTON - PASSWORDLIST
             if (e.ClickedItem.Equals(tsbPasswordList)) {
+                // PasswordList
+
                 // Check if there is a current shown panel
                 // Hide the panel
                 if (_currentPanel != null) {
@@ -82,6 +88,8 @@ namespace PasswordManager {
                 // Populate the DataGrid on the Panel
                 PopulatePasswordGrid();
             } else if (e.ClickedItem.Equals(tsbAccount)) {
+                // AccountSettings
+
                 // Check if there is a current shown panel
                 // Hide the panel
                 if (_currentPanel != null) {
@@ -102,6 +110,26 @@ namespace PasswordManager {
                 // Disable save button
                 isAdmin();
                 btnAccountSave.Enabled = false;
+            } else if (e.ClickedItem.Equals(tsbTagsList)) {
+                // TagsList
+
+                // Check if there is a current shown panel
+                // Hide the panel
+                if (_currentPanel != null) {
+                    _currentPanel.Hide();
+                }
+                // Check if there is a current active button
+                // Unactive the button
+                if (_currentButton != null) {
+                    _currentButton.Checked = false;
+                }
+
+                // Set the current panel
+                // Set the current button
+                _currentPanel = panTagsList;
+                _currentButton = tsbTagsList;
+
+                PopulateTagGrid();
             }
             // Set the current panel to show
             // Set the current button to active
@@ -148,7 +176,7 @@ namespace PasswordManager {
         delegate void PopulatePasswordGridCallBack(object data);
         private void ThreadProcPasswordImport(object data) {
             // Parse our new object as a DialogResult
-            DialogResult result = (DialogResult) data;
+            DialogResult result = (DialogResult)data;
             // Show Import Form (On a new thread to allow a STA Start
             // If form returns DialogResult OK
             // Populate Password DataGridView
@@ -288,14 +316,6 @@ namespace PasswordManager {
         }
 
         /// <summary>
-        /// Initialize the All Passwords DataTable
-        /// </summary>
-        private void InitializeAllPasswords() {
-            // Assign the All Passwords DataTable
-            _allPasswordsTable = Context.GetDataTable("Passwords");
-        }
-
-        /// <summary>
         /// Populates the DataGridView
         /// </summary>
         private void PopulatePasswordGrid() {
@@ -309,21 +329,45 @@ namespace PasswordManager {
             // Assign the DataTable to the DataView
             // Assign the DataGridView with the DataView
             DataTable passwordTable = Context.GetDataTable(sqlQuery, "Passwords");
+
+            // Add a new column for holding TagDisplay
+            DataColumn newColumn = new DataColumn();
+            newColumn.ColumnName = "Tag";
+            newColumn.DataType = typeof(string);
+            newColumn.MaxLength = 120;
+            passwordTable.Columns.Add(newColumn);
+
             // Setting the column names
-            passwordTable.Columns[2].ColumnName = "Title";
-            passwordTable.Columns[3].ColumnName = "Username";
-            passwordTable.Columns[4].ColumnName = "Password";
+            passwordTable.Columns[3].ColumnName = "Title";
+            passwordTable.Columns[4].ColumnName = "Username";
+            passwordTable.Columns[5].ColumnName = "Password";
+
+            // For each row, changing TagID to TagDisplay
+            foreach (DataRow row in passwordTable.Rows) {
+                if (row["TagID"] is DBNull) {
+                    row["Tag"] = "";
+                } else {
+                    string tagDisplay = GetTagDisplay(long.Parse(row["TagID"].ToString()));
+                    if (string.IsNullOrEmpty(tagDisplay)) {
+                        row["Tag"] = "";
+                    } else {
+                        row["Tag"] = tagDisplay;
+                    }
+                }
+            }
 
             _dvPassword = new DataView(passwordTable);
             dgvPasswords.DataSource = _dvPassword;
 
-            // Setting the UserID Column as invisible
+            // Setting the UserID and TagID Column as invisible
             dgvPasswords.Columns[1].Visible = false;
+            dgvPasswords.Columns[2].Visible = false;
 
             // Setting column 
-            dgvPasswords.Columns[2].Width = 145;
-            dgvPasswords.Columns[3].Width = 145;
-            dgvPasswords.Columns[4].Width = 145;
+            dgvPasswords.Columns[3].Width = 125;
+            dgvPasswords.Columns[4].Width = 125;
+            dgvPasswords.Columns[5].Width = 125;
+            dgvPasswords.Columns[6].Width = 100;
         }
 
         /// <summary>
@@ -342,6 +386,31 @@ namespace PasswordManager {
             if (frm.ShowDialog() == DialogResult.OK) {
                 PopulatePasswordGrid();
             }
+        }
+
+        /// <summary>
+        /// Returns the TagDisplay of a TagID
+        /// </summary>
+        /// <param name="tagID">The id of the tag</param>
+        private string GetTagDisplay(long tagID) {
+            // Create a variable for holding the string
+            string tagDisplay = null;
+
+            // Create and assign a new SQL Query
+            // Assign the query to a temp datatable
+            string sqlQuery =
+                "SELECT TagID, TagDisplay FROM Tags " +
+                $"WHERE TagID={tagID}";
+            DataTable tagTable = Context.GetDataTable(sqlQuery, "Tags");
+
+            // Check if the tag exists
+            // Assign TagDisplay to the Local Variable
+            if (tagTable.Rows.Count > 0) {
+                tagDisplay = tagTable.Rows[0]["TagDisplay"].ToString();
+            }
+
+            // Return tagDisplay
+            return tagDisplay;
         }
 
         #endregion
@@ -451,6 +520,7 @@ namespace PasswordManager {
                         $"{row["Title"]};" +
                         $"{row["Username"]};" +
                         $"{row["Password"]};" +
+                        $"{row["TagID"]};" +
                         true);
                 }
             } else {
@@ -462,6 +532,7 @@ namespace PasswordManager {
                         $"{row["Title"]};" +
                         $"{row["Username"]};" +
                         $"{Encryption.Decrypt(row["Password"].ToString(), getUsername(long.Parse(row["UserID"].ToString())))};" +
+                        $"{row["TagID"]};" +
                         false);
                 }
             }
@@ -502,6 +573,18 @@ namespace PasswordManager {
         }
 
         /// <summary>
+        /// Initialize the Tag DataTable
+        /// </summary>
+        private void InitializeTagTable(long userID) {
+            // Create and assign a new SQL Query
+            // Assign the Password DataTable with the Password Table
+            string sqlQuery =
+                "SELECT * FROM Tags " +
+                $"WHERE UserID={userID}";
+            _tagsTable = Context.GetDataTable(sqlQuery, "Tags");
+        }
+
+        /// <summary>
         /// Gets all the Admins
         /// </summary>
         private int GetAllAdmins() {
@@ -533,6 +616,46 @@ namespace PasswordManager {
 
                 // Save Table
                 Context.SaveDataBaseTable(_passwordsTable);
+
+                // Let the user know it was completed
+                MessageBox.Show("Passwords Deleted",
+                    Properties.Settings.Default.ProjectName,
+                    MessageBoxButtons.OK);
+            } else {
+                // Provide reason why
+                MessageBox.Show("No passwords to delete",
+                    Properties.Settings.Default.ProjectName,
+                    MessageBoxButtons.OK);
+            }
+        }
+
+        /// <summary>
+        /// Deletes all the tags
+        /// </summary>
+        private void DeleteTags(long userID) {
+            // Initialize the Tag DataTable
+            InitializeTagTable(userID);
+            if (_tagsTable.Rows.Count > 0) {
+                // for each row in the Tag DataTable
+                foreach (DataRow row in _tagsTable.Rows) {
+                    // Delete the row
+                    // Save the row
+                    row.Delete();
+                    row.EndEdit();
+                }
+
+                // Save Table
+                Context.SaveDataBaseTable(_tagsTable);
+
+                // Let the user know it was completed
+                MessageBox.Show("Tags Deleted",
+                    Properties.Settings.Default.ProjectName,
+                    MessageBoxButtons.OK);
+            } else {
+                // Provide reason why
+                MessageBox.Show("No tags to delete",
+                    Properties.Settings.Default.ProjectName,
+                    MessageBoxButtons.OK);
             }
         }
 
@@ -616,6 +739,11 @@ namespace PasswordManager {
 
                 // Logout
                 Logout();
+            } else {
+                // Provide reason why
+                MessageBox.Show("Cancelled, account not deleted",
+                    Properties.Settings.Default.ProjectName,
+                    MessageBoxButtons.OK);
             }
         }
         private void BtnDeletePasswords_Click(object sender, EventArgs e) {
@@ -627,14 +755,25 @@ namespace PasswordManager {
             if (box == DialogResult.Yes) {
                 // Delete the passwords
                 DeletePasswords(_userID);
-
-                // Let the user know it was completed
-                MessageBox.Show("Passwords Deleted",
-                    Properties.Settings.Default.ProjectName,
-                    MessageBoxButtons.OK);
             } else {
                 // Provide reason why
-                MessageBox.Show("No passwords to delete",
+                MessageBox.Show("Cancelled, no passwords deleted",
+                    Properties.Settings.Default.ProjectName,
+                    MessageBoxButtons.OK);
+            }
+        }
+        private void BtnDeleteTags_Click(object sender, EventArgs e) {
+            // Ask the user if they are sure
+            DialogResult box = MessageBox.Show("Are you sure you want to delete your tags?",
+                    Properties.Settings.Default.ProjectName,
+                    MessageBoxButtons.YesNo);
+            // If yes, continue on
+            if (box == DialogResult.Yes) {
+                // Delete the passwords
+                DeleteTags(_userID);
+            } else {
+                // Provide reason why
+                MessageBox.Show("Cancelled, no tags deleted",
                     Properties.Settings.Default.ProjectName,
                     MessageBoxButtons.OK);
             }
@@ -695,12 +834,10 @@ namespace PasswordManager {
 
             EditUserEvent();
         }
-
         private void TxtUserSearch_TextChanged(object sender, EventArgs e) {
             // Assign the DataView RowFilter
             _dvUsers.RowFilter = $"Username LIKE '%{txtUserSearch.Text}%'";
         }
-
         private void BtnEditUser_Click(object sender, EventArgs e) {
             // Check if a cell has been selected in the DataGridView
             // If not then stop the method
@@ -713,7 +850,6 @@ namespace PasswordManager {
 
             EditUserEvent();
         }
-
         private void BtnDeleteUser_Click(object sender, EventArgs e) {
             // Check if a cell has been selected in the DataGridView
             // If not then stop the method
@@ -754,6 +890,151 @@ namespace PasswordManager {
 
             // Re-populate the grid
             PopulateAdminGrid();
+        }
+
+        #endregion
+
+        #region TagsList Helper Methods
+
+        /// <summary>
+        /// Initialize the Tag DataTable
+        /// </summary>
+        /// <param name="tagID"></param>
+        private void InitializeTagInATable(long tagID) {
+            // Create and assign a new SQL Query
+            // Assign the Tag DataTable with the Tag Table
+            string sqlQuery =
+                "SELECT * FROM Tags " +
+                $"WHERE TagID={tagID}";
+            _tagTable = Context.GetDataTable(sqlQuery, "Tags");
+        }
+
+        /// <summary>
+        /// Populates the DataGridView
+        /// </summary>
+        private void PopulateTagGrid() {
+            // Create and assign a new SQL Query
+            string sqlQuery =
+                "SELECT * FROM Tags " +
+                $"WHERE UserID={_userID} " +
+                "ORDER BY TagID DESC";
+
+            // Create and assign the DataTable with the Password DataTable
+            // Assign the DataTable to the DataView
+            // Assign the DataGridView with the DataView
+            DataTable tagTable = Context.GetDataTable(sqlQuery, "Tags");
+            // Setting the column names
+            tagTable.Columns[2].ColumnName = "Display";
+            tagTable.Columns[3].ColumnName = "Description";
+
+            _dvTag = new DataView(tagTable);
+            dgvTags.DataSource = _dvTag;
+
+            // Setting the UserID Column as invisible
+            dgvTags.Columns[1].Visible = false;
+
+            // Setting column 
+            dgvTags.Columns[2].Width = 185;
+            dgvTags.Columns[3].Width = 250;
+        }
+
+        /// <summary>
+        /// Initiates the Edit Event
+        /// </summary>
+        private void EditTagEvent() {
+            // Create and assign the DataGridView Primary Key
+            long tagID = long.Parse(dgvTags[0, dgvTags.CurrentCell.RowIndex].Value.ToString());
+
+            // Create a new instance of frmTagModifier (with the Tag and User ID)
+            // Set the forms parent to this form
+            frmTagModifier frm = new frmTagModifier(tagID, _userID, Location);
+            // Show the form
+            // If the form returns DialogResult OK
+            // Populate the DataGridView
+            if (frm.ShowDialog() == DialogResult.OK) {
+                PopulateTagGrid();
+            }
+        }
+
+        #endregion
+
+        #region TagsList Events
+
+        // TextBox Events
+        private void TxtTagsSearch_TextChanged(object sender, EventArgs e) {
+            // Assign the DataView RowFilter
+            _dvTag.RowFilter = $"Display LIKE '%{txtTagsSearch.Text}%' ";
+        }
+
+        // DataGridView Events
+        private void DgvTags_DoubleClick(object sender, EventArgs e) {
+            // Check if a cell has been selected in the DataGridView
+            // If not then stop the method
+            if (dgvTags.CurrentCell == null) {
+                return;
+            }
+
+            EditTagEvent();
+        }
+        private void DgvTags_SelectionChanged(object sender, EventArgs e) {
+            // Check if a cell has been selected
+            // Enable the label
+            // Else disable the label
+            if (dgvTags.CurrentCell != null) {
+                lblTagsWarning.Visible = false;
+            } else {
+                lblTagsWarning.Visible = true;
+            }
+        }
+
+        // Button Events
+        private void BtnNewTag_Click(object sender, EventArgs e) {
+            // Create a new instance of frmTagModifier (with the User ID)
+            // Set the forms parent to this form
+            frmTagModifier frm = new frmTagModifier(_userID, Location);
+            // Show the form
+            // If the form returns DialogResult OK
+            // Populate the DataGridView
+            if (frm.ShowDialog() == DialogResult.OK) {
+                PopulateTagGrid();
+            }
+        }
+        private void BtnEditTag_Click(object sender, EventArgs e) {
+            // Check if a cell has been selected in the DataGridView
+            // If not then stop the method
+            if (dgvTags.CurrentCell == null) {
+                MessageBox.Show("No cell has been selected",
+                    Properties.Settings.Default.ProjectName,
+                    MessageBoxButtons.OK);
+                return;
+            }
+
+            EditTagEvent();
+        }
+        private void BtnDeleteTag_Click(object sender, EventArgs e) {
+            // Check if a cell has been selected in the DataGridView
+            // If not then stop the method
+            if (dgvTags.CurrentCell == null) {
+                MessageBox.Show("No cell has been selected",
+                    Properties.Settings.Default.ProjectName,
+                    MessageBoxButtons.OK);
+                return;
+            }
+
+            // Create and assign the tag id
+            long tagID = long.Parse(dgvTags[0, dgvTags.CurrentCell.RowIndex].Value.ToString());
+            // Assign the Tag DataTable with Tag Table
+            InitializeTagInATable(tagID);
+
+            // Delete the row from the table
+            _tagTable.Rows[0].Delete();
+
+            // Save the DataTable and Table
+            _tagTable.Rows[0].EndEdit();
+            Context.SaveDataBaseTable(_tagTable);
+
+            // Re-populate the grid
+            PopulateTagGrid();
         }
 
         #endregion

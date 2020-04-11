@@ -36,6 +36,7 @@ namespace SQLController {
             CreateUsersTable();
             CreatePasswordsTable();
             CreateLoginDetailsTable();
+            CreateTagsTable();
         }
 
         /// <summary>
@@ -72,11 +73,26 @@ namespace SQLController {
             string schema =
                 "PasswordID int IDENTITY(1,1) PRIMARY KEY, " +
                 "UserID int NOT NULL, " +
+                "TagID int, " +
                 "PasswordTitle VARCHAR(120), " +
                 "PasswordUsername VARCHAR(120), " +
                 "PasswordEncrypted VARCHAR(1000) NOT NULL";
             // Create the Passwords Table with the Schema
             _sql.CreateDatabaseTable("Passwords", schema);
+        }
+
+        /// <summary>
+        /// Creates tags table
+        /// </summary>
+        private static void CreateTagsTable() {
+            // Create and assign the Schema
+            string schema =
+                "TagID int IDENTITY(1,1) PRIMARY KEY, " +
+                "UserID int NOT NULL, " +
+                "TagDisplay VARCHAR(60), " +
+                "TagDescription VARCHAR(120)";
+            // Create the Tags Table with the Schema
+            _sql.CreateDatabaseTable("Tags", schema);
         }
 
         #endregion
