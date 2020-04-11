@@ -20,6 +20,7 @@ namespace PasswordManager {
         // Variables for Password List
         DataView _dvPassword;
         DataTable _passwordTable;
+        string[] _rowFilters = new string[2];
 
         // Variables for Account Settings
         bool _userAdmin;
@@ -86,7 +87,11 @@ namespace PasswordManager {
                 _currentButton = tsbPasswordList;
 
                 // Populate the DataGrid on the Panel
+                // Populate the ComboBox
+                // Make sure first item is selected
                 PopulatePasswordGrid();
+                PopulateComboBox();
+                cboTags.SelectedIndex = 0;
             } else if (e.ClickedItem.Equals(tsbAccount)) {
                 // AccountSettings
 
@@ -169,29 +174,8 @@ namespace PasswordManager {
         private void ThreadProcLogin() {
             Application.Run(new frmLogin());
         }
-        /// <summary>
-        /// Used to Callback
-        /// </summary>
-        /// <param name="data">The callback parameters</param>
-        delegate void PopulatePasswordGridCallBack(object data);
-        private void ThreadProcPasswordImport(object data) {
-            // Parse our new object as a DialogResult
-            DialogResult result = (DialogResult)data;
-            // Show Import Form (On a new thread to allow a STA Start
-            // If form returns DialogResult OK
-            // Populate Password DataGridView
-            if (InvokeRequired) {
-                if ((DialogResult)Invoke(new Func<DialogResult>(() => {
-                    return new frmPasswordImporter(_userID, Location).ShowDialog();
-                })) == DialogResult.OK) {
-                    PopulatePasswordGridCallBack callback = new PopulatePasswordGridCallBack(ThreadProcPasswordImport);
-                    Invoke(callback, DialogResult.OK);
-                }
-            } else {
-                if (result == DialogResult.OK) {
-                    PopulatePasswordGrid();
-                }
-            }
+        private void ThreadProcPasswordImport() {
+            Application.Run(new frmPasswordImporter(_userID, Location));
         }
 
         /// <summary>
@@ -208,12 +192,12 @@ namespace PasswordManager {
         /// Start a new thread with STA
         /// </summary>
         /// <param name="thread">The new thread</param>
-        private void ThreadStartSTA(Thread thread) {
+        private Thread ThreadStartSTA(Thread thread) {
             // Settting the Thread to STA to allow the use of Import Event
             thread.SetApartmentState(ApartmentState.STA);
             // Start the thread using our new object DialogResult.OK
-            // Close the current form
-            thread.Start(DialogResult.OK);
+            thread.Start();
+            return thread;
         }
 
         /// <summary>
@@ -371,6 +355,22 @@ namespace PasswordManager {
         }
 
         /// <summary>
+        /// Binds All Tags to the ComboBox
+        /// </summary>
+        private void PopulateComboBox() {
+            // Create and assign a new SQL Query
+            // Create and assign a new DataTable
+            string sqlQuery =
+                $"SELECT TagID, TagDisplay FROM Tags " +
+                $"WHERE UserID={_userID}";
+            DataTable tagTable = Context.GetDataTable(sqlQuery, "Tags");
+
+            foreach (DataRow row in tagTable.Rows) {
+                cboTags.Items.Add(row["TagDisplay"]);
+            }
+        }
+
+        /// <summary>
         /// Initiates the Edit Event
         /// </summary>
         private void EditPasswordEvent() {
@@ -413,16 +413,68 @@ namespace PasswordManager {
             return tagDisplay;
         }
 
+        /// <summary>
+        /// Filters the DataView
+        /// </summary>
+        /// <param name="rowFilter">String array containing the filters</param>
+        private void PasswordsFilterRow() {
+            // Create a variable for the filter
+            string filterString;
+
+            // If Text is null. Filter by tags
+            // If Tags is null. Filter by Text
+            // If Both are null. Filter by nothing
+            // Else Filter by Both
+            if (_rowFilters[0] == null
+                && _rowFilters[1] != null) {
+                filterString = _rowFilters[1];
+            } else if (_rowFilters[1] == null
+                && _rowFilters[0] != null) {
+                filterString = _rowFilters[0];
+            } else if (_rowFilters[0] == null
+                && _rowFilters[1] == null) {
+                filterString = "";
+            } else {
+                filterString = $"{_rowFilters[0]} AND {_rowFilters[1]}";
+            }
+
+            // Assign the filterString to the DataView
+            _dvPassword.RowFilter = filterString;
+        }
+
         #endregion
 
         #region PasswordList Events
 
         // TextBox Events
         private void TxtPasswordSearch_TextChanged(object sender, EventArgs e) {
-            // Assign the DataView RowFilter
-            _dvPassword.RowFilter =
-                $"Title LIKE '%{txtPasswordSearch.Text}%' " +
-                $"OR Username LIKE '%{txtPasswordSearch.Text}%'";
+            if (txtPasswordSearch.Text.Length > 0) {
+                // Assign the text filter
+                // Assign the DataView RowFilter
+                _rowFilters[0] =
+                    $"Title LIKE '%{txtPasswordSearch.Text}%' " +
+                    $"OR Username LIKE '%{txtPasswordSearch.Text}%'";
+                PasswordsFilterRow();
+            } else {
+                _rowFilters[0] = null;
+                PasswordsFilterRow();
+            }
+        }
+
+        // CheckBox Events
+        private void CboTags_SelectedIndexChanged(object sender, EventArgs e) {
+            // Make sure there is a selected value
+            if (_dvPassword.Table.Rows.Count > 0) {
+                // Create a variable for the selected value
+                string tagValue = (string) cboTags.SelectedItem;
+
+                if (cboTags.SelectedIndex > 0) {
+                    _rowFilters[1] = $"Tag='{tagValue}'";
+                } else {
+                    _rowFilters[1] = null;
+                }
+                PasswordsFilterRow();
+            }
         }
 
         // DataGridView Events
@@ -543,8 +595,11 @@ namespace PasswordManager {
             MessageBox.Show("Passwords exported to CSV", Properties.Settings.Default.ProjectName);
         }
         private void BtnPasswordImport_Click(object sender, EventArgs e) {
-            // Create a new thread using ParameterizedThreadStart (allows the paramters)
-            ThreadStartSTA(new Thread(new ParameterizedThreadStart(ThreadProcPasswordImport)));
+            // Create a new thread using ThreadStart.
+            // Using that thread we will join it so we execute Populate Grid at the right time
+            Thread thread = ThreadStartSTA(new Thread(new ThreadStart(ThreadProcPasswordImport)));
+            thread.Join();
+            PopulatePasswordGrid();
         }
 
         #endregion
@@ -1011,6 +1066,7 @@ namespace PasswordManager {
 
             EditTagEvent();
         }
+
         private void BtnDeleteTag_Click(object sender, EventArgs e) {
             // Check if a cell has been selected in the DataGridView
             // If not then stop the method

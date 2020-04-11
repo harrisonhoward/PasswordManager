@@ -54,6 +54,7 @@
             this.dgvUsers = new System.Windows.Forms.DataGridView();
             this.gbUserSettings = new System.Windows.Forms.GroupBox();
             this.gbAccountDanger = new System.Windows.Forms.GroupBox();
+            this.btnDeleteTags = new System.Windows.Forms.Button();
             this.btnDeletePasswords = new System.Windows.Forms.Button();
             this.btnDeleteAccount = new System.Windows.Forms.Button();
             this.btnAccountSave = new System.Windows.Forms.Button();
@@ -67,7 +68,8 @@
             this.txtTagsSearch = new System.Windows.Forms.TextBox();
             this.lblTagsSearch = new System.Windows.Forms.Label();
             this.dgvTags = new System.Windows.Forms.DataGridView();
-            this.btnDeleteTags = new System.Windows.Forms.Button();
+            this.cboTags = new System.Windows.Forms.ComboBox();
+            this.lblFilter = new System.Windows.Forms.Label();
             this.tsMain.SuspendLayout();
             this.panPasswordList.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvPasswords)).BeginInit();
@@ -187,6 +189,8 @@
             // 
             // panPasswordList
             // 
+            this.panPasswordList.Controls.Add(this.lblFilter);
+            this.panPasswordList.Controls.Add(this.cboTags);
             this.panPasswordList.Controls.Add(this.btnPasswordImport);
             this.panPasswordList.Controls.Add(this.btnPasswordExport);
             this.panPasswordList.Controls.Add(this.lblPasswordWarning);
@@ -272,7 +276,7 @@
             this.txtPasswordSearch.Location = new System.Drawing.Point(71, 16);
             this.txtPasswordSearch.MaxLength = 60;
             this.txtPasswordSearch.Name = "txtPasswordSearch";
-            this.txtPasswordSearch.Size = new System.Drawing.Size(543, 22);
+            this.txtPasswordSearch.Size = new System.Drawing.Size(291, 22);
             this.txtPasswordSearch.TabIndex = 0;
             this.txtPasswordSearch.TextChanged += new System.EventHandler(this.TxtPasswordSearch_TextChanged);
             // 
@@ -405,6 +409,18 @@
             this.gbAccountDanger.TabIndex = 15;
             this.gbAccountDanger.TabStop = false;
             this.gbAccountDanger.Text = "Danger Zone";
+            // 
+            // btnDeleteTags
+            // 
+            this.btnDeleteTags.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnDeleteTags.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.btnDeleteTags.Location = new System.Drawing.Point(33, 92);
+            this.btnDeleteTags.Name = "btnDeleteTags";
+            this.btnDeleteTags.Size = new System.Drawing.Size(132, 29);
+            this.btnDeleteTags.TabIndex = 4;
+            this.btnDeleteTags.Text = "Delete Tags";
+            this.btnDeleteTags.UseVisualStyleBackColor = true;
+            this.btnDeleteTags.Click += new System.EventHandler(this.BtnDeleteTags_Click);
             // 
             // btnDeletePasswords
             // 
@@ -552,25 +568,35 @@
             this.dgvTags.SelectionChanged += new System.EventHandler(this.DgvTags_SelectionChanged);
             this.dgvTags.DoubleClick += new System.EventHandler(this.DgvTags_DoubleClick);
             // 
-            // btnDeleteTags
+            // cboTags
             // 
-            this.btnDeleteTags.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnDeleteTags.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.btnDeleteTags.Location = new System.Drawing.Point(33, 92);
-            this.btnDeleteTags.Name = "btnDeleteTags";
-            this.btnDeleteTags.Size = new System.Drawing.Size(132, 29);
-            this.btnDeleteTags.TabIndex = 4;
-            this.btnDeleteTags.Text = "Delete Tags";
-            this.btnDeleteTags.UseVisualStyleBackColor = true;
-            this.btnDeleteTags.Click += new System.EventHandler(this.BtnDeleteTags_Click);
+            this.cboTags.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.63F);
+            this.cboTags.FormattingEnabled = true;
+            this.cboTags.Items.AddRange(new object[] {
+            "None"});
+            this.cboTags.Location = new System.Drawing.Point(433, 15);
+            this.cboTags.Name = "cboTags";
+            this.cboTags.Size = new System.Drawing.Size(181, 23);
+            this.cboTags.TabIndex = 15;
+            this.cboTags.SelectedIndexChanged += new System.EventHandler(this.CboTags_SelectedIndexChanged);
+            // 
+            // lblFilter
+            // 
+            this.lblFilter.AutoSize = true;
+            this.lblFilter.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblFilter.Location = new System.Drawing.Point(368, 18);
+            this.lblFilter.Name = "lblFilter";
+            this.lblFilter.Size = new System.Drawing.Size(59, 16);
+            this.lblFilter.TabIndex = 16;
+            this.lblFilter.Text = "Filter by:";
             // 
             // frmPasswordMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.panAccountSettings);
             this.Controls.Add(this.panPasswordList);
+            this.Controls.Add(this.panAccountSettings);
             this.Controls.Add(this.panTagsList);
             this.Controls.Add(this.btnExit);
             this.Controls.Add(this.lblDividier2);
@@ -647,5 +673,7 @@
         private System.Windows.Forms.Label lblTagsSearch;
         private System.Windows.Forms.DataGridView dgvTags;
         private System.Windows.Forms.Button btnDeleteTags;
+        private System.Windows.Forms.Label lblFilter;
+        private System.Windows.Forms.ComboBox cboTags;
     }
 }
