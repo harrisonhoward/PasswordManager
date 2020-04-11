@@ -1,6 +1,7 @@
 ﻿using Encryptor;
 using SQLController;
 using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Drawing;
 using System.IO;
@@ -12,6 +13,9 @@ namespace PasswordManager {
 
         long _userID = 0;
         DataTable _allPasswordsTable, _passwordsTable, _importTable;
+
+        // Used to find duplicates
+        List<string> titles, usernames;
 
         #endregion
 
@@ -154,30 +158,33 @@ namespace PasswordManager {
 
             // For each row in the File Passwords
             foreach (DataRow row in _importTable.Rows) {
-                // Setting the PasswordID
-                int passwordID = 0;
-                if (_allPasswordsTable.Rows.Count > 0) {
-                    passwordID = int.Parse(_allPasswordsTable.Rows[_allPasswordsTable.Rows.Count - 1]["PasswordID"].ToString());
+                if (!titles.Contains(row["Title"].ToString())
+                    || !usernames.Contains(row["Email"].ToString())) {
+                    // Setting the PasswordID
+                    int passwordID = 0;
+                    if (_allPasswordsTable.Rows.Count > 0) {
+                        passwordID = int.Parse(_allPasswordsTable.Rows[_allPasswordsTable.Rows.Count - 1]["PasswordID"].ToString());
+                    }
+
+                    // Create a new row
+                    DataRow newRow = _allPasswordsTable.NewRow();
+                    // Assign PasswordID, UserID, PasswordTitle and PasswordUsername
+                    newRow["PasswordID"] = passwordID + 1;
+                    newRow["UserID"] = _userID;
+                    newRow["PasswordTitle"] = row["Title"];
+                    newRow["PasswordUsername"] = row["Email"];
+                    // Encrypt the password
+                    newRow["PasswordEncrypted"] = Encryption.Encrypt(row["Password"].ToString(), getUsername());
+                    // Assign PasswordTag
+                    newRow["TagID"] = DBNull.Value;
+                    // Save the row
+                    newRow.EndEdit();
+                    _allPasswordsTable.Rows.Add(newRow);
+
+                    // Save the Table
+                    // Populate Grid
+                    Context.SaveDataBaseTable(_allPasswordsTable);
                 }
-
-                // Create a new row
-                DataRow newRow = _allPasswordsTable.NewRow();
-                // Assign PasswordID, UserID, PasswordTitle and PasswordUsername
-                newRow["PasswordID"] = passwordID + 1;
-                newRow["UserID"] = _userID;
-                newRow["PasswordTitle"] = row["Title"];
-                newRow["PasswordUsername"] = row["Email"];
-                // Encrypt the password
-                newRow["PasswordEncrypted"] = Encryption.Encrypt(row["Password"].ToString(), getUsername());
-                // Assign PasswordTag
-                newRow["TagID"] = DBNull.Value;
-                // Save the row
-                newRow.EndEdit();
-                _allPasswordsTable.Rows.Add(newRow);
-
-                // Save the Table
-                // Populate Grid
-                Context.SaveDataBaseTable(_allPasswordsTable);
             }
         }
 
@@ -378,6 +385,16 @@ namespace PasswordManager {
                 "SELECT * FROM Passwords " +
                 $"WHERE UserID={_userID} ";
             _passwordsTable = Context.GetDataTable(sqlQuery, "Passwords");
+
+            // Set the size of the arrays
+            titles = new List<string>(_passwordsTable.Rows.Count);
+            usernames = new List<string>(_passwordsTable.Rows.Count);
+
+            // Add values to the corrosponding string array
+            foreach (DataRow row in _passwordsTable.Rows) {
+                titles.Add(row["PasswordTitle"].ToString());
+                usernames.Add(row["PasswordUsername"].ToString());
+            }
         }
 
         /// <summary>
