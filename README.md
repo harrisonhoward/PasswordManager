@@ -34,9 +34,6 @@ If you need help understanding some code please contact me. Otherwise please hea
 ## Project Features
 
 ### Features in the works
-**Account Management**\
-Request the password when editing or creating passwords.
-
 **Importing**\
 Importing with Custom files (Import Builder which will allow the user to build the structure of the file)
 
@@ -45,7 +42,7 @@ Importing with Custom files (Import Builder which will allow the user to build t
 Be able to create as many accounts you please. With added Confirm Password protection.
 
 **Account Management**\
-Change your password, delete your account and delete all your passwords
+Change your password, delete your account and delete all your passwords. Request the password when editing or creating passwords.
 
 **Admin Access**\
 First account created is automatically an admin. Be able to manage user accounts and edit user admin access
