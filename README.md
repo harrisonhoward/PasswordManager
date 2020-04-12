@@ -72,6 +72,9 @@ Have the ability to stay signed in
 **Importing** and **Exporting**
 Importing and Exporting features have been added. There are currently only 1 import feature and that is if you exported with Password Manager. More Imports will be added.
 
+**Tags**
+Be able to add tags and filter by tags
+
 ## Frequently asked questions
 ### How do I start the program?
 You will have to go into the app.config (this will be located along side all the forms). You will need SQL Server downloaded and it is recommended to also have SQL Management Studio. In the app.config locate < connectionStrings > and modifed Data Source as the Server Name and Initial Catalog as the Database name.\
