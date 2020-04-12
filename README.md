@@ -37,15 +37,6 @@ If you need help understanding some code please contact me. Otherwise please hea
 **Account Management**\
 Request the password when editing or creating passwords.
 
-**More options to be added to passwords**\
-Such as, the date it was created and specific tags (Email, Discord).
-
-**Custom key**\
-Be able to assign a custom key to the encryption process. Please keep in mind that once activated you have to store the key elsewhere as the database will not store it as that would make the key useless as any person who gets access to the database will see the decryption key. Also note that the key would need to be entered every time.
-
-**Password used as key**\
-There are 2 approaches to this. We get you to use the password for the user account, the downside is that we can not decrypt the password and you will need to enter it every time. The other approach is you give the password and that is stored again but encrypted with the key process. However, much planning would need to be invested for a clean version to be released.
-
 **Importing**\
 Importing with Custom files (Import Builder which will allow the user to build the structure of the file)
 
