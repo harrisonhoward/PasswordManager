@@ -60,7 +60,8 @@ namespace SQLController {
                 "UserID int IDENTITY(1,1) PRIMARY KEY, " +
                 "Username VARCHAR(60) NOT NULL, " +
                 "PasswordHash VARCHAR(1000) NOT NULL, " +
-                "Admin bit";
+                "Admin bit, " +
+                "PasswordRequest bit";
             // Create the Users Table with the Schema
             _sql.CreateDatabaseTable("Users", schema);
         }

@@ -6,6 +6,7 @@ using System.IO;
 using System.Text;
 using System.Threading;
 using System.Windows.Forms;
+using Microsoft.VisualBasic;
 
 namespace PasswordManager {
     public partial class frmPasswordMain : Form {
@@ -110,6 +111,9 @@ namespace PasswordManager {
                 // Set the current button
                 _currentPanel = panAccountSettings;
                 _currentButton = tsbAccount;
+
+                // Assign the CheckBox to the saved data
+                cbPasswordRequest.Checked = bool.Parse(_userTable.Rows[0]["PasswordRequest"].ToString());
 
                 // Check if the user is an admin
                 // Disable save button
@@ -374,6 +378,26 @@ namespace PasswordManager {
         /// Initiates the Edit Event
         /// </summary>
         private void EditPasswordEvent() {
+            // Check if the user requests a password
+            if (bool.Parse(_userTable.Rows[0]["PasswordRequest"].ToString())) {
+                // Show an InputBox
+                string userInput = Interaction.InputBox("Please enter your password", "Password Confirmation", "");
+
+                // Check if empty
+                // Check if incorrect
+                if (string.IsNullOrEmpty(userInput)) {
+                    MessageBox.Show("No password entered",
+                        Properties.Settings.Default.ProjectName,
+                        MessageBoxButtons.OK);
+                    return;
+                } else if (!HashSalt.CompareInputtoPassword(userInput, _userTable.Rows[0]["PasswordHash"].ToString())) {
+                    MessageBox.Show("Incorrect password",
+                        Properties.Settings.Default.ProjectName,
+                        MessageBoxButtons.OK);
+                    return;
+                }
+            }
+
             // Create and assign the DataGridView Primary Key
             long passwordID = long.Parse(dgvPasswords[0, dgvPasswords.CurrentCell.RowIndex].Value.ToString());
 
@@ -523,6 +547,26 @@ namespace PasswordManager {
             EditPasswordEvent();
         }
         private void BtnDeletePassword_Click(object sender, EventArgs e) {
+            // Check if the user requests a password
+            if (bool.Parse(_userTable.Rows[0]["PasswordRequest"].ToString())) {
+                // Show an InputBox
+                string userInput = Interaction.InputBox("Please enter your password", "Password Confirmation", "");
+
+                // Check if empty
+                // Check if incorrect
+                if (string.IsNullOrEmpty(userInput)) {
+                    MessageBox.Show("No password entered",
+                        Properties.Settings.Default.ProjectName,
+                        MessageBoxButtons.OK);
+                    return;
+                } else if (!HashSalt.CompareInputtoPassword(userInput, _userTable.Rows[0]["PasswordHash"].ToString())) {
+                    MessageBox.Show("Incorrect password",
+                        Properties.Settings.Default.ProjectName,
+                        MessageBoxButtons.OK);
+                    return;
+                }
+            }
+
             // Check if a cell has been selected in the DataGridView
             // If not then stop the method
             if (dgvPasswords.CurrentCell == null) {
@@ -858,13 +902,45 @@ namespace PasswordManager {
                 // Adding the new password to the User DataTable
                 _userTable.Rows[0]["PasswordHash"] = usersPassword;
 
-                // Set the Save Buttno to enabled
+                // Set the Save Button to enabled
                 btnAccountSave.Enabled = true;
             } else {
                 // Provide reason why
                 MessageBox.Show("Please enter a password",
                     Properties.Settings.Default.ProjectName,
                     MessageBoxButtons.OK);
+            }
+        }
+        private void CbPasswordRequest_CheckedChanged(object sender, EventArgs e) {
+            // Check if the CheckBox doesn't equal the User Setting
+            if (cbPasswordRequest.Checked 
+                != bool.Parse(_userTable.Rows[0]["PasswordRequest"].ToString())) {
+                // Check if the user requests a password
+                // This is added here to make sure the user is editing the settings
+                if (bool.Parse(_userTable.Rows[0]["PasswordRequest"].ToString())) {
+                    // Show an InputBox
+                    string userInput = Interaction.InputBox("Please enter your password", "Password Confirmation", "");
+
+                    // Check if empty
+                    // Check if incorrect
+                    if (string.IsNullOrEmpty(userInput)) {
+                        MessageBox.Show("No password entered",
+                            Properties.Settings.Default.ProjectName,
+                            MessageBoxButtons.OK);
+                        return;
+                    } else if (!HashSalt.CompareInputtoPassword(userInput, _userTable.Rows[0]["PasswordHash"].ToString())) {
+                        MessageBox.Show("Incorrect password",
+                            Properties.Settings.Default.ProjectName,
+                            MessageBoxButtons.OK);
+                        return;
+                    }
+                }
+
+                // Assign the Checked result to the DataTable
+                _userTable.Rows[0]["PasswordRequest"] = cbPasswordRequest.Checked;
+
+                // Set the Save Button to enabled
+                btnAccountSave.Enabled = true;
             }
         }
         private void BtnAccountSave_Click(object sender, EventArgs e) {
@@ -1054,6 +1130,7 @@ namespace PasswordManager {
                 PopulateTagGrid();
             }
         }
+
         private void BtnEditTag_Click(object sender, EventArgs e) {
             // Check if a cell has been selected in the DataGridView
             // If not then stop the method

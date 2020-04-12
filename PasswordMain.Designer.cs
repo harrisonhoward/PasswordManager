@@ -36,6 +36,8 @@
             this.lblDividier2 = new System.Windows.Forms.Label();
             this.btnExit = new System.Windows.Forms.Button();
             this.panPasswordList = new System.Windows.Forms.Panel();
+            this.lblFilter = new System.Windows.Forms.Label();
+            this.cboTags = new System.Windows.Forms.ComboBox();
             this.btnPasswordImport = new System.Windows.Forms.Button();
             this.btnPasswordExport = new System.Windows.Forms.Button();
             this.lblPasswordWarning = new System.Windows.Forms.Label();
@@ -68,8 +70,8 @@
             this.txtTagsSearch = new System.Windows.Forms.TextBox();
             this.lblTagsSearch = new System.Windows.Forms.Label();
             this.dgvTags = new System.Windows.Forms.DataGridView();
-            this.cboTags = new System.Windows.Forms.ComboBox();
-            this.lblFilter = new System.Windows.Forms.Label();
+            this.cbPasswordRequest = new System.Windows.Forms.CheckBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.tsMain.SuspendLayout();
             this.panPasswordList.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvPasswords)).BeginInit();
@@ -204,6 +206,28 @@
             this.panPasswordList.Name = "panPasswordList";
             this.panPasswordList.Size = new System.Drawing.Size(800, 390);
             this.panPasswordList.TabIndex = 6;
+            // 
+            // lblFilter
+            // 
+            this.lblFilter.AutoSize = true;
+            this.lblFilter.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblFilter.Location = new System.Drawing.Point(368, 18);
+            this.lblFilter.Name = "lblFilter";
+            this.lblFilter.Size = new System.Drawing.Size(59, 16);
+            this.lblFilter.TabIndex = 16;
+            this.lblFilter.Text = "Filter by:";
+            // 
+            // cboTags
+            // 
+            this.cboTags.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.63F);
+            this.cboTags.FormattingEnabled = true;
+            this.cboTags.Items.AddRange(new object[] {
+            "None"});
+            this.cboTags.Location = new System.Drawing.Point(433, 15);
+            this.cboTags.Name = "cboTags";
+            this.cboTags.Size = new System.Drawing.Size(181, 23);
+            this.cboTags.TabIndex = 15;
+            this.cboTags.SelectedIndexChanged += new System.EventHandler(this.CboTags_SelectedIndexChanged);
             // 
             // btnPasswordImport
             // 
@@ -385,6 +409,8 @@
             // 
             // gbUserSettings
             // 
+            this.gbUserSettings.Controls.Add(this.label1);
+            this.gbUserSettings.Controls.Add(this.cbPasswordRequest);
             this.gbUserSettings.Controls.Add(this.gbAccountDanger);
             this.gbUserSettings.Controls.Add(this.btnAccountSave);
             this.gbUserSettings.Controls.Add(this.btnChangePassword);
@@ -568,35 +594,35 @@
             this.dgvTags.SelectionChanged += new System.EventHandler(this.DgvTags_SelectionChanged);
             this.dgvTags.DoubleClick += new System.EventHandler(this.DgvTags_DoubleClick);
             // 
-            // cboTags
+            // cbPasswordRequest
             // 
-            this.cboTags.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.63F);
-            this.cboTags.FormattingEnabled = true;
-            this.cboTags.Items.AddRange(new object[] {
-            "None"});
-            this.cboTags.Location = new System.Drawing.Point(433, 15);
-            this.cboTags.Name = "cboTags";
-            this.cboTags.Size = new System.Drawing.Size(181, 23);
-            this.cboTags.TabIndex = 15;
-            this.cboTags.SelectedIndexChanged += new System.EventHandler(this.CboTags_SelectedIndexChanged);
+            this.cbPasswordRequest.AutoSize = true;
+            this.cbPasswordRequest.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbPasswordRequest.Location = new System.Drawing.Point(148, 64);
+            this.cbPasswordRequest.Name = "cbPasswordRequest";
+            this.cbPasswordRequest.Size = new System.Drawing.Size(136, 20);
+            this.cbPasswordRequest.TabIndex = 2;
+            this.cbPasswordRequest.Text = " Request Password";
+            this.cbPasswordRequest.UseVisualStyleBackColor = true;
+            this.cbPasswordRequest.CheckedChanged += new System.EventHandler(this.CbPasswordRequest_CheckedChanged);
             // 
-            // lblFilter
+            // label1
             // 
-            this.lblFilter.AutoSize = true;
-            this.lblFilter.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblFilter.Location = new System.Drawing.Point(368, 18);
-            this.lblFilter.Name = "lblFilter";
-            this.lblFilter.Size = new System.Drawing.Size(59, 16);
-            this.lblFilter.TabIndex = 16;
-            this.lblFilter.Text = "Filter by:";
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(168, 82);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(149, 16);
+            this.label1.TabIndex = 16;
+            this.label1.Text = "Upon editing a password";
             // 
             // frmPasswordMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.panPasswordList);
             this.Controls.Add(this.panAccountSettings);
+            this.Controls.Add(this.panPasswordList);
             this.Controls.Add(this.panTagsList);
             this.Controls.Add(this.btnExit);
             this.Controls.Add(this.lblDividier2);
@@ -675,5 +701,7 @@
         private System.Windows.Forms.Button btnDeleteTags;
         private System.Windows.Forms.Label lblFilter;
         private System.Windows.Forms.ComboBox cboTags;
+        private System.Windows.Forms.CheckBox cbPasswordRequest;
+        private System.Windows.Forms.Label label1;
     }
 }

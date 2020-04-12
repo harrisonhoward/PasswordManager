@@ -320,6 +320,7 @@ namespace PasswordManager {
             row["Username"] = _usersUsername;
             row["PasswordHash"] = _usersPassword;
             row["Admin"] = _usersAdmin;
+            row["PasswordRequest"] = 0;
             row.EndEdit();
             _userTable.Rows.Add(row);
 
