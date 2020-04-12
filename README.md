@@ -48,16 +48,15 @@ There are 2 approaches to this. We get you to use the password for the user acco
 
 **Importing**\
 Importing with Custom files (Import Builder which will allow the user to build the structure of the file)
-Importing with Google Passwords
 
 ### Available Features
 **Account creation**\
 Be able to create as many accounts you please. With added Confirm Password protection.
 
-**Account Management**
+**Account Management**\
 Change your password, delete your account and delete all your passwords
 
-**Admin Access**
+**Admin Access**\
 First account created is automatically an admin. Be able to manage user accounts and edit user admin access
 
 **Create, Edit and Delete Passwords**\
@@ -69,10 +68,10 @@ We use Hash Salt for making passwords secure and Encryption and Decryption with 
 **Stay signed in**\
 Have the ability to stay signed in
 
-**Importing** and **Exporting**
-Importing and Exporting features have been added. There are currently only 1 import feature and that is if you exported with Password Manager. More Imports will be added.
+**Importing** and **Exporting**\
+Importing and Exporting features have been added. You can import with Google Passwords or Password Manager Passwords
 
-**Tags**
+**Tags**\
 Be able to add tags and filter by tags
 
 ## Frequently asked questions
