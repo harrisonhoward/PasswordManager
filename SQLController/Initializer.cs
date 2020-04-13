@@ -64,6 +64,13 @@ namespace SQLController {
                 "PasswordRequest bit";
             // Create the Users Table with the Schema
             _sql.CreateDatabaseTable("Users", schema);
+
+            // Create some column values
+            string columnValues = "0, 'PasswordManager', 'lH8/iGVxp2YI7JRz7tDNgqKKj6bnQA3FHi8esvmqYVXAubD+', 1, 1";
+            // Assign the column values
+            string columnNames = "UserID, Username, PasswordHash, Admin, PasswordRequest";
+            // Insert the record
+            _sql.InsertRecord("Users", columnNames, columnValues);
         }
 
         /// <summary>

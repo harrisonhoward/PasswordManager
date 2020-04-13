@@ -55,6 +55,8 @@
             this.btnEditUser = new System.Windows.Forms.Button();
             this.dgvUsers = new System.Windows.Forms.DataGridView();
             this.gbUserSettings = new System.Windows.Forms.GroupBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.cbPasswordRequest = new System.Windows.Forms.CheckBox();
             this.gbAccountDanger = new System.Windows.Forms.GroupBox();
             this.btnDeleteTags = new System.Windows.Forms.Button();
             this.btnDeletePasswords = new System.Windows.Forms.Button();
@@ -70,8 +72,7 @@
             this.txtTagsSearch = new System.Windows.Forms.TextBox();
             this.lblTagsSearch = new System.Windows.Forms.Label();
             this.dgvTags = new System.Windows.Forms.DataGridView();
-            this.cbPasswordRequest = new System.Windows.Forms.CheckBox();
-            this.label1 = new System.Windows.Forms.Label();
+            this.btnSignIn = new System.Windows.Forms.Button();
             this.tsMain.SuspendLayout();
             this.panPasswordList.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvPasswords)).BeginInit();
@@ -339,6 +340,7 @@
             // 
             // gbAdminSettings
             // 
+            this.gbAdminSettings.Controls.Add(this.btnSignIn);
             this.gbAdminSettings.Controls.Add(this.btnDeleteUser);
             this.gbAdminSettings.Controls.Add(this.txtUserSearch);
             this.gbAdminSettings.Controls.Add(this.lblUserSearch);
@@ -422,6 +424,28 @@
             this.gbUserSettings.TabIndex = 0;
             this.gbUserSettings.TabStop = false;
             this.gbUserSettings.Text = "User Settings";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(168, 82);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(149, 16);
+            this.label1.TabIndex = 16;
+            this.label1.Text = "Upon editing a password";
+            // 
+            // cbPasswordRequest
+            // 
+            this.cbPasswordRequest.AutoSize = true;
+            this.cbPasswordRequest.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbPasswordRequest.Location = new System.Drawing.Point(148, 64);
+            this.cbPasswordRequest.Name = "cbPasswordRequest";
+            this.cbPasswordRequest.Size = new System.Drawing.Size(136, 20);
+            this.cbPasswordRequest.TabIndex = 2;
+            this.cbPasswordRequest.Text = " Request Password";
+            this.cbPasswordRequest.UseVisualStyleBackColor = true;
+            this.cbPasswordRequest.CheckedChanged += new System.EventHandler(this.CbPasswordRequest_CheckedChanged);
             // 
             // gbAccountDanger
             // 
@@ -594,27 +618,17 @@
             this.dgvTags.SelectionChanged += new System.EventHandler(this.DgvTags_SelectionChanged);
             this.dgvTags.DoubleClick += new System.EventHandler(this.DgvTags_DoubleClick);
             // 
-            // cbPasswordRequest
+            // btnSignIn
             // 
-            this.cbPasswordRequest.AutoSize = true;
-            this.cbPasswordRequest.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbPasswordRequest.Location = new System.Drawing.Point(148, 64);
-            this.cbPasswordRequest.Name = "cbPasswordRequest";
-            this.cbPasswordRequest.Size = new System.Drawing.Size(136, 20);
-            this.cbPasswordRequest.TabIndex = 2;
-            this.cbPasswordRequest.Text = " Request Password";
-            this.cbPasswordRequest.UseVisualStyleBackColor = true;
-            this.cbPasswordRequest.CheckedChanged += new System.EventHandler(this.CbPasswordRequest_CheckedChanged);
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(168, 82);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(149, 16);
-            this.label1.TabIndex = 16;
-            this.label1.Text = "Upon editing a password";
+            this.btnSignIn.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSignIn.Location = new System.Drawing.Point(194, 323);
+            this.btnSignIn.Name = "btnSignIn";
+            this.btnSignIn.Size = new System.Drawing.Size(84, 28);
+            this.btnSignIn.TabIndex = 17;
+            this.btnSignIn.Text = "Sign In";
+            this.btnSignIn.UseVisualStyleBackColor = true;
+            this.btnSignIn.Visible = false;
+            this.btnSignIn.Click += new System.EventHandler(this.BtnSignIn_Click);
             // 
             // frmPasswordMain
             // 
@@ -703,5 +717,6 @@
         private System.Windows.Forms.ComboBox cboTags;
         private System.Windows.Forms.CheckBox cbPasswordRequest;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button btnSignIn;
     }
 }

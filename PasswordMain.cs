@@ -168,6 +168,11 @@ namespace PasswordManager {
             Close();
         }
 
+        private void BtnSignIn_Click(object sender, EventArgs e) {
+            Thread frm = new Thread(new ThreadStart(ThreadProcPasswordMain));
+            frm.Start();
+        }
+
         #endregion
 
         #region Main Helper Methods
@@ -180,6 +185,9 @@ namespace PasswordManager {
         }
         private void ThreadProcPasswordImport() {
             Application.Run(new frmPasswordImporter(_userID, Location));
+        }
+        private void ThreadProcPasswordMain() {
+            Application.Run(new frmPasswordMain(long.Parse(txtUserSearch.Text)));
         }
 
         /// <summary>
@@ -490,7 +498,7 @@ namespace PasswordManager {
             // Make sure there is a selected value
             if (_dvPassword.Table.Rows.Count > 0) {
                 // Create a variable for the selected value
-                string tagValue = (string) cboTags.SelectedItem;
+                string tagValue = (string)cboTags.SelectedItem;
 
                 if (cboTags.SelectedIndex > 0) {
                     _rowFilters[1] = $"Tag='{tagValue}'";
@@ -592,6 +600,13 @@ namespace PasswordManager {
             PopulatePasswordGrid();
         }
         private void BtnPasswordExport_Click(object sender, EventArgs e) {
+            // Ask for password
+            // If the request returned false, cancel method
+            bool success = RequestPassword(_userTable.Rows[0]);
+            if (!success) {
+                return;
+            }
+
             if (_dvPassword.Table.Rows.Count < 1) {
                 MessageBox.Show("No passwords to export",
                     Properties.Settings.Default.ProjectName,
@@ -639,6 +654,13 @@ namespace PasswordManager {
             MessageBox.Show("Passwords exported to CSV", Properties.Settings.Default.ProjectName);
         }
         private void BtnPasswordImport_Click(object sender, EventArgs e) {
+            // Ask for password
+            // If the request returned false, cancel method
+            bool success = RequestPassword(_userTable.Rows[0]);
+            if (!success) {
+                return;
+            }
+
             // Create a new thread using ThreadStart.
             // Using that thread we will join it so we execute Populate Grid at the right time
             Thread thread = ThreadStartSTA(new Thread(new ThreadStart(ThreadProcPasswordImport)));
@@ -654,9 +676,16 @@ namespace PasswordManager {
         /// Check if the user is an admin
         /// </summary>
         private void isAdmin() {
+            // Set the Admin Settings based on the user's admin status
+            // Set the Admin Variable based on the user's admin status
+            // Populate the admin grid
+            // Check if the user's id is 0 then show the signin button
             gbAdminSettings.Visible = bool.Parse(_userTable.Rows[0]["Admin"].ToString());
             _userAdmin = bool.Parse(_userTable.Rows[0]["Admin"].ToString());
             PopulateAdminGrid();
+            if (_userID == 0) {
+                btnSignIn.Visible = true;
+            }
         }
 
         /// <summary>
@@ -802,6 +831,49 @@ namespace PasswordManager {
             }
         }
 
+        /// <summary>
+        /// Provides an input box requesting a password
+        /// </summary>
+        /// <returns>A bool stating if the password was correct or not</returns>
+        private bool RequestPassword(DataRow userData) {
+            // Create a bool for the return
+            bool returnBool = false;
+            // Create a new input dialog
+            using (InputDialog inputForm = new InputDialog("Request Password", "Please enter your password", "", true)) {
+                // Create DialogResult and UserInput variables
+                DialogResult inputResult = inputForm.ShowDialog();
+                string userInput = inputForm.InputValue;
+
+                // Check input was entered
+                // Check if cancelled
+                // Check if empty
+                if (inputResult == DialogResult.OK) {
+                    // If password matches return true
+                    // Else incorrect password
+                    if (HashSalt.CompareInputtoPassword(userInput, userData["PasswordHash"].ToString())) {
+                        returnBool = true;
+                    } else {
+                        MessageBox.Show("Incorrect password",
+                            Properties.Settings.Default.ProjectName,
+                            MessageBoxButtons.OK);
+                    }
+                } else if (inputResult == DialogResult.Cancel) {
+                    // Cancelled
+                    MessageBox.Show("Cancelled",
+                        Properties.Settings.Default.ProjectName,
+                        MessageBoxButtons.OK);
+                } else if (inputResult == DialogResult.None) {
+                    // No password entered
+                    MessageBox.Show("No password entered",
+                        Properties.Settings.Default.ProjectName,
+                        MessageBoxButtons.OK);
+                }
+            }
+
+            // Return the bool
+            return returnBool;
+        }
+
         #endregion
 
         #region AccountSettings Events
@@ -816,6 +888,13 @@ namespace PasswordManager {
                     MessageBox.Show("You are the last admin. Can not delete your account",
                         Properties.Settings.Default.ProjectName,
                         MessageBoxButtons.OK);
+                    return;
+                }
+
+                // Ask for password
+                // If the request returned false, cancel method
+                bool success = RequestPassword(_userTable.Rows[0]);
+                if (!success) {
                     return;
                 }
             }
@@ -846,6 +925,13 @@ namespace PasswordManager {
             }
         }
         private void BtnDeletePasswords_Click(object sender, EventArgs e) {
+            // Ask for password
+            // If the request returned false, cancel method
+            bool success = RequestPassword(_userTable.Rows[0]);
+            if (!success) {
+                return;
+            }
+
             // Ask the user if they are sure
             DialogResult box = MessageBox.Show("Are you sure you want to delete your passwords?",
                     Properties.Settings.Default.ProjectName,
@@ -862,6 +948,13 @@ namespace PasswordManager {
             }
         }
         private void BtnDeleteTags_Click(object sender, EventArgs e) {
+            // Ask for password
+            // If the request returned false, cancel method
+            bool success = RequestPassword(_userTable.Rows[0]);
+            if (!success) {
+                return;
+            }
+
             // Ask the user if they are sure
             DialogResult box = MessageBox.Show("Are you sure you want to delete your tags?",
                     Properties.Settings.Default.ProjectName,
@@ -913,28 +1006,8 @@ namespace PasswordManager {
         }
         private void CbPasswordRequest_CheckedChanged(object sender, EventArgs e) {
             // Check if the CheckBox doesn't equal the User Setting
-            if (cbPasswordRequest.Checked 
+            if (cbPasswordRequest.Checked
                 != bool.Parse(_userTable.Rows[0]["PasswordRequest"].ToString())) {
-                // Check if the user requests a password
-                // This is added here to make sure the user is editing the settings
-                if (bool.Parse(_userTable.Rows[0]["PasswordRequest"].ToString())) {
-                    // Show an InputBox
-                    string userInput = Interaction.InputBox("Please enter your password", "Password Confirmation", "");
-
-                    // Check if empty
-                    // Check if incorrect
-                    if (string.IsNullOrEmpty(userInput)) {
-                        MessageBox.Show("No password entered",
-                            Properties.Settings.Default.ProjectName,
-                            MessageBoxButtons.OK);
-                        return;
-                    } else if (!HashSalt.CompareInputtoPassword(userInput, _userTable.Rows[0]["PasswordHash"].ToString())) {
-                        MessageBox.Show("Incorrect password",
-                            Properties.Settings.Default.ProjectName,
-                            MessageBoxButtons.OK);
-                        return;
-                    }
-                }
 
                 // Assign the Checked result to the DataTable
                 _userTable.Rows[0]["PasswordRequest"] = cbPasswordRequest.Checked;
@@ -944,6 +1017,13 @@ namespace PasswordManager {
             }
         }
         private void BtnAccountSave_Click(object sender, EventArgs e) {
+            // Ask for password
+            // If the request returned false, cancel method
+            bool success = RequestPassword(_userTable.Rows[0]);
+            if (!success) {
+                return;
+            }
+
             // Saving User Table
             // Setting the Button Save back to disabled
             Context.SaveDataBaseTable(_userTable);
@@ -957,6 +1037,13 @@ namespace PasswordManager {
 
         // Admin Settings
         private void DgvUsers_DoubleClick(object sender, EventArgs e) {
+            // Ask for password
+            // If the request returned false, cancel method
+            bool success = RequestPassword(_userTable.Rows[0]);
+            if (!success) {
+                return;
+            }
+
             // Check if a cell has been selected in the DataGridView
             // If not then stop the method
             if (dgvUsers.CurrentCell == null) {
@@ -970,6 +1057,13 @@ namespace PasswordManager {
             _dvUsers.RowFilter = $"Username LIKE '%{txtUserSearch.Text}%'";
         }
         private void BtnEditUser_Click(object sender, EventArgs e) {
+            // Ask for password
+            // If the request returned false, cancel method
+            bool success = RequestPassword(_userTable.Rows[0]);
+            if (!success) {
+                return;
+            }
+
             // Check if a cell has been selected in the DataGridView
             // If not then stop the method
             if (dgvUsers.CurrentCell == null) {
@@ -982,6 +1076,13 @@ namespace PasswordManager {
             EditUserEvent();
         }
         private void BtnDeleteUser_Click(object sender, EventArgs e) {
+            // Ask for password
+            // If the request returned false, cancel method
+            bool success = RequestPassword(_userTable.Rows[0]);
+            if (!success) {
+                return;
+            }
+
             // Check if a cell has been selected in the DataGridView
             // If not then stop the method
             if (dgvUsers.CurrentCell == null) {
