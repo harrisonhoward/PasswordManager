@@ -735,8 +735,17 @@ namespace PasswordManager {
                     Properties.Settings.Default.ProjectName,
                     MessageBoxButtons.OK);
             } else {
+                // Get the username of the user
+                string userName = getUsername(userID);
+
+                // Convert the username into You have or User has
+                if (userID == _userID) {
+                    userName = "You have";
+                } else {
+                    userName += " has";
+                }
                 // Provide reason why
-                MessageBox.Show("No passwords to delete",
+                MessageBox.Show($"{userName} no passwords to delete",
                     Properties.Settings.Default.ProjectName,
                     MessageBoxButtons.OK);
             }
