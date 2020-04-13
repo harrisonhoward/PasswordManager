@@ -842,11 +842,6 @@ namespace PasswordManager {
                             Properties.Settings.Default.ProjectName,
                             MessageBoxButtons.OK);
                     }
-                } else if (inputResult == DialogResult.Cancel) {
-                    // Cancelled
-                    MessageBox.Show("Cancelled",
-                        Properties.Settings.Default.ProjectName,
-                        MessageBoxButtons.OK);
                 } else if (inputResult == DialogResult.None) {
                     // No password entered
                     MessageBox.Show("No password entered",
