@@ -49,6 +49,7 @@
             this.dgvPasswords = new System.Windows.Forms.DataGridView();
             this.panAccountSettings = new System.Windows.Forms.Panel();
             this.gbAdminSettings = new System.Windows.Forms.GroupBox();
+            this.btnSignIn = new System.Windows.Forms.Button();
             this.btnDeleteUser = new System.Windows.Forms.Button();
             this.txtUserSearch = new System.Windows.Forms.TextBox();
             this.lblUserSearch = new System.Windows.Forms.Label();
@@ -72,7 +73,6 @@
             this.txtTagsSearch = new System.Windows.Forms.TextBox();
             this.lblTagsSearch = new System.Windows.Forms.Label();
             this.dgvTags = new System.Windows.Forms.DataGridView();
-            this.btnSignIn = new System.Windows.Forms.Button();
             this.tsMain.SuspendLayout();
             this.panPasswordList.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvPasswords)).BeginInit();
@@ -142,6 +142,7 @@
             this.tsbTagsList.Size = new System.Drawing.Size(55, 22);
             this.tsbTagsList.Text = "Tags List";
             this.tsbTagsList.TextImageRelation = System.Windows.Forms.TextImageRelation.TextAboveImage;
+            this.tsbTagsList.ToolTipText = "Display all your tags";
             // 
             // tsdAccount
             // 
@@ -353,6 +354,18 @@
             this.gbAdminSettings.TabIndex = 1;
             this.gbAdminSettings.TabStop = false;
             this.gbAdminSettings.Text = "Admin Settings";
+            // 
+            // btnSignIn
+            // 
+            this.btnSignIn.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSignIn.Location = new System.Drawing.Point(194, 323);
+            this.btnSignIn.Name = "btnSignIn";
+            this.btnSignIn.Size = new System.Drawing.Size(84, 28);
+            this.btnSignIn.TabIndex = 17;
+            this.btnSignIn.Text = "Sign In";
+            this.btnSignIn.UseVisualStyleBackColor = true;
+            this.btnSignIn.Visible = false;
+            this.btnSignIn.Click += new System.EventHandler(this.BtnSignIn_Click);
             // 
             // btnDeleteUser
             // 
@@ -617,18 +630,6 @@
             this.dgvTags.TabIndex = 18;
             this.dgvTags.SelectionChanged += new System.EventHandler(this.DgvTags_SelectionChanged);
             this.dgvTags.DoubleClick += new System.EventHandler(this.DgvTags_DoubleClick);
-            // 
-            // btnSignIn
-            // 
-            this.btnSignIn.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSignIn.Location = new System.Drawing.Point(194, 323);
-            this.btnSignIn.Name = "btnSignIn";
-            this.btnSignIn.Size = new System.Drawing.Size(84, 28);
-            this.btnSignIn.TabIndex = 17;
-            this.btnSignIn.Text = "Sign In";
-            this.btnSignIn.UseVisualStyleBackColor = true;
-            this.btnSignIn.Visible = false;
-            this.btnSignIn.Click += new System.EventHandler(this.BtnSignIn_Click);
             // 
             // frmPasswordMain
             // 
