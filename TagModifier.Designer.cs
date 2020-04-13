@@ -44,6 +44,8 @@
             this.txtDisplay.Name = "txtDisplay";
             this.txtDisplay.Size = new System.Drawing.Size(245, 22);
             this.txtDisplay.TabIndex = 0;
+            this.txtDisplay.KeyDown += new System.Windows.Forms.KeyEventHandler(this.KeyEvent_KeyDown);
+            this.txtDisplay.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.KeyEvent_KeyPress);
             // 
             // lblTagTitle
             // 
@@ -115,8 +117,8 @@
             this.txtDescription.Name = "txtDescription";
             this.txtDescription.Size = new System.Drawing.Size(245, 22);
             this.txtDescription.TabIndex = 1;
-            this.txtDescription.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TxtUsername_KeyDown);
-            this.txtDescription.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TxtUsername_KeyPress);
+            this.txtDescription.KeyDown += new System.Windows.Forms.KeyEventHandler(this.KeyEvent_KeyDown);
+            this.txtDescription.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.KeyEvent_KeyPress);
             // 
             // lblDescription
             // 

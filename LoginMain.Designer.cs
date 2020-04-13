@@ -85,6 +85,8 @@
             this.cbSignedIn.TabIndex = 4;
             this.cbSignedIn.Text = "Stay Signed In";
             this.cbSignedIn.UseVisualStyleBackColor = true;
+            this.cbSignedIn.KeyDown += new System.Windows.Forms.KeyEventHandler(this.KeyEventLogin_KeyDown);
+            this.cbSignedIn.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.KeyEvent_KeyPress);
             // 
             // lnkNewUser
             // 
@@ -106,8 +108,8 @@
             this.txtMainPassword.Size = new System.Drawing.Size(155, 22);
             this.txtMainPassword.TabIndex = 1;
             this.txtMainPassword.UseSystemPasswordChar = true;
-            this.txtMainPassword.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TxtMainPassword_KeyDown);
-            this.txtMainPassword.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TxtMainPassword_KeyPress);
+            this.txtMainPassword.KeyDown += new System.Windows.Forms.KeyEventHandler(this.KeyEventLogin_KeyDown);
+            this.txtMainPassword.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.KeyEvent_KeyPress);
             // 
             // txtMainUsername
             // 
@@ -117,6 +119,8 @@
             this.txtMainUsername.Name = "txtMainUsername";
             this.txtMainUsername.Size = new System.Drawing.Size(155, 22);
             this.txtMainUsername.TabIndex = 0;
+            this.txtMainUsername.KeyDown += new System.Windows.Forms.KeyEventHandler(this.KeyEventLogin_KeyDown);
+            this.txtMainUsername.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.KeyEvent_KeyPress);
             // 
             // lblMainPassword
             // 
@@ -195,8 +199,8 @@
             this.txtConfirm.Size = new System.Drawing.Size(155, 22);
             this.txtConfirm.TabIndex = 9;
             this.txtConfirm.UseSystemPasswordChar = true;
-            this.txtConfirm.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TxtConfirm_KeyDown);
-            this.txtConfirm.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TxtConfirm_KeyPress);
+            this.txtConfirm.KeyDown += new System.Windows.Forms.KeyEventHandler(this.KeyEventCreate_KeyDown);
+            this.txtConfirm.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.KeyEvent_KeyPress);
             // 
             // lblConfirm
             // 
@@ -217,6 +221,8 @@
             this.txtPassword.Size = new System.Drawing.Size(155, 22);
             this.txtPassword.TabIndex = 8;
             this.txtPassword.UseSystemPasswordChar = true;
+            this.txtPassword.KeyDown += new System.Windows.Forms.KeyEventHandler(this.KeyEventCreate_KeyDown);
+            this.txtPassword.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.KeyEvent_KeyPress);
             // 
             // txtUsername
             // 
@@ -226,6 +232,8 @@
             this.txtUsername.Name = "txtUsername";
             this.txtUsername.Size = new System.Drawing.Size(155, 22);
             this.txtUsername.TabIndex = 7;
+            this.txtUsername.KeyDown += new System.Windows.Forms.KeyEventHandler(this.KeyEventCreate_KeyDown);
+            this.txtUsername.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.KeyEvent_KeyPress);
             // 
             // lblPassword
             // 

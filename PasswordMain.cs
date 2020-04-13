@@ -788,7 +788,7 @@ namespace PasswordManager {
             // Create and assign a new SQL Query
             string sqlQuery =
                 "SELECT UserID, Username, Admin " +
-                $"FROM Users WHERE UserID!={_userID} " +
+                $"FROM Users WHERE UserID!={_userID} AND UserID!=0" +
                 "ORDER BY UserID DESC";
 
             // Create and assign the DataTable with the Password DataTable

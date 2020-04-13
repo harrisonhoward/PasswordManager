@@ -91,9 +91,9 @@ namespace PasswordManager {
 
         #endregion
 
-        #region TextBox Events
+        #region Key Events
 
-        private void TxtPassword_KeyDown(object sender, KeyEventArgs e) {
+        private void KeyEvent_KeyDown(object sender, KeyEventArgs e) {
             // Check if the user pressed Enter
             if (e.KeyCode == Keys.Enter) {
                 // Save changes
@@ -103,7 +103,7 @@ namespace PasswordManager {
             }
         }
 
-        private void TxtPassword_KeyPress(object sender, KeyPressEventArgs e) {
+        private void KeyEvent_KeyPress(object sender, KeyPressEventArgs e) {
             // Check if the user pressed Enter
             if (e.KeyChar == (char)13) {
                 // Set the key handled to true

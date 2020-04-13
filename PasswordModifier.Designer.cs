@@ -48,8 +48,8 @@
             this.txtPassword.Name = "txtPassword";
             this.txtPassword.Size = new System.Drawing.Size(245, 22);
             this.txtPassword.TabIndex = 3;
-            this.txtPassword.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TxtPassword_KeyDown);
-            this.txtPassword.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TxtPassword_KeyPress);
+            this.txtPassword.KeyDown += new System.Windows.Forms.KeyEventHandler(this.KeyEvent_KeyDown);
+            this.txtPassword.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.KeyEvent_KeyPress);
             // 
             // txtTitle
             // 
@@ -59,6 +59,8 @@
             this.txtTitle.Name = "txtTitle";
             this.txtTitle.Size = new System.Drawing.Size(245, 22);
             this.txtTitle.TabIndex = 1;
+            this.txtTitle.KeyDown += new System.Windows.Forms.KeyEventHandler(this.KeyEvent_KeyDown);
+            this.txtTitle.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.KeyEvent_KeyPress);
             // 
             // lblPassword
             // 
@@ -140,6 +142,8 @@
             this.txtUsername.Name = "txtUsername";
             this.txtUsername.Size = new System.Drawing.Size(245, 22);
             this.txtUsername.TabIndex = 2;
+            this.txtUsername.KeyDown += new System.Windows.Forms.KeyEventHandler(this.KeyEvent_KeyDown);
+            this.txtUsername.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.KeyEvent_KeyPress);
             // 
             // lblUsername
             // 
@@ -158,6 +162,8 @@
             this.cboTags.Name = "cboTags";
             this.cboTags.Size = new System.Drawing.Size(245, 21);
             this.cboTags.TabIndex = 4;
+            this.cboTags.KeyDown += new System.Windows.Forms.KeyEventHandler(this.KeyEvent_KeyDown);
+            this.cboTags.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.KeyEvent_KeyPress);
             // 
             // lblTag
             // 

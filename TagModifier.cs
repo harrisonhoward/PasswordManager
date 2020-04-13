@@ -95,15 +95,11 @@ namespace PasswordManager {
 
         #endregion
 
-        #region TextBox Events
+        #region Key Events
 
-        private void TxtUsername_KeyDown(object sender, KeyEventArgs e) {
+        private void KeyEvent_KeyDown(object sender, KeyEventArgs e) {
             // Check if the user pressed Enter
             if (e.KeyCode == Keys.Enter) {
-                // Updating TagDescription to fix bug
-                // Bug: Pressing enter doesn't update TagDescription DataRow
-                _tagTable.Rows[0]["TagDescription"] = txtDescription.Text;
-
                 // Save changes
                 // Set the DialogResult to OK
                 saveChanges();
@@ -111,7 +107,7 @@ namespace PasswordManager {
             }
         }
 
-        private void TxtUsername_KeyPress(object sender, KeyPressEventArgs e) {
+        private void KeyEvent_KeyPress(object sender, KeyPressEventArgs e) {
             // Check if the user pressed Enter
             if (e.KeyChar == (char)13) {
                 // Set the key handled to true
