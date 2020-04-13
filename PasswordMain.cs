@@ -704,8 +704,8 @@ namespace PasswordManager {
             // Create and assign a new SQL Query
             // Create and assign the Admin DataTable
             string sqlQuery =
-                "SELECT * FROM Users" +
-                $"WHERE UserID!={_userID} AND Admin=1";
+                "SELECT * FROM Users " +
+                $"WHERE UserID!={_userID} AND UserID!=0 AND Admin=1";
             DataTable adminTable = Context.GetDataTable(sqlQuery, "Users");
 
             // Return the adminTable Row Count
