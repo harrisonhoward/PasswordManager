@@ -43,15 +43,30 @@ namespace PasswordManager {
 
         #endregion
 
+        #region TextBox Events
+
+        private void TxtInput_KeyDown(object sender, KeyEventArgs e) {
+            // Check if the user pressed Enter
+            if (e.KeyCode == Keys.Enter) {
+                // Run the submit method
+                Submit();
+            }
+        }
+
+        private void TxtInput_KeyPress(object sender, KeyPressEventArgs e) {
+            // Check if the user pressed Enter
+            if (e.KeyChar == (char)13) {
+                // Set the key handled to true
+                e.Handled = true;
+            }
+        }
+
+        #endregion
+
         #region Button Events
 
         private void BtnSubmit_Click(object sender, EventArgs e) {
-            if (string.IsNullOrEmpty(txtInput.Text)) {
-                DialogResult = DialogResult.None;
-            } else {
-                DialogResult = DialogResult.OK;
-                InputValue = txtInput.Text;
-            }
+            Submit();
         }
 
         private void Close_Click(object sender, EventArgs e) {
@@ -62,5 +77,19 @@ namespace PasswordManager {
         }
 
         #endregion
+
+        #region Helper Methods
+
+        private void Submit() {
+            if (string.IsNullOrEmpty(txtInput.Text)) {
+                DialogResult = DialogResult.None;
+            } else {
+                DialogResult = DialogResult.OK;
+                InputValue = txtInput.Text;
+            }
+        }
+
+        #endregion
+
     }
 }

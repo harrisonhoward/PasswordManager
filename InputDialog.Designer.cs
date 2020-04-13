@@ -67,7 +67,9 @@
             this.txtInput.MaxLength = 30000;
             this.txtInput.Name = "txtInput";
             this.txtInput.Size = new System.Drawing.Size(345, 22);
-            this.txtInput.TabIndex = 3;
+            this.txtInput.TabIndex = 0;
+            this.txtInput.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TxtInput_KeyDown);
+            this.txtInput.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TxtInput_KeyPress);
             // 
             // InputDialog
             // 
