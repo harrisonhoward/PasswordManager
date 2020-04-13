@@ -6,7 +6,6 @@ using System.IO;
 using System.Text;
 using System.Threading;
 using System.Windows.Forms;
-using Microsoft.VisualBasic;
 
 namespace PasswordManager {
     public partial class frmPasswordMain : Form {
@@ -388,20 +387,10 @@ namespace PasswordManager {
         private void EditPasswordEvent() {
             // Check if the user requests a password
             if (bool.Parse(_userTable.Rows[0]["PasswordRequest"].ToString())) {
-                // Show an InputBox
-                string userInput = Interaction.InputBox("Please enter your password", "Password Confirmation", "");
-
-                // Check if empty
-                // Check if incorrect
-                if (string.IsNullOrEmpty(userInput)) {
-                    MessageBox.Show("No password entered",
-                        Properties.Settings.Default.ProjectName,
-                        MessageBoxButtons.OK);
-                    return;
-                } else if (!HashSalt.CompareInputtoPassword(userInput, _userTable.Rows[0]["PasswordHash"].ToString())) {
-                    MessageBox.Show("Incorrect password",
-                        Properties.Settings.Default.ProjectName,
-                        MessageBoxButtons.OK);
+                // Ask for password
+                // If the request returned false, cancel method
+                bool success = RequestPassword(_userTable.Rows[0]);
+                if (!success) {
                     return;
                 }
             }
@@ -557,20 +546,10 @@ namespace PasswordManager {
         private void BtnDeletePassword_Click(object sender, EventArgs e) {
             // Check if the user requests a password
             if (bool.Parse(_userTable.Rows[0]["PasswordRequest"].ToString())) {
-                // Show an InputBox
-                string userInput = Interaction.InputBox("Please enter your password", "Password Confirmation", "");
-
-                // Check if empty
-                // Check if incorrect
-                if (string.IsNullOrEmpty(userInput)) {
-                    MessageBox.Show("No password entered",
-                        Properties.Settings.Default.ProjectName,
-                        MessageBoxButtons.OK);
-                    return;
-                } else if (!HashSalt.CompareInputtoPassword(userInput, _userTable.Rows[0]["PasswordHash"].ToString())) {
-                    MessageBox.Show("Incorrect password",
-                        Properties.Settings.Default.ProjectName,
-                        MessageBoxButtons.OK);
+                // Ask for password
+                // If the request returned false, cancel method
+                bool success = RequestPassword(_userTable.Rows[0]);
+                if (!success) {
                     return;
                 }
             }
@@ -600,11 +579,14 @@ namespace PasswordManager {
             PopulatePasswordGrid();
         }
         private void BtnPasswordExport_Click(object sender, EventArgs e) {
-            // Ask for password
-            // If the request returned false, cancel method
-            bool success = RequestPassword(_userTable.Rows[0]);
-            if (!success) {
-                return;
+            // Check if the user requests a password
+            if (bool.Parse(_userTable.Rows[0]["PasswordRequest"].ToString())) {
+                // Ask for password
+                // If the request returned false, cancel method
+                bool success = RequestPassword(_userTable.Rows[0]);
+                if (!success) {
+                    return;
+                }
             }
 
             if (_dvPassword.Table.Rows.Count < 1) {
@@ -654,11 +636,14 @@ namespace PasswordManager {
             MessageBox.Show("Passwords exported to CSV", Properties.Settings.Default.ProjectName);
         }
         private void BtnPasswordImport_Click(object sender, EventArgs e) {
-            // Ask for password
-            // If the request returned false, cancel method
-            bool success = RequestPassword(_userTable.Rows[0]);
-            if (!success) {
-                return;
+            // Check if the user requests a password
+            if (bool.Parse(_userTable.Rows[0]["PasswordRequest"].ToString())) {
+                // Ask for password
+                // If the request returned false, cancel method
+                bool success = RequestPassword(_userTable.Rows[0]);
+                if (!success) {
+                    return;
+                }
             }
 
             // Create a new thread using ThreadStart.
