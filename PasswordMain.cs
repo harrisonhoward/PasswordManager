@@ -13,6 +13,7 @@ namespace PasswordManager {
 
         // Variables for Main Form
         long _userID = 0;
+        long _mainUserID = -1;
         DataTable _userTable;
         Panel _currentPanel = null;
         ToolStripButton _currentButton = null;
@@ -45,6 +46,21 @@ namespace PasswordManager {
             // Initialize the form
             InitializeComponent();
             _userID = userID;
+            InitializeForm();
+        }
+
+        /// <summary>
+        /// Creates a new instance of PasswordMain
+        /// </summary>
+        /// <param name="userID">Provided User ID</param> 
+        public frmPasswordMain(long userID, long mainUserID) {
+            // Initialize the form components
+            // Assign the User ID with the provided User ID
+            // Assign the Main User ID with the provider Main User ID
+            // Initialize the form
+            InitializeComponent();
+            _userID = userID;
+            _mainUserID = mainUserID;
             InitializeForm();
         }
 
@@ -186,7 +202,7 @@ namespace PasswordManager {
             Application.Run(new frmPasswordImporter(_userID, Location));
         }
         private void ThreadProcPasswordMain() {
-            Application.Run(new frmPasswordMain(long.Parse(txtUserSearch.Text)));
+            Application.Run(new frmPasswordMain(long.Parse(txtUserSearch.Text), 0));
         }
 
         /// <summary>
@@ -369,6 +385,15 @@ namespace PasswordManager {
         /// Binds All Tags to the ComboBox
         /// </summary>
         private void PopulateComboBox() {
+            // Check if the ComboBox is already populated
+            if (cboTags.Items.Count > 0) {
+                // Clear all the items
+                cboTags.Items.Clear();
+            }
+
+            // Make sure the first item is None
+            cboTags.Items.Insert(0, "None");
+
             // Create and assign a new SQL Query
             // Create and assign a new DataTable
             string sqlQuery =
@@ -832,31 +857,36 @@ namespace PasswordManager {
         private bool RequestPassword(DataRow userData) {
             // Create a bool for the return
             bool returnBool = false;
-            // Create a new input dialog
-            using (InputDialog inputForm = new InputDialog("Request Password", "Please enter your password", "", true)) {
-                // Create DialogResult and UserInput variables
-                DialogResult inputResult = inputForm.ShowDialog();
-                string userInput = inputForm.InputValue;
 
-                // Check input was entered
-                // Check if cancelled
-                // Check if empty
-                if (inputResult == DialogResult.OK) {
-                    // If password matches return true
-                    // Else incorrect password
-                    if (HashSalt.CompareInputtoPassword(userInput, userData["PasswordHash"].ToString())) {
-                        returnBool = true;
-                    } else {
-                        MessageBox.Show("Incorrect password",
+            if (_mainUserID != 0) {
+                // Create a new input dialog
+                using (InputDialog inputForm = new InputDialog("Request Password", "Please enter your password", "", true)) {
+                    // Create DialogResult and UserInput variables
+                    DialogResult inputResult = inputForm.ShowDialog();
+                    string userInput = inputForm.InputValue;
+
+                    // Check input was entered
+                    // Check if cancelled
+                    // Check if empty
+                    if (inputResult == DialogResult.OK) {
+                        // If password matches return true
+                        // Else incorrect password
+                        if (HashSalt.CompareInputtoPassword(userInput, userData["PasswordHash"].ToString())) {
+                            returnBool = true;
+                        } else {
+                            MessageBox.Show("Incorrect password",
+                                Properties.Settings.Default.ProjectName,
+                                MessageBoxButtons.OK);
+                        }
+                    } else if (inputResult == DialogResult.None) {
+                        // No password entered
+                        MessageBox.Show("No password entered",
                             Properties.Settings.Default.ProjectName,
                             MessageBoxButtons.OK);
                     }
-                } else if (inputResult == DialogResult.None) {
-                    // No password entered
-                    MessageBox.Show("No password entered",
-                        Properties.Settings.Default.ProjectName,
-                        MessageBoxButtons.OK);
                 }
+            } else {
+                returnBool = true;
             }
 
             // Return the bool

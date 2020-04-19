@@ -163,6 +163,11 @@ namespace PasswordManager {
                 return;
             }
 
+            // Updating TagDisplay and TagDescription
+            // Key event doesn't save the text boxes sometimes
+            _tagTable.Rows[0]["TagDisplay"] = txtDisplay.Text;
+            _tagTable.Rows[0]["TagDescription"] = txtDescription.Text;
+
             // Update the UserID in the Tag DataTable
             _tagTable.Rows[0]["UserID"] = _userID;
 

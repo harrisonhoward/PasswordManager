@@ -170,7 +170,9 @@ namespace PasswordManager {
         /// </summary>
         private void InitializeTagTable() {
             // Create and assign a new SQL Query
-            string sqlQuery = $"SELECT TagID, TagDisplay FROM Tags";
+            string sqlQuery = 
+                "SELECT TagID, UserID, TagDisplay FROM Tags " +
+                $"WHERE UserID={_userID}";
 
             // Assign the Tag DataTable with the Tag DataTable
             // Create a new column with the TagID and 

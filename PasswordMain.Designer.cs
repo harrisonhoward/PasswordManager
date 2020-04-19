@@ -223,8 +223,6 @@
             // 
             this.cboTags.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.63F);
             this.cboTags.FormattingEnabled = true;
-            this.cboTags.Items.AddRange(new object[] {
-            "None"});
             this.cboTags.Location = new System.Drawing.Point(433, 15);
             this.cboTags.Name = "cboTags";
             this.cboTags.Size = new System.Drawing.Size(181, 23);
