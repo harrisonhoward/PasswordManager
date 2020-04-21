@@ -494,14 +494,19 @@ namespace PasswordManager {
 
         // TextBox Events
         private void TxtPasswordSearch_TextChanged(object sender, EventArgs e) {
+            // Check if there is a value
             if (txtPasswordSearch.Text.Length > 0) {
                 // Assign the text filter
                 // Assign the DataView RowFilter
                 _rowFilters[0] =
                     $"Title LIKE '%{txtPasswordSearch.Text}%' " +
                     $"OR Username LIKE '%{txtPasswordSearch.Text}%'";
+
+                // Update the row filter
                 PasswordsFilterRow();
             } else {
+                // Else set the text filter to null
+                // Update the row filter
                 _rowFilters[0] = null;
                 PasswordsFilterRow();
             }
@@ -509,16 +514,20 @@ namespace PasswordManager {
 
         // CheckBox Events
         private void CboTags_SelectedIndexChanged(object sender, EventArgs e) {
-            // Make sure there is a selected value
+            // Make sure there is rows to filter
             if (_dvPassword.Table.Rows.Count > 0) {
                 // Create a variable for the selected value
                 string tagValue = (string)cboTags.SelectedItem;
 
+                // Check for a selected value
                 if (cboTags.SelectedIndex > 0) {
+                    // Set the row filter to the selected value
                     _rowFilters[1] = $"Tag='{tagValue}'";
                 } else {
+                    // Else set the combobox filter to null
                     _rowFilters[1] = null;
                 }
+                // Update the row filter
                 PasswordsFilterRow();
             }
         }
