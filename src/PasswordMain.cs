@@ -481,7 +481,7 @@ namespace PasswordManager {
                 && _rowFilters[1] == null) {
                 filterString = "";
             } else {
-                filterString = $"{_rowFilters[0]} AND {_rowFilters[1]}";
+                filterString = $"({_rowFilters[0]}) AND {_rowFilters[1]}";
             }
 
             // Assign the filterString to the DataView
