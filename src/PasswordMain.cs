@@ -399,6 +399,9 @@ namespace PasswordManager {
             dgvPasswords.Columns[4].Width = 125;
             dgvPasswords.Columns[5].Width = 125;
             dgvPasswords.Columns[6].Width = 100;
+
+            // Update the row filter
+            PasswordsFilterRow();
         }
 
         /// <summary>
@@ -859,6 +862,9 @@ namespace PasswordManager {
             // Setting column sizes
             dgvUsers.Columns[1].Width = 150;
             dgvUsers.Columns[2].Width = 55;
+
+            // Applies the row filter
+            AdminDataViewFilter();
         }
 
         /// <summary>
@@ -920,6 +926,14 @@ namespace PasswordManager {
 
             // Return the bool
             return returnBool;
+        }
+
+        /// <summary>
+        /// Applies the row filter to the DataView
+        /// </summary>
+        private void AdminDataViewFilter() {
+            // Assign the DataView RowFilter
+            _dvUsers.RowFilter = $"Username LIKE '%{txtUserSearch.Text}%'";
         }
 
         #endregion
@@ -1101,8 +1115,8 @@ namespace PasswordManager {
             EditUserEvent();
         }
         private void TxtUserSearch_TextChanged(object sender, EventArgs e) {
-            // Assign the DataView RowFilter
-            _dvUsers.RowFilter = $"Username LIKE '%{txtUserSearch.Text}%'";
+            // Applies the row filter
+            AdminDataViewFilter();
         }
         private void BtnEditUser_Click(object sender, EventArgs e) {
             // Ask for password
@@ -1216,6 +1230,9 @@ namespace PasswordManager {
             // Setting column 
             dgvTags.Columns[2].Width = 185;
             dgvTags.Columns[3].Width = 250;
+
+            // Apply the filter
+            TagsDataViewFilter();
         }
 
         /// <summary>
@@ -1236,14 +1253,22 @@ namespace PasswordManager {
             }
         }
 
+        /// <summary>
+        /// Applies the row filter to the DataView
+        /// </summary>
+        private void TagsDataViewFilter() {
+            // Assign the DataView RowFilter
+            _dvTag.RowFilter = $"Display LIKE '%{txtTagsSearch.Text}%' ";
+        }
+
         #endregion
 
         #region TagsList Events
 
         // TextBox Events
         private void TxtTagsSearch_TextChanged(object sender, EventArgs e) {
-            // Assign the DataView RowFilter
-            _dvTag.RowFilter = $"Display LIKE '%{txtTagsSearch.Text}%' ";
+            // Applies the row filter
+            TagsDataViewFilter();
         }
 
         // DataGridView Events
