@@ -43,6 +43,11 @@ namespace PasswordManager {
         #region Form Events
 
         private void FrmLogin_Load(object sender, EventArgs e) {
+            // Focus the form
+            WindowState = FormWindowState.Minimized;
+            WindowState = FormWindowState.Normal;
+            Focus();
+            Show();
 
             // Create and assign LoginDetails DataTable
             DataTable loginTable = Context.GetDataTable("LoginDetails");

@@ -788,6 +788,9 @@ namespace PasswordManager {
             // Initialize the Password DataTable
             InitializePasswordTable(userID);
             if (_passwordsTable.Rows.Count > 0) {
+                // Show loading screen
+                ThreadManage.ShowLoadingScreen();
+
                 // for each row in the Password DataTable
                 foreach (DataRow row in _passwordsTable.Rows) {
                     // Delete the row
@@ -798,6 +801,9 @@ namespace PasswordManager {
 
                 // Save Table
                 Context.SaveDataBaseTable(_passwordsTable);
+
+                // Close loading screen
+                ThreadManage.CloseLoadingForm();
 
                 // Let the user know it was completed
                 MessageBox.Show("Passwords Deleted",

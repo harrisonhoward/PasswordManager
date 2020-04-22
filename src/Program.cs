@@ -12,12 +12,22 @@ namespace PasswordManager {
         /// </summary>
         [STAThread]
         static void Main() {
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false);
+
+            // Show loading screen
+            ThreadManage.ShowLoadingScreen();
+
+            // Instantiate loading form
+            frmLogin frm = new frmLogin();
             // Initialize the Database
             Initializer.InitalizeDatabase();
 
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new frmLogin());
+            // Close the loading screen
+            ThreadManage.CloseLoadingForm();
+
+            // Start the form
+            Application.Run(frm);
         }
     }
 }
