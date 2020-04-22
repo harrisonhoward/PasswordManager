@@ -103,6 +103,18 @@ namespace PasswordManager {
                 // Save changes
                 // Set the DialogResult to OK
                 saveChanges();
+            } else if (e.Control && e.KeyCode == Keys.Back) {
+                // Check if the user pressed CTRL+Backspace
+                // Check if the sender was a TextBox
+                if ((sender as TextBox) != null) {
+                    // Supress the key press to prevent the char from showing
+                    e.SuppressKeyPress = true;
+                    // Check if the Selection Start is greater than 0
+                    if ((sender as TextBox).SelectionStart > 0) {
+                        // Delete everything to the left
+                        SendKeys.Send("+{LEFT}{DEL}");
+                    }
+                }
             }
         }
 

@@ -303,6 +303,7 @@
             this.txtPasswordSearch.Size = new System.Drawing.Size(291, 22);
             this.txtPasswordSearch.TabIndex = 0;
             this.txtPasswordSearch.TextChanged += new System.EventHandler(this.TxtPasswordSearch_TextChanged);
+            this.txtPasswordSearch.KeyDown += new System.Windows.Forms.KeyEventHandler(this.KeyEvent_KeyDown);
             // 
             // lblPasswordSearch
             // 
@@ -385,6 +386,7 @@
             this.txtUserSearch.Size = new System.Drawing.Size(222, 22);
             this.txtUserSearch.TabIndex = 5;
             this.txtUserSearch.TextChanged += new System.EventHandler(this.TxtUserSearch_TextChanged);
+            this.txtUserSearch.KeyDown += new System.Windows.Forms.KeyEventHandler(this.KeyEvent_KeyDown);
             // 
             // lblUserSearch
             // 
@@ -537,6 +539,7 @@
             this.txtChangePassword.Name = "txtChangePassword";
             this.txtChangePassword.Size = new System.Drawing.Size(155, 22);
             this.txtChangePassword.TabIndex = 0;
+            this.txtChangePassword.KeyDown += new System.Windows.Forms.KeyEventHandler(this.KeyEvent_KeyDown);
             // 
             // panTagsList
             // 
@@ -604,6 +607,7 @@
             this.txtTagsSearch.Size = new System.Drawing.Size(543, 22);
             this.txtTagsSearch.TabIndex = 14;
             this.txtTagsSearch.TextChanged += new System.EventHandler(this.TxtTagsSearch_TextChanged);
+            this.txtTagsSearch.KeyDown += new System.Windows.Forms.KeyEventHandler(this.KeyEvent_KeyDown);
             // 
             // lblTagsSearch
             // 
@@ -635,8 +639,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.panAccountSettings);
-            this.Controls.Add(this.panPasswordList);
             this.Controls.Add(this.panTagsList);
+            this.Controls.Add(this.panPasswordList);
             this.Controls.Add(this.btnExit);
             this.Controls.Add(this.lblDividier2);
             this.Controls.Add(this.lblDivider);
