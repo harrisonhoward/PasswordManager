@@ -59,6 +59,7 @@
             this.txtTitle.Name = "txtTitle";
             this.txtTitle.Size = new System.Drawing.Size(245, 22);
             this.txtTitle.TabIndex = 1;
+            this.txtTitle.TextChanged += new System.EventHandler(this.TextBox_TextChanged);
             this.txtTitle.KeyDown += new System.Windows.Forms.KeyEventHandler(this.KeyEvent_KeyDown);
             this.txtTitle.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.KeyEvent_KeyPress);
             // 
@@ -140,6 +141,7 @@
             this.txtUsername.Name = "txtUsername";
             this.txtUsername.Size = new System.Drawing.Size(245, 22);
             this.txtUsername.TabIndex = 2;
+            this.txtUsername.TextChanged += new System.EventHandler(this.TextBox_TextChanged);
             this.txtUsername.KeyDown += new System.Windows.Forms.KeyEventHandler(this.KeyEvent_KeyDown);
             this.txtUsername.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.KeyEvent_KeyPress);
             // 

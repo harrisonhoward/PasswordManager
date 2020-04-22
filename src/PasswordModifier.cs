@@ -91,6 +91,23 @@ namespace PasswordManager {
 
         #endregion
 
+        #region TextBox Events
+
+        private void TextBox_TextChanged(object sender, EventArgs e) {
+            // Check if the object is txtTitle
+            // Check if the object is txtUsername
+            if (sender.Equals(txtTitle)) {
+                // Update DataTable with the new text
+                // We do this because when we press enter it doesn't update the text (if textbox is selected)
+                _passwordTable.Rows[0]["PasswordTitle"] = (sender as TextBox).Text;
+            } else if (sender.Equals(txtUsername)) {
+                // Update DataTable with the new text
+                _passwordTable.Rows[0]["PasswordUsername"] = (sender as TextBox).Text;
+            }
+        }
+
+        #endregion
+
         #region Key Events
 
         private void KeyEvent_KeyDown(object sender, KeyEventArgs e) {
@@ -181,7 +198,7 @@ namespace PasswordManager {
         /// </summary>
         private void InitializeTagTable() {
             // Create and assign a new SQL Query
-            string sqlQuery = 
+            string sqlQuery =
                 "SELECT TagID, UserID, TagDisplay FROM Tags " +
                 $"WHERE UserID={_userID}";
 
@@ -265,11 +282,6 @@ namespace PasswordManager {
                 return;
             }
             _passwordTable.Rows[0]["UserID"] = _userID;
-
-            // Update Title and Username
-            // This is because pressing enter doesn't save what a user typed
-            _passwordTable.Rows[0]["PasswordTitle"] = txtTitle.Text;
-            _passwordTable.Rows[0]["PasswordUsername"] = txtUsername.Text;
 
             // Update the TagID in the Passwords DataTable
             if (cboTags.SelectedIndex == -1) {
