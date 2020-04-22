@@ -62,6 +62,7 @@
             this.panLogin.Name = "panLogin";
             this.panLogin.Size = new System.Drawing.Size(344, 342);
             this.panLogin.TabIndex = 0;
+            this.panLogin.Paint += new System.Windows.Forms.PaintEventHandler(this.PanLogin_Paint);
             // 
             // btnExit
             // 

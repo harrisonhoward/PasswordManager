@@ -650,6 +650,7 @@
             this.Name = "frmPasswordMain";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Password Manager";
+            this.Load += new System.EventHandler(this.FrmPasswordMain_Load);
             this.tsMain.ResumeLayout(false);
             this.tsMain.PerformLayout();
             this.panPasswordList.ResumeLayout(false);

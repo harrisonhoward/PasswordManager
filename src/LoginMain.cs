@@ -32,6 +32,7 @@ namespace PasswordManager {
         public frmLogin() {
             // Initializes the form components
             InitializeComponent();
+
             // Hides the Create Panel
             panCreate.Hide();
             Text = "Login";
@@ -42,6 +43,7 @@ namespace PasswordManager {
         #region Form Events
 
         private void FrmLogin_Load(object sender, EventArgs e) {
+
             // Create and assign LoginDetails DataTable
             DataTable loginTable = Context.GetDataTable("LoginDetails");
 
@@ -49,7 +51,7 @@ namespace PasswordManager {
             // Login using the UserID
             if (loginTable.Rows.Count > 0) {
                 _userID = long.Parse(loginTable.Rows[0]["UserID"].ToString());
-                ThreadStart(new System.Threading.Thread(new System.Threading.ThreadStart(ThreadProcPasswordMain)));
+                ThreadStart(new Thread(new ThreadStart(ThreadProcPasswordMain)));
             }
         }
 
@@ -177,7 +179,14 @@ namespace PasswordManager {
         /// Runs a form
         /// </summary>
         private void ThreadProcPasswordMain() {
-            Application.Run(new frmPasswordMain(_userID));
+            // Show loading screen
+            ThreadManage.ShowLoadingScreen();
+            // Instantiate PasswordMain Form
+            frmPasswordMain frm = new frmPasswordMain(_userID);
+            // Close loading screen
+            ThreadManage.CloseLoadingForm();
+            // Run the form
+            Application.Run(frm);
         }
 
         /// <summary>
@@ -276,6 +285,10 @@ namespace PasswordManager {
                 _userTable = null;
                 return;
             }
+        }
+
+        private void PanLogin_Paint(object sender, PaintEventArgs e) {
+
         }
 
         /// <summary>

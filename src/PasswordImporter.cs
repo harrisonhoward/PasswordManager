@@ -153,9 +153,10 @@ namespace PasswordManager {
                 }
             }
 
+            ThreadManage.ShowLoadingScreen();
+
             // Initialize the Passwords DataTable with the correct passwords
             InitializeAllPasswords();
-
             // For each row in the File Passwords
             foreach (DataRow row in _importTable.Rows) {
                 if (!titles.Contains(row["Title"].ToString())
@@ -186,6 +187,8 @@ namespace PasswordManager {
                     Context.SaveDataBaseTable(_allPasswordsTable);
                 }
             }
+
+            ThreadManage.CloseLoadingForm();
         }
 
         #endregion

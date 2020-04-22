@@ -81,6 +81,18 @@ namespace PasswordManager {
 
         #endregion
 
+        #region Form Events
+
+        private void FrmPasswordMain_Load(object sender, EventArgs e) {
+            // Focus the form
+            WindowState = FormWindowState.Minimized;
+            WindowState = FormWindowState.Normal;
+            Focus();
+            Show();
+        }
+
+        #endregion
+
         #region ToolStrip Events
 
         private void TsMain_ItemClicked(object sender, ToolStripItemClickedEventArgs e) {
