@@ -373,6 +373,9 @@ namespace PasswordManager {
             // Assign the DataGridView with the DataView
             DataTable passwordTable = Context.GetDataTable(sqlQuery, "Passwords");
 
+            // Set the passwords count
+            lblPasswordsCount.Text = $"{passwordTable.Rows.Count} Passwords";
+
             // Add a new column for holding TagDisplay
             DataColumn newColumn = new DataColumn();
             newColumn.ColumnName = "Tag";
@@ -870,6 +873,10 @@ namespace PasswordManager {
             // Assign the DataTable to the DataView
             // Assign the DataGridView with the DataView
             DataTable userTable = Context.GetDataTable(sqlQuery, "Users");
+
+            // Set the users count
+            lblUsersCount.Text = $"{userTable.Rows.Count} Users";
+
             // Setting the column names
             userTable.Columns[1].ColumnName = "Username";
             userTable.Columns[2].ColumnName = "Admin";
@@ -1235,6 +1242,10 @@ namespace PasswordManager {
             // Assign the DataTable to the DataView
             // Assign the DataGridView with the DataView
             DataTable tagTable = Context.GetDataTable(sqlQuery, "Tags");
+
+            // Set the passwords count
+            lblTagsCount.Text = $"{tagTable.Rows.Count} Tags";
+
             // Setting the column names
             tagTable.Columns[2].ColumnName = "Display";
             tagTable.Columns[3].ColumnName = "Description";

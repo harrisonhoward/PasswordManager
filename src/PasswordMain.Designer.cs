@@ -73,6 +73,9 @@
             this.txtTagsSearch = new System.Windows.Forms.TextBox();
             this.lblTagsSearch = new System.Windows.Forms.Label();
             this.dgvTags = new System.Windows.Forms.DataGridView();
+            this.lblTagsCount = new System.Windows.Forms.Label();
+            this.lblPasswordsCount = new System.Windows.Forms.Label();
+            this.lblUsersCount = new System.Windows.Forms.Label();
             this.tsMain.SuspendLayout();
             this.panPasswordList.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvPasswords)).BeginInit();
@@ -193,6 +196,7 @@
             // 
             // panPasswordList
             // 
+            this.panPasswordList.Controls.Add(this.lblPasswordsCount);
             this.panPasswordList.Controls.Add(this.lblFilter);
             this.panPasswordList.Controls.Add(this.cboTags);
             this.panPasswordList.Controls.Add(this.btnPasswordImport);
@@ -232,7 +236,7 @@
             // btnPasswordImport
             // 
             this.btnPasswordImport.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnPasswordImport.Location = new System.Drawing.Point(626, 345);
+            this.btnPasswordImport.Location = new System.Drawing.Point(626, 323);
             this.btnPasswordImport.Name = "btnPasswordImport";
             this.btnPasswordImport.Size = new System.Drawing.Size(78, 28);
             this.btnPasswordImport.TabIndex = 14;
@@ -243,7 +247,7 @@
             // btnPasswordExport
             // 
             this.btnPasswordExport.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnPasswordExport.Location = new System.Drawing.Point(710, 345);
+            this.btnPasswordExport.Location = new System.Drawing.Point(710, 323);
             this.btnPasswordExport.Name = "btnPasswordExport";
             this.btnPasswordExport.Size = new System.Drawing.Size(78, 28);
             this.btnPasswordExport.TabIndex = 4;
@@ -340,6 +344,7 @@
             // 
             // gbAdminSettings
             // 
+            this.gbAdminSettings.Controls.Add(this.lblUsersCount);
             this.gbAdminSettings.Controls.Add(this.btnSignIn);
             this.gbAdminSettings.Controls.Add(this.btnDeleteUser);
             this.gbAdminSettings.Controls.Add(this.txtUserSearch);
@@ -543,6 +548,7 @@
             // 
             // panTagsList
             // 
+            this.panTagsList.Controls.Add(this.lblTagsCount);
             this.panTagsList.Controls.Add(this.lblTagsWarning);
             this.panTagsList.Controls.Add(this.btnDeleteTag);
             this.panTagsList.Controls.Add(this.btnEditTag);
@@ -633,14 +639,44 @@
             this.dgvTags.SelectionChanged += new System.EventHandler(this.DgvTags_SelectionChanged);
             this.dgvTags.DoubleClick += new System.EventHandler(this.DgvTags_DoubleClick);
             // 
+            // lblTagsCount
+            // 
+            this.lblTagsCount.AutoSize = true;
+            this.lblTagsCount.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTagsCount.Location = new System.Drawing.Point(623, 354);
+            this.lblTagsCount.Name = "lblTagsCount";
+            this.lblTagsCount.Size = new System.Drawing.Size(67, 16);
+            this.lblTagsCount.TabIndex = 21;
+            this.lblTagsCount.Text = "Tag Count";
+            // 
+            // lblPasswordsCount
+            // 
+            this.lblPasswordsCount.AutoSize = true;
+            this.lblPasswordsCount.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblPasswordsCount.Location = new System.Drawing.Point(623, 357);
+            this.lblPasswordsCount.Name = "lblPasswordsCount";
+            this.lblPasswordsCount.Size = new System.Drawing.Size(100, 16);
+            this.lblPasswordsCount.TabIndex = 17;
+            this.lblPasswordsCount.Text = "Password Count";
+            // 
+            // lblUsersCount
+            // 
+            this.lblUsersCount.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblUsersCount.Location = new System.Drawing.Point(284, 335);
+            this.lblUsersCount.Name = "lblUsersCount";
+            this.lblUsersCount.Size = new System.Drawing.Size(98, 16);
+            this.lblUsersCount.TabIndex = 18;
+            this.lblUsersCount.Text = "User Count";
+            this.lblUsersCount.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
             // frmPasswordMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.panTagsList);
             this.Controls.Add(this.panAccountSettings);
             this.Controls.Add(this.panPasswordList);
+            this.Controls.Add(this.panTagsList);
             this.Controls.Add(this.btnExit);
             this.Controls.Add(this.lblDividier2);
             this.Controls.Add(this.lblDivider);
@@ -722,5 +758,8 @@
         private System.Windows.Forms.CheckBox cbPasswordRequest;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button btnSignIn;
+        private System.Windows.Forms.Label lblTagsCount;
+        private System.Windows.Forms.Label lblPasswordsCount;
+        private System.Windows.Forms.Label lblUsersCount;
     }
 }
