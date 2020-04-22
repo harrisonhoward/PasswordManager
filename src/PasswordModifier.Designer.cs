@@ -94,7 +94,6 @@
             // 
             // btnCreate
             // 
-            this.btnCreate.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.btnCreate.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCreate.Location = new System.Drawing.Point(-1, 0);
             this.btnCreate.Name = "btnCreate";
@@ -124,7 +123,6 @@
             // 
             // btnSave
             // 
-            this.btnSave.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.btnSave.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSave.Location = new System.Drawing.Point(-1, 0);
             this.btnSave.Name = "btnSave";

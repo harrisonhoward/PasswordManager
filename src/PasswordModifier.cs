@@ -99,7 +99,6 @@ namespace PasswordManager {
                 // Save changes
                 // Set the DialogResult to OK
                 saveChanges();
-                DialogResult = DialogResult.OK;
             }
         }
 
@@ -255,6 +254,11 @@ namespace PasswordManager {
             }
             _passwordTable.Rows[0]["UserID"] = _userID;
 
+            // Update Title and Username
+            // This is because pressing enter doesn't save what a user typed
+            _passwordTable.Rows[0]["PasswordTitle"] = txtTitle.Text;
+            _passwordTable.Rows[0]["PasswordUsername"] = txtUsername.Text;
+
             // Update the TagID in the Passwords DataTable
             if (cboTags.SelectedIndex == -1) {
                 _passwordTable.Rows[0]["TagID"] = DBNull.Value;
@@ -277,6 +281,10 @@ namespace PasswordManager {
             // Save the DataTable and Table
             _passwordTable.Rows[0].EndEdit();
             Context.SaveDataBaseTable(_passwordTable);
+
+            // Set the DialogResultt to OK
+            // This is to prevent the form from closing (when inputting invalid values)
+            DialogResult = DialogResult.OK;
 
             // Close form
             Close();

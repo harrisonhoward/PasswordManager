@@ -103,7 +103,6 @@ namespace PasswordManager {
                 // Save changes
                 // Set the DialogResult to OK
                 saveChanges();
-                DialogResult = DialogResult.OK;
             }
         }
 
@@ -174,6 +173,10 @@ namespace PasswordManager {
             // Save the DataTable and Table
             _tagTable.Rows[0].EndEdit();
             Context.SaveDataBaseTable(_tagTable);
+
+            // Set the DialogResultt to OK
+            // This is to prevent the form from closing (when inputting invalid values)
+            DialogResult = DialogResult.OK;
 
             // Close form
             Close();

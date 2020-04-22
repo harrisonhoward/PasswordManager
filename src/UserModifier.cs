@@ -81,6 +81,10 @@ namespace PasswordManager {
             _userTable.Rows[0].EndEdit();
             Context.SaveDataBaseTable(_userTable);
 
+            // Set the DialogResultt to OK
+            // This is to prevent the form from closing (when inputting invalid values)
+            DialogResult = DialogResult.OK;
+
             // Close the form
             Close();
         }
