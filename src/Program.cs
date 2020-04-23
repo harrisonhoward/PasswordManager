@@ -22,6 +22,8 @@ namespace PasswordManager {
             frmLogin frm = new frmLogin();
             // Initialize the Database
             Initializer.InitalizeDatabase();
+            // Manage the sessions
+            SessionManage.Erase6months();
 
             // Close the loading screen
             ThreadManage.CloseLoadingForm();

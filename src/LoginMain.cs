@@ -109,6 +109,7 @@ namespace PasswordManager {
                 row["LoginID"] = loginTable.Rows.Count + 1;
                 row["SessionID"] = randomID;
                 row["UserID"] = _userID;
+                row["DateCreated"] = DateTime.Now;
                 row.EndEdit();
                 loginTable.Rows.Add(row);
 
