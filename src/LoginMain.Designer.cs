@@ -77,8 +77,6 @@
             // cbSignedIn
             // 
             this.cbSignedIn.AutoSize = true;
-            this.cbSignedIn.Checked = global::PasswordManager.Properties.Settings.Default.StaySignedIn;
-            this.cbSignedIn.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::PasswordManager.Properties.Settings.Default, "StaySignedIn", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.cbSignedIn.Location = new System.Drawing.Point(182, 204);
             this.cbSignedIn.Name = "cbSignedIn";
             this.cbSignedIn.Size = new System.Drawing.Size(95, 17);

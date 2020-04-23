@@ -1,6 +1,7 @@
 ﻿using Encryptor;
 using SQLController;
 using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Threading;
 using System.Windows.Forms;
@@ -49,14 +50,21 @@ namespace PasswordManager {
             Focus();
             Show();
 
+            // Create and assign a new SQL Query
+            string sqlQuery =
+                "SELECT * FROM LoginDetails " +
+                $"WHERE SessionID='{Properties.Settings.Default.SessionID}'";
             // Create and assign LoginDetails DataTable
-            DataTable loginTable = Context.GetDataTable("LoginDetails");
+            DataTable loginTable = Context.GetDataTable(sqlQuery, "LoginDetails");
 
-            // If the DataTable contains rows
-            // Login using the UserID
-            if (loginTable.Rows.Count > 0) {
-                _userID = long.Parse(loginTable.Rows[0]["UserID"].ToString());
-                ThreadStart(new Thread(new ThreadStart(ThreadProcPasswordMain)));
+            // Check if the StaySignedIn button was checked
+            if (Properties.Settings.Default.StaySignedIn) {
+                // If the DataTable contains rows
+                // Login using the UserID
+                if (loginTable.Rows.Count > 0) {
+                    _userID = long.Parse(loginTable.Rows[0]["UserID"].ToString());
+                    ThreadStart(new Thread(new ThreadStart(ThreadProcPasswordMain)));
+                }
             }
         }
 
@@ -66,11 +74,40 @@ namespace PasswordManager {
                 // Create and assign LoginDetails DataTable
                 DataTable loginTable = Context.GetDataTable("LoginDetails");
 
+                // Grabbing all login details to create a new list of ids
+                // This is to compare our generated id to the ones that already exist
+                List<int> allLoginIDs = new List<int>();
+                if (loginTable.Rows.Count > 0) {
+                    foreach (DataRow loginRow in loginTable.Rows) {
+                        allLoginIDs.Add(int.Parse(loginRow["LoginID"].ToString()));
+                    }
+                }
+
+                // Creating a randomly generated number
+                // Which will act as the SessionID
+                // This will allow the user to auto login and is per application
+                int randomID = GenerateRandomID();
+                // Check if there are rows in the LoginTable
+                // Check if the LoginID already exists
+                if (loginTable.Rows.Count > 0) {
+                    while (allLoginIDs.Contains(randomID)) {
+                        // Update the randomID
+                        randomID = GenerateRandomID();
+                    }
+                }
+
+                // Set the user properties
+                Properties.Settings.Default.SessionID = randomID;
+                Properties.Settings.Default.StaySignedIn = true;
+                Properties.Settings.Default.Save();
+
                 // Create a new row in the DataTable
                 // Change the UserID to the saved UserID
                 // Save the row
                 // Add the row
                 DataRow row = loginTable.NewRow();
+                row["LoginID"] = loginTable.Rows.Count + 1;
+                row["SessionID"] = randomID;
                 row["UserID"] = _userID;
                 row.EndEdit();
                 loginTable.Rows.Add(row);
@@ -280,7 +317,7 @@ namespace PasswordManager {
             // Else Showing a MessageBox and resetting the variables
             if (isEquals) {
                 _userID = long.Parse(_userTable.Rows[0]["UserID"].ToString());
-                ThreadStart(new System.Threading.Thread(new System.Threading.ThreadStart(ThreadProcPasswordMain)));
+                ThreadStart(new Thread(new ThreadStart(ThreadProcPasswordMain)));
             } else {
                 MessageBox.Show("Password was incorrect",
                     Properties.Settings.Default.ProjectName,
@@ -368,6 +405,21 @@ namespace PasswordManager {
 
             // Hide the Create Panel
             panCreate.Hide();
+        }
+
+        /// <summary>
+        /// Generates a random 5 digit number
+        /// </summary>
+        /// <returns>A 5 digit int</returns>
+        private int GenerateRandomID() {
+            // Create a variable for our generated number
+            int genNumber = 0;
+            // Instantiate a new random number generator
+            Random gen = new Random();
+            // Assign a new generated number between 10,000 and 99,999
+            genNumber = gen.Next(10000, 99999);
+            // Return genNumber
+            return genNumber;
         }
 
         #endregion

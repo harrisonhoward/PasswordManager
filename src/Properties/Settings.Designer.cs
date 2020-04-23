@@ -43,5 +43,17 @@ namespace PasswordManager.Properties {
                 this["StaySignedIn"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int SessionID {
+            get {
+                return ((int)(this["SessionID"]));
+            }
+            set {
+                this["SessionID"] = value;
+            }
+        }
     }
 }

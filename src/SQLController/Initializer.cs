@@ -46,6 +46,7 @@ namespace SQLController {
             // Create and assign the Schema
             string schema =
                 "LoginID int IDENTITY(1,1) PRIMARY KEY, " +
+                "SessionID int NOT NULL, " +
                 "UserID int NOT NULL, ";
             // Create the Users Table with the Schema
             _sql.CreateDatabaseTable("LoginDetails", schema);
