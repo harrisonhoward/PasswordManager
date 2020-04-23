@@ -274,6 +274,10 @@ namespace PasswordManager {
         /// Logs out of the form
         /// </summary>
         private void Logout() {
+            // Create and assign a new SQL Query
+            string sqlQuery =
+                "SELECT * FROM LoginDetails " +
+                $"WHERE SessionID={Properties.Settings.Default.SessionID}";
             // Create and assign LoginDetails DataTable
             DataTable loginTable = Context.GetDataTable("LoginDetails");
 
@@ -283,14 +287,16 @@ namespace PasswordManager {
                 foreach (DataRow row in loginTable.Rows) {
                     // Delete the row
                     row.Delete();
-                    // End any more editing on that row
+                    // Save the row
                     row.EndEdit();
                 }
                 // Save the Table
                 Context.SaveDataBaseTable(loginTable);
             }
             // Set stay signed in to false
+            // Reset SessionID back to 0
             Properties.Settings.Default.StaySignedIn = false;
+            Properties.Settings.Default.SessionID = 0;
             Properties.Settings.Default.Save();
 
             // Create a new thread for frmMenu
