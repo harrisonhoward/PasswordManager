@@ -198,7 +198,7 @@ namespace PasswordManager {
         /// Starts a new thread
         /// </summary>
         /// <param name="thread">The new thread</param>
-        private void ThreadStart(System.Threading.Thread thread) {
+        private void ThreadStart(Thread thread) {
             // Start the new thread
             // Close the current form
             thread.Start();
@@ -221,7 +221,7 @@ namespace PasswordManager {
                 // If the Username column in the row is equals to the User Input Username
                 // Set the tableContains global variable to true
                 foreach (DataRow row in _userTable.Rows) {
-                    if (row["Username"].Equals(_usersUsername)) {
+                    if (row["Username"].ToString().ToLower().Equals(_usersUsername.ToLower())) {
                         _tableContains = true;
                     }
                 }
@@ -290,10 +290,6 @@ namespace PasswordManager {
                 _userTable = null;
                 return;
             }
-        }
-
-        private void PanLogin_Paint(object sender, PaintEventArgs e) {
-
         }
 
         /// <summary>
