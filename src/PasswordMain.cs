@@ -145,7 +145,6 @@ namespace PasswordManager {
                 // Check if the user is an admin
                 // Disable save button
                 isAdmin();
-                btnAccountSave.Enabled = false;
             } else if (e.ClickedItem.Equals(tsbTagsList)) {
                 // TagsList
 

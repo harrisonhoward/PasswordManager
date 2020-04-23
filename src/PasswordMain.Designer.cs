@@ -36,6 +36,7 @@
             this.lblDividier2 = new System.Windows.Forms.Label();
             this.btnExit = new System.Windows.Forms.Button();
             this.panPasswordList = new System.Windows.Forms.Panel();
+            this.lblPasswordsCount = new System.Windows.Forms.Label();
             this.lblFilter = new System.Windows.Forms.Label();
             this.cboTags = new System.Windows.Forms.ComboBox();
             this.btnPasswordImport = new System.Windows.Forms.Button();
@@ -49,6 +50,7 @@
             this.dgvPasswords = new System.Windows.Forms.DataGridView();
             this.panAccountSettings = new System.Windows.Forms.Panel();
             this.gbAdminSettings = new System.Windows.Forms.GroupBox();
+            this.lblUsersCount = new System.Windows.Forms.Label();
             this.btnSignIn = new System.Windows.Forms.Button();
             this.btnDeleteUser = new System.Windows.Forms.Button();
             this.txtUserSearch = new System.Windows.Forms.TextBox();
@@ -66,6 +68,7 @@
             this.btnChangePassword = new System.Windows.Forms.Button();
             this.txtChangePassword = new System.Windows.Forms.TextBox();
             this.panTagsList = new System.Windows.Forms.Panel();
+            this.lblTagsCount = new System.Windows.Forms.Label();
             this.lblTagsWarning = new System.Windows.Forms.Label();
             this.btnDeleteTag = new System.Windows.Forms.Button();
             this.btnEditTag = new System.Windows.Forms.Button();
@@ -73,9 +76,6 @@
             this.txtTagsSearch = new System.Windows.Forms.TextBox();
             this.lblTagsSearch = new System.Windows.Forms.Label();
             this.dgvTags = new System.Windows.Forms.DataGridView();
-            this.lblTagsCount = new System.Windows.Forms.Label();
-            this.lblPasswordsCount = new System.Windows.Forms.Label();
-            this.lblUsersCount = new System.Windows.Forms.Label();
             this.tsMain.SuspendLayout();
             this.panPasswordList.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvPasswords)).BeginInit();
@@ -212,6 +212,16 @@
             this.panPasswordList.Name = "panPasswordList";
             this.panPasswordList.Size = new System.Drawing.Size(800, 390);
             this.panPasswordList.TabIndex = 6;
+            // 
+            // lblPasswordsCount
+            // 
+            this.lblPasswordsCount.AutoSize = true;
+            this.lblPasswordsCount.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblPasswordsCount.Location = new System.Drawing.Point(623, 357);
+            this.lblPasswordsCount.Name = "lblPasswordsCount";
+            this.lblPasswordsCount.Size = new System.Drawing.Size(100, 16);
+            this.lblPasswordsCount.TabIndex = 17;
+            this.lblPasswordsCount.Text = "Password Count";
             // 
             // lblFilter
             // 
@@ -358,6 +368,16 @@
             this.gbAdminSettings.TabIndex = 1;
             this.gbAdminSettings.TabStop = false;
             this.gbAdminSettings.Text = "Admin Settings";
+            // 
+            // lblUsersCount
+            // 
+            this.lblUsersCount.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblUsersCount.Location = new System.Drawing.Point(284, 335);
+            this.lblUsersCount.Name = "lblUsersCount";
+            this.lblUsersCount.Size = new System.Drawing.Size(98, 16);
+            this.lblUsersCount.TabIndex = 18;
+            this.lblUsersCount.Text = "User Count";
+            this.lblUsersCount.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // btnSignIn
             // 
@@ -516,6 +536,7 @@
             // 
             // btnAccountSave
             // 
+            this.btnAccountSave.Enabled = false;
             this.btnAccountSave.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAccountSave.Location = new System.Drawing.Point(292, 323);
             this.btnAccountSave.Name = "btnAccountSave";
@@ -560,6 +581,16 @@
             this.panTagsList.Name = "panTagsList";
             this.panTagsList.Size = new System.Drawing.Size(800, 390);
             this.panTagsList.TabIndex = 15;
+            // 
+            // lblTagsCount
+            // 
+            this.lblTagsCount.AutoSize = true;
+            this.lblTagsCount.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTagsCount.Location = new System.Drawing.Point(623, 354);
+            this.lblTagsCount.Name = "lblTagsCount";
+            this.lblTagsCount.Size = new System.Drawing.Size(67, 16);
+            this.lblTagsCount.TabIndex = 21;
+            this.lblTagsCount.Text = "Tag Count";
             // 
             // lblTagsWarning
             // 
@@ -638,36 +669,6 @@
             this.dgvTags.TabIndex = 18;
             this.dgvTags.SelectionChanged += new System.EventHandler(this.DgvTags_SelectionChanged);
             this.dgvTags.DoubleClick += new System.EventHandler(this.DgvTags_DoubleClick);
-            // 
-            // lblTagsCount
-            // 
-            this.lblTagsCount.AutoSize = true;
-            this.lblTagsCount.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTagsCount.Location = new System.Drawing.Point(623, 354);
-            this.lblTagsCount.Name = "lblTagsCount";
-            this.lblTagsCount.Size = new System.Drawing.Size(67, 16);
-            this.lblTagsCount.TabIndex = 21;
-            this.lblTagsCount.Text = "Tag Count";
-            // 
-            // lblPasswordsCount
-            // 
-            this.lblPasswordsCount.AutoSize = true;
-            this.lblPasswordsCount.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblPasswordsCount.Location = new System.Drawing.Point(623, 357);
-            this.lblPasswordsCount.Name = "lblPasswordsCount";
-            this.lblPasswordsCount.Size = new System.Drawing.Size(100, 16);
-            this.lblPasswordsCount.TabIndex = 17;
-            this.lblPasswordsCount.Text = "Password Count";
-            // 
-            // lblUsersCount
-            // 
-            this.lblUsersCount.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblUsersCount.Location = new System.Drawing.Point(284, 335);
-            this.lblUsersCount.Name = "lblUsersCount";
-            this.lblUsersCount.Size = new System.Drawing.Size(98, 16);
-            this.lblUsersCount.TabIndex = 18;
-            this.lblUsersCount.Text = "User Count";
-            this.lblUsersCount.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // frmPasswordMain
             // 
