@@ -35,6 +35,9 @@ namespace PasswordManager {
             }
         }
 
+        /// <summary>
+        /// Initializes the LoginDetails Table
+        /// </summary>
         private static void InitializeLoginDetails() {
             allLogins = Context.GetDataTable("LoginDetails");
         }

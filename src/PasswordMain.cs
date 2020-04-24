@@ -186,6 +186,36 @@ namespace PasswordManager {
             }
         }
 
+        private void TSItem_MouseEnter(object sender, EventArgs e) {
+            // Check what item the mouse entered
+            // Set the ForeColor to Black
+            if ((sender as ToolStripButton) != null) {
+                ToolStripButton button = sender as ToolStripButton;
+                button.ForeColor = System.Drawing.Color.Black;
+            } else if ((sender as ToolStripDropDownButton) != null) {
+                ToolStripDropDownButton button = sender as ToolStripDropDownButton;
+                button.ForeColor = System.Drawing.Color.Black;
+            } else if ((sender as ToolStripMenuItem) != null) {
+                ToolStripMenuItem menu = sender as ToolStripMenuItem;
+                menu.ForeColor = System.Drawing.Color.Black;
+            }
+        }
+
+        private void TSItem_MouseLeave(object sender, EventArgs e) {
+            // Check what item the mouse entered
+            // Set the ForeColor to DarkGray
+            if ((sender as ToolStripButton) != null) {
+                ToolStripButton button = sender as ToolStripButton;
+                button.ForeColor = System.Drawing.Color.DarkGray;
+            } else if ((sender as ToolStripDropDownButton) != null) {
+                ToolStripDropDownButton button = sender as ToolStripDropDownButton;
+                button.ForeColor = System.Drawing.Color.DarkGray;
+            } else if ((sender as ToolStripMenuItem) != null) {
+                ToolStripMenuItem menu = sender as ToolStripMenuItem;
+                menu.ForeColor = System.Drawing.Color.DarkGray;
+            }
+        }
+
         #endregion
 
         #region Button Events

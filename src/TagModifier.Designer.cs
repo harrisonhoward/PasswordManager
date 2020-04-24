@@ -38,7 +38,10 @@
             // 
             // txtDisplay
             // 
+            this.txtDisplay.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.txtDisplay.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtDisplay.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtDisplay.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.txtDisplay.Location = new System.Drawing.Point(96, 74);
             this.txtDisplay.MaxLength = 60;
             this.txtDisplay.Name = "txtDisplay";
@@ -49,11 +52,12 @@
             // 
             // lblTagTitle
             // 
-            this.lblTagTitle.AutoSize = true;
+            this.lblTagTitle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.lblTagTitle.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.lblTagTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTagTitle.Location = new System.Drawing.Point(13, 75);
+            this.lblTagTitle.Location = new System.Drawing.Point(12, 74);
             this.lblTagTitle.Name = "lblTagTitle";
-            this.lblTagTitle.Size = new System.Drawing.Size(56, 18);
+            this.lblTagTitle.Size = new System.Drawing.Size(85, 22);
             this.lblTagTitle.TabIndex = 26;
             this.lblTagTitle.Text = "Display";
             // 
@@ -69,13 +73,18 @@
             // 
             // btnCreate
             // 
+            this.btnCreate.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(25)))), ((int)(((byte)(25)))), ((int)(((byte)(25)))));
+            this.btnCreate.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
+            this.btnCreate.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
+            this.btnCreate.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
+            this.btnCreate.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCreate.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCreate.Location = new System.Drawing.Point(-1, 0);
             this.btnCreate.Name = "btnCreate";
             this.btnCreate.Size = new System.Drawing.Size(100, 40);
             this.btnCreate.TabIndex = 5;
             this.btnCreate.Text = "Create";
-            this.btnCreate.UseVisualStyleBackColor = true;
+            this.btnCreate.UseVisualStyleBackColor = false;
             this.btnCreate.Click += new System.EventHandler(this.BtnCreate_Click);
             // 
             // gbCreate
@@ -109,7 +118,10 @@
             // 
             // txtDescription
             // 
+            this.txtDescription.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.txtDescription.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtDescription.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtDescription.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.txtDescription.Location = new System.Drawing.Point(96, 112);
             this.txtDescription.MaxLength = 60;
             this.txtDescription.Name = "txtDescription";
@@ -120,11 +132,12 @@
             // 
             // lblDescription
             // 
-            this.lblDescription.AutoSize = true;
+            this.lblDescription.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.lblDescription.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.lblDescription.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblDescription.Location = new System.Drawing.Point(13, 113);
+            this.lblDescription.Location = new System.Drawing.Point(12, 112);
             this.lblDescription.Name = "lblDescription";
-            this.lblDescription.Size = new System.Drawing.Size(83, 18);
+            this.lblDescription.Size = new System.Drawing.Size(85, 22);
             this.lblDescription.TabIndex = 30;
             this.lblDescription.Text = "Description";
             // 
@@ -132,6 +145,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(18)))), ((int)(((byte)(18)))), ((int)(((byte)(18)))));
             this.ClientSize = new System.Drawing.Size(354, 206);
             this.Controls.Add(this.txtDisplay);
             this.Controls.Add(this.lblTagTitle);
@@ -140,6 +154,7 @@
             this.Controls.Add(this.gbSave);
             this.Controls.Add(this.txtDescription);
             this.Controls.Add(this.lblDescription);
+            this.ForeColor = System.Drawing.Color.DarkGray;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.Name = "frmTagModifier";

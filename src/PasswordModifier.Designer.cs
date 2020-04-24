@@ -42,7 +42,10 @@
             // 
             // txtPassword
             // 
+            this.txtPassword.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.txtPassword.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtPassword.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtPassword.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.txtPassword.Location = new System.Drawing.Point(97, 143);
             this.txtPassword.MaxLength = 60;
             this.txtPassword.Name = "txtPassword";
@@ -53,7 +56,10 @@
             // 
             // txtTitle
             // 
+            this.txtTitle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.txtTitle.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtTitle.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.txtTitle.Location = new System.Drawing.Point(97, 77);
             this.txtTitle.MaxLength = 60;
             this.txtTitle.Name = "txtTitle";
@@ -65,21 +71,23 @@
             // 
             // lblPassword
             // 
-            this.lblPassword.AutoSize = true;
+            this.lblPassword.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.lblPassword.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.lblPassword.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblPassword.Location = new System.Drawing.Point(16, 144);
+            this.lblPassword.Location = new System.Drawing.Point(14, 143);
             this.lblPassword.Name = "lblPassword";
-            this.lblPassword.Size = new System.Drawing.Size(75, 18);
+            this.lblPassword.Size = new System.Drawing.Size(84, 22);
             this.lblPassword.TabIndex = 14;
             this.lblPassword.Text = "Password";
             // 
             // lblPasswordTitle
             // 
-            this.lblPasswordTitle.AutoSize = true;
+            this.lblPasswordTitle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.lblPasswordTitle.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.lblPasswordTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblPasswordTitle.Location = new System.Drawing.Point(14, 78);
+            this.lblPasswordTitle.Location = new System.Drawing.Point(14, 77);
             this.lblPasswordTitle.Name = "lblPasswordTitle";
-            this.lblPasswordTitle.Size = new System.Drawing.Size(35, 18);
+            this.lblPasswordTitle.Size = new System.Drawing.Size(84, 22);
             this.lblPasswordTitle.TabIndex = 13;
             this.lblPasswordTitle.Text = "Title";
             // 
@@ -95,13 +103,19 @@
             // 
             // btnCreate
             // 
+            this.btnCreate.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(25)))), ((int)(((byte)(25)))), ((int)(((byte)(25)))));
+            this.btnCreate.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
+            this.btnCreate.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
+            this.btnCreate.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
+            this.btnCreate.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCreate.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCreate.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.btnCreate.Location = new System.Drawing.Point(-1, 0);
             this.btnCreate.Name = "btnCreate";
             this.btnCreate.Size = new System.Drawing.Size(100, 40);
             this.btnCreate.TabIndex = 5;
             this.btnCreate.Text = "Create";
-            this.btnCreate.UseVisualStyleBackColor = true;
+            this.btnCreate.UseVisualStyleBackColor = false;
             this.btnCreate.Click += new System.EventHandler(this.BtnCreate_Click);
             // 
             // gbCreate
@@ -135,7 +149,10 @@
             // 
             // txtUsername
             // 
+            this.txtUsername.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.txtUsername.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtUsername.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtUsername.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.txtUsername.Location = new System.Drawing.Point(97, 115);
             this.txtUsername.MaxLength = 60;
             this.txtUsername.Name = "txtUsername";
@@ -147,16 +164,20 @@
             // 
             // lblUsername
             // 
-            this.lblUsername.AutoSize = true;
+            this.lblUsername.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.lblUsername.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.lblUsername.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblUsername.Location = new System.Drawing.Point(14, 116);
+            this.lblUsername.Location = new System.Drawing.Point(14, 115);
             this.lblUsername.Name = "lblUsername";
-            this.lblUsername.Size = new System.Drawing.Size(77, 18);
+            this.lblUsername.Size = new System.Drawing.Size(84, 22);
             this.lblUsername.TabIndex = 21;
             this.lblUsername.Text = "Username";
             // 
             // cboTags
             // 
+            this.cboTags.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.cboTags.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cboTags.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.cboTags.FormattingEnabled = true;
             this.cboTags.Location = new System.Drawing.Point(97, 180);
             this.cboTags.Name = "cboTags";
@@ -167,11 +188,12 @@
             // 
             // lblTag
             // 
-            this.lblTag.AutoSize = true;
+            this.lblTag.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.lblTag.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.lblTag.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTag.Location = new System.Drawing.Point(16, 183);
+            this.lblTag.Location = new System.Drawing.Point(14, 180);
             this.lblTag.Name = "lblTag";
-            this.lblTag.Size = new System.Drawing.Size(33, 18);
+            this.lblTag.Size = new System.Drawing.Size(83, 22);
             this.lblTag.TabIndex = 23;
             this.lblTag.Text = "Tag";
             // 
@@ -179,6 +201,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(18)))), ((int)(((byte)(18)))), ((int)(((byte)(18)))));
             this.ClientSize = new System.Drawing.Size(354, 266);
             this.Controls.Add(this.lblTag);
             this.Controls.Add(this.cboTags);
@@ -191,6 +214,7 @@
             this.Controls.Add(this.lblPassword);
             this.Controls.Add(this.lblPasswordTitle);
             this.Controls.Add(this.lblTitle);
+            this.ForeColor = System.Drawing.Color.DarkGray;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.Name = "frmPasswordModifier";

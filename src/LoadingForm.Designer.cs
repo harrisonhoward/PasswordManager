@@ -36,7 +36,7 @@
             // 
             this.lblTitle.AutoSize = true;
             this.lblTitle.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTitle.ForeColor = System.Drawing.Color.Black;
+            this.lblTitle.ForeColor = System.Drawing.Color.Gray;
             this.lblTitle.Location = new System.Drawing.Point(85, 111);
             this.lblTitle.Name = "lblTitle";
             this.lblTitle.Size = new System.Drawing.Size(213, 25);
@@ -47,7 +47,7 @@
             // 
             this.lblLoad.AutoSize = true;
             this.lblLoad.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblLoad.ForeColor = System.Drawing.Color.Black;
+            this.lblLoad.ForeColor = System.Drawing.Color.Gray;
             this.lblLoad.Location = new System.Drawing.Point(140, 153);
             this.lblLoad.Name = "lblLoad";
             this.lblLoad.Size = new System.Drawing.Size(103, 25);
@@ -80,7 +80,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(18)))), ((int)(((byte)(18)))), ((int)(((byte)(18)))));
             this.ClientSize = new System.Drawing.Size(382, 360);
             this.Controls.Add(this.panBar);
             this.Controls.Add(this.lblLoad);
